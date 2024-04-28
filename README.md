@@ -4,6 +4,8 @@ ERROR is a comprehensive program to systematically detect and report errors in s
 
 See [error.reviews](https://error.reviews) for more details of the project, our team, and FAQs.
 
+This GitHub repo is linked to a [project on the Open Science Framework](https://osf.io/fpw4r/).
+
 # License
 
 All reviews, author responses, and recommendations are distributed under a CC-By 4.0 License: you may reuse this content as you please, as long as you cite the source.
