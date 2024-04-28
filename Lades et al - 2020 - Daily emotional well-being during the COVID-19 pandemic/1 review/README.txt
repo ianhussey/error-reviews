@@ -1,0 +1,1 @@
+.do file is a Stata file
