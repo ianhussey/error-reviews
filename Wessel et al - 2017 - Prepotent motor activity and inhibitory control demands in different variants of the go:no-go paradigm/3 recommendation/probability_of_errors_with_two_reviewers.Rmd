@@ -1,0 +1,134 @@
+---
+title: "Long run probability of errors"
+subtitle: "Error checking of Wessel's response"
+author: "Ian Hussey"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    code_folding: show
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+# Original Matlab code
+
+Supplied by by Wessel
+
+```{matlab eval=FALSE, include=TRUE}
+
+% settings
+erate1 = 9;
+erate2 = 13;
+ratings = 241;
+iterations = 10000;
+error_options = 4;
+% preassign
+both_wrong = zeros(iterations,1);
+both_wrong_with_same_value = zeros(iterations,1);
+% iterate
+for it = 1:iterations
+
+    errors1 = zeros(ratings,1); 
+    randomorder = randperm(ratings); 
+    errors1(randomorder(1:erate1)) = ceil(error_options*rand([1 erate1]));
+    
+    errors2 = zeros(ratings,1); 
+    randomorder = randperm(ratings); 
+    errors2(randomorder(1:erate2)) = ceil(error_options*rand([1 erate2]));
+    
+    both_wrong(it,1) = sum(errors1 > 0 & errors2 > 0) > 0;
+    both_wrong_with_same_value(it,1) = sum(errors1 == errors2 & errors1 > 0);
+
+end
+% display
+disp([['Number of instances of at least one paper where both raters made a mistake: ' num2str(sum(both_wrong>0))] ...
+    ['/' num2str(iterations) '; ' num2str(100*sum(both_wrong>0)/iterations) '%']]);
+disp([['Number of instances of at least one paper where both raters made the same mistake: ' num2str(sum(both_wrong_with_same_value>0))] ...
+    ['/' num2str(iterations) '; ' num2str(100*sum(both_wrong_with_same_value>0)/iterations) '%']]);
+
+```
+
+# Converted to R code
+
+via ChatGPT and reviewed for accuracy, then compared with the results reported in the author response. 
+
+```{r}
+
+# settings
+erate1 <- 9
+erate2 <- 13
+ratings <- 241
+iterations <- 10000
+error_options <- 4 
+
+# preassign
+both_wrong <- numeric(iterations)
+both_wrong_with_same_value <- numeric(iterations)
+
+# iterate
+for (i in 1:iterations) {
+  errors1 <- numeric(ratings)
+  randomorder <- sample(ratings) # shuffle the vector
+  errors1[randomorder[1:erate1]] <- ceiling(error_options * runif(erate1)) # nb assumes uniform distribution of errors
+
+  errors2 <- numeric(ratings)
+  randomorder <- sample(ratings)
+  errors2[randomorder[1:erate2]] <- ceiling(error_options * runif(erate2)) # nb assumes uniform distribution of errors
+  
+  both_wrong[i] <- sum(errors1 > 0 & errors2 > 0) > 0
+  both_wrong_with_same_value[i] <- sum(errors1 == errors2 & errors1 > 0)
+}
+
+# display
+cat(sprintf("Number of instances of at least one paper where both raters made a mistake: %d/%d iterations; %.2f%%\n", 
+            sum(both_wrong), iterations, 100 * sum(both_wrong) / iterations))
+cat(sprintf("Number of instances of at least one paper where both raters made the same mistake: %d/%d iterations; %.2f%%\n", 
+            sum(both_wrong_with_same_value), iterations, 100 * sum(both_wrong_with_same_value) / iterations))
+
+```
+
+# Corrected
+
+Note that the author response states "This analysis numerically identifies the empirical probability of a scenario in which two raters with error rates of 13% and 9% both identify the wrong parameter in at least one out of 241 papers", however the Matlab code above (at least from its R conversion) seems to define `erate1` and `erate2` and then use them as *counts* of errors rather than *proportion* of errors. Note that I did not actually catch this myself either: ChatGPT caught it when I fed the code back to it and the text from the author response and asked it to compare them for compatibility. 
+
+Assuming that the percentages reported verbally in the report are the correct numbers (i.e., 9% and 13%), the below code corrects this and calculates the counts of errors for each reviewer from these percentages (although the actual counts of errors would be more accurate that converting these rounded percentages back to counts).
+
+```{r}
+
+# settings
+# Text states 
+ratings <- 241
+erate1 <- round(ratings * 0.09) # "9%" of "241 papers" 
+erate2 <- round(ratings * 0.125) # "12.5%" of "241 papers"
+iterations <- 10000
+error_options <- 4
+
+# preassign
+both_wrong <- numeric(iterations)
+both_wrong_with_same_value <- numeric(iterations)
+
+# iterate
+for (i in 1:iterations) {
+  errors1 <- numeric(ratings)
+  randomorder <- sample(ratings) # shuffle the vector
+  errors1[randomorder[1:erate1]] <- ceiling(error_options * runif(erate1)) # nb assumes uniform distribution of errors
+
+  errors2 <- numeric(ratings)
+  randomorder <- sample(ratings)
+  errors2[randomorder[1:erate2]] <- ceiling(error_options * runif(erate2)) # nb assumes uniform distribution of errors
+  
+  both_wrong[i] <- sum(errors1 > 0 & errors2 > 0) > 0
+  both_wrong_with_same_value[i] <- sum(errors1 == errors2 & errors1 > 0)
+}
+
+# display
+cat(sprintf("Number of instances of at least one paper where both raters made a mistake: %d/%d iterations; %.2f%%\n", 
+            sum(both_wrong), iterations, 100 * sum(both_wrong) / iterations))
+cat(sprintf("Number of instances of at least one paper where both raters made the same mistake: %d/%d iterations; %.2f%%\n", 
+            sum(both_wrong_with_same_value), iterations, 100 * sum(both_wrong_with_same_value) / iterations))
+
+```
+
+

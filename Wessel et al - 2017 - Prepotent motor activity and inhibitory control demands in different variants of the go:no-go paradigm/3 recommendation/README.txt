@@ -1,0 +1,1 @@
+.Rmd file is an RMarkdown file that can be run in RStudio
