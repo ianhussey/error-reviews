@@ -1,0 +1,100 @@
+---
+title: "Long run probability of errors"
+subtitle: "Error checking of Wessel's response"
+author: "Ian Hussey"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    code_folding: show
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+# Original Matlab code
+
+Supplied by by Wessel
+
+```{matlab eval=FALSE, include=TRUE}
+
+% settings
+erate1 = 9; % error percentage for rater 1
+erate2 = 13; % error percentage for rater 2
+ratings = 241; % number of ratings made (in this case, papers)
+iterations = 10000; % for the simulation
+error_options = 4; % how many different error values can raters realistically come up with
+% preassign
+both_wrong = zeros(iterations,1); % instances (out of the number of [iterations]) where both raters make ANY mistake
+both_wrong_with_same_value = zeros(iterations,1); % instances (out of the number of [iterations]) where both raters make the SAME mistake
+
+% iterate
+for it = 1:iterations
+
+    % make vectors with errors for rater 1
+    errors1 = zeros(ratings,1); % start with a vector of zeros (1 x [ratings]), zero meaning no mistake
+    randomorder = randperm(ratings); % generate a vector with the values from 1 to [ratings] in random order
+    how_many_errors = round(ratings*erate1/100); % this is how many errors a rater with [erate1] would make in [ratings] amount of papers
+    exemplars_with_errors = randomorder(1:how_many_errors); % select the first [how_many_errors] exemplars out of [randomorder], these are the error exemplars
+    errors1(exemplars_with_errors,1) = ceil(error_options*rand([1 how_many_errors])); % insert error possibilities (from uniform distribution) into [errors1] at [exemplars_with_errors]
+
+    % make vectors with errors for rater 2
+    errors2 = zeros(ratings,1); % start with a vector of zeros (1 x [ratings]), zero meaning no mistake
+    randomorder = randperm(ratings); % generate a vector with the values from 1 to [ratings] in random order
+    how_many_errors = round(ratings*erate2/100); % this is how many errors a rater with [erate2] would make in [ratings] amount of papers
+    exemplars_with_errors = randomorder(1:how_many_errors); % select the first [how_many_errors] exemplars out of [randomorder], these are the error exemplars
+    errors2(exemplars_with_errors,1) = ceil(error_options*rand([1 how_many_errors])); % insert error possibilities (from uniform distribution) into [errors2] at [exemplars_with_errors]
+
+    % identify instances where both raters made errors
+    both_wrong(it,1) = sum(errors1 > 0 & errors2 > 0) > 0; % any mistake
+    both_wrong_with_same_value(it,1) = sum(errors1 == errors2 & errors1 > 0); % same mistake (same non-zero value in [error1] and [error2])
+
+end
+% display
+disp([['Number of instances of at least one paper where both raters made a mistake: ' num2str(sum(both_wrong>0))] ...
+    ['/' num2str(iterations) '; ' num2str(100*sum(both_wrong>0)/iterations) '%']]);
+disp([['Number of instances of at least one paper where both raters made the same mistake: ' num2str(sum(both_wrong_with_same_value>0))] ...
+    ['/' num2str(iterations) '; ' num2str(100*sum(both_wrong_with_same_value>0)/iterations) '%']]);
+
+```
+
+# Converted to R code
+
+via ChatGPT and reviewed for accuracy, then compared with the results reported in the author response. 
+
+```{r}
+
+# settings
+ratings <- 241  # number of ratings made (in this case, papers)
+erate1 <- round(ratings * 0.09)  # error percentage for rater 1 (9% of 241)
+erate2 <- round(ratings * 0.13)  # error percentage for rater 2 (13% of 241)
+iterations <- 10000  # for the simulation
+error_options <- 4  # how many different error values can raters realistically come up with
+
+# preassign
+both_wrong <- numeric(iterations)  # instances (out of the number of iterations) where both raters make ANY mistake
+both_wrong_with_same_value <- numeric(iterations)  # instances where both raters make the SAME mistake
+
+# iterate
+for (i in 1:iterations) {
+  errors1 <- numeric(ratings)
+  randomorder <- sample(ratings)  # shuffle the vector
+  errors1[randomorder[1:erate1]] <- ceiling(error_options * runif(erate1))  # insert random errors for rater 1
+  
+  errors2 <- numeric(ratings)
+  randomorder <- sample(ratings)
+  errors2[randomorder[1:erate2]] <- ceiling(error_options * runif(erate2))  # insert random errors for rater 2
+  
+  both_wrong[i] <- sum(errors1 > 0 & errors2 > 0) > 0  # any mistake by both raters
+  both_wrong_with_same_value[i] <- sum(errors1 == errors2 & errors1 > 0)  # same mistake (same non-zero value in errors1 and errors2)
+}
+
+# display results
+cat(sprintf("Number of instances of at least one paper where both raters made a mistake: %d/%d iterations; %.2f%%\n", 
+            sum(both_wrong), iterations, 100 * sum(both_wrong) / iterations))
+cat(sprintf("Number of instances of at least one paper where both raters made the same mistake: %d/%d iterations; %.2f%%\n", 
+            sum(both_wrong_with_same_value), iterations, 100 * sum(both_wrong_with_same_value) / iterations))
+
+```
+
+
