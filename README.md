@@ -12,14 +12,14 @@ All reviews, author responses, and recommendations are distributed under a CC-By
 
 ## Suggested citation formats
 
-Reports: 
+Error review reports: 
 
-[author(s) of document] ([year]) Error report for [citation of article reviewed]. Estimating the Reliability & Robustness Of Research (ERROR): A Bug Bounty Program for Science.
+[author(s) of document] ([year]) Error reviewer report: [authors and year of target article]. [OSF URL]
 
-Responses: 
+Author responses: 
 
-[author(s) of document] ([year]) Response to error report for [citation of article reviewed]. Estimating the Reliability & Robustness Of Research (ERROR): A Bug Bounty Program for Science.
+[author(s) of document] ([year]) Error author response: [authors and year of target article]. [OSF URL] 
 
 Recommendations: 
 
-[author(s) of document] ([year]) Error recommendation for [citation of article reviewed]. Estimating the Reliability & Robustness Of Research (ERROR): A Bug Bounty Program for Science.
+ERROR ([year]) Error recommender report: [author and year of target article]. [OSF URL]
