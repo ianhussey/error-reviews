@@ -1,0 +1,273 @@
+
+This file converts Joop's comments_mods.do to R with the help of ChatGPT 4o.
+
+# Dependencies and data
+
+```{r}
+
+# dependencies
+library(tidyverse)
+library(plm)
+library(broom)
+library(haven)
+library(parameters)
+library(ggplot2)
+library(ggstance)
+library(lmtest)
+
+# load data
+#dat1 <- read_dta("../0 original materials/DRMCoronaWave1DTA_EPISODE_CLEAN.dta") # used in Joop's code, but not present in OSF materials
+#dat2 <- read_dta("../0 original materials/DRMCoronaWave1DTA_BJHP.dta") # present in OSF materials
+dat3 <- read_dta("../0 original materials/DRMCoronaWave1DTA_EPISODE_BJHP.dta") # present in OSF materials. seems to contain the variables needed for the analysis.
+#dat4 <- read_dta("../0 original materials/DRMCoronaWave1DTA_CLEAN.dta") # present in OSF materials
+
+# use dat3
+data <- dat3
+
+```
+
+# Part I: Standard Error Corrections
+
+Joop's comment: "For panel (a) of Figure I,  this change renders 1 point estimate insignificant at the 5% level for the positive affect outcome."
+
+```{r fig.height=8, fig.width=6}
+
+# Convert to panel data
+pdata <- pdata.frame(data, index = "id")
+
+# Run fixed effects regressions
+model1 <- plm(zposaff ~ activity_1E + activity_2E + activity_3E + activity_4E + activity_5E + 
+                activity_6E + activity_7E + activity_8E + activity_9E + activity_10E + 
+                activity_11E + activity_12E + activity_13E + activity_14E + activity_15E + 
+                activity_16E + activity_17E + activity_18E + activity_19E + activity_20E + 
+                activity_21E + activity_22E + activity_23E + activity_24E + activity_25E, 
+              data = pdata, model = "within")
+
+model2 <- plm(zposaff ~ activity_1E + activity_2E + activity_3E + activity_4E + activity_5E + 
+                activity_6E + activity_7E + activity_8E + activity_9E + activity_10E + 
+                activity_11E + activity_12E + activity_13E + activity_14E + activity_15E + 
+                activity_16E + activity_17E + activity_18E + activity_19E + activity_20E + 
+                activity_21E + activity_22E + activity_23E + activity_24E + activity_25E, 
+              data = pdata, model = "within", vcov = vcovHC, cluster = "id")
+
+# Summary of the models
+model_parameters(model1)
+model_parameters(model2)
+
+# compare results
+dat_combined_zposaff <- bind_rows(
+  model_parameters(model1) |>
+    mutate(model = "original"),
+  model_parameters(model2) |>
+    mutate(model = "modified")
+)
+
+ggplot(dat_combined_zposaff, aes(Coefficient, Parameter, color = model)) +
+  geom_vline(xintercept = 0) +
+  geom_linerangeh(aes(xmin = CI_low, xmax = CI_high), position = position_dodge(width = .5)) +
+  geom_point(position = position_dodge(width = .5)) +
+  scale_color_viridis_d(begin = 0.3, end = 0.7) +
+  ggtitle("Positive affect - Standard Error Corrections")
+
+```
+
+```{r fig.height=8, fig.width=6}
+
+model3 <- plm(znegaff ~ activity_1E + activity_2E + activity_3E + activity_4E + activity_5E + 
+                activity_6E + activity_7E + activity_8E + activity_9E + activity_10E + 
+                activity_11E + activity_12E + activity_13E + activity_14E + activity_15E + 
+                activity_16E + activity_17E + activity_18E + activity_19E + activity_20E + 
+                activity_21E + activity_22E + activity_23E + activity_24E + activity_25E, 
+              data = pdata, model = "within")
+
+model4 <- plm(znegaff ~ activity_1E + activity_2E + activity_3E + activity_4E + activity_5E + 
+                activity_6E + activity_7E + activity_8E + activity_9E + activity_10E + 
+                activity_11E + activity_12E + activity_13E + activity_14E + activity_15E + 
+                activity_16E + activity_17E + activity_18E + activity_19E + activity_20E + 
+                activity_21E + activity_22E + activity_23E + activity_24E + activity_25E, 
+              data = pdata, model = "within", vcov = vcovHC, cluster = "id")
+
+model_parameters(model3)
+model_parameters(model4)
+
+# compare results
+dat_combined_znegaff <- bind_rows(
+  model_parameters(model3) |>
+    mutate(model = "original"),
+  model_parameters(model4) |>
+    mutate(model = "modified")
+)
+
+ggplot(dat_combined_znegaff, aes(Coefficient, Parameter, color = model)) +
+  geom_vline(xintercept = 0) +
+  geom_linerangeh(aes(xmin = CI_low, xmax = CI_high), position = position_dodge(width = .5)) +
+  geom_point(position = position_dodge(width = .5)) +
+  scale_color_viridis_d(begin = 0.3, end = 0.7) +
+  ggtitle("Negative affect - Standard Error Corrections")
+
+```
+
+# Part II: Interpretation of "Reference" Category
+
+```{r fig.height=9, fig.width=6}
+
+pdata_modified <- pdata |>
+  rowwise() |>
+  mutate(N_act_ep = as.numeric(sum(c_across(starts_with("activity_")))),
+         N_act_ep = as.factor(N_act_ep)) |>
+  ungroup()
+
+# Run regressions and store results
+model5 <- plm(zposaff ~ activity_1E + activity_2E + activity_3E + activity_4E + activity_5E + 
+                activity_6E + activity_7E + activity_8E + activity_9E + activity_10E + 
+                activity_11E + activity_12E + activity_13E + activity_14E + activity_15E + 
+                activity_16E + activity_17E + activity_18E + activity_19E + activity_20E + 
+                activity_21E + activity_22E + activity_23E + activity_24E + activity_25E, 
+              data = pdata, model = "within", vcov = vcovHC, cluster = "id")
+
+# Choose resting/relaxing as reference category
+model7 <- plm(zposaff ~ N_act_ep + activity_1E + activity_2E + activity_3E + activity_4E + activity_5E + 
+                activity_6E + activity_7E + activity_8E + activity_9E + activity_10E + 
+                activity_11E + activity_12E + activity_13E + activity_14E + activity_15E + 
+                activity_16E + activity_17E + activity_18E + activity_19E + activity_20E + 
+                activity_21E + activity_22E + activity_23E + activity_24E + activity_25E, 
+              #data = pdata_modified, model = "within", vcov = vcovHC, cluster = "id") # throws error for some reason. vcovHC solution below suggested by chatGPT.
+              data = pdata_modified, model = "within", effect = "individual")
+
+# Adjust standard errors for clustering
+model7_vcov <- vcovHC(model7, method = "arellano", type = "HC0", cluster = "group")
+
+# compare results
+dat_combined_zposaff <- bind_rows(
+  model_parameters(model5) |>
+    mutate(model = "original"),
+  model_parameters(coeftest(model7, model7_vcov)) |>
+    mutate(model = "modified")
+)
+
+ggplot(dat_combined_zposaff, aes(Coefficient, Parameter, color = model)) +
+  geom_vline(xintercept = 0) +
+  geom_linerangeh(aes(xmin = CI_low, xmax = CI_high), position = position_dodge(width = .75)) +
+  geom_point(position = position_dodge(width = .75)) +
+  scale_color_viridis_d(begin = 0.3, end = 0.7) +
+  ggtitle("Positive affect - Interpretation of Reference Category")
+
+```
+
+```{r fig.height=9, fig.width=6}
+
+model6 <- plm(znegaff ~ activity_1E + activity_2E + activity_3E + activity_4E + activity_5E + 
+                activity_6E + activity_7E + activity_8E + activity_9E + activity_10E + 
+                activity_11E + activity_12E + activity_13E + activity_14E + activity_15E + 
+                activity_16E + activity_17E + activity_18E + activity_19E + activity_20E + 
+                activity_21E + activity_22E + activity_23E + activity_24E + activity_25E, 
+              data = pdata, model = "within", vcov = vcovHC, cluster = "id")
+
+model8 <- plm(znegaff ~ N_act_ep + activity_1E + activity_2E + activity_3E + activity_4E + activity_5E + 
+                activity_6E + activity_7E + activity_8E + activity_9E + activity_10E + 
+                activity_11E + activity_12E + activity_13E + activity_14E + activity_15E + 
+                activity_16E + activity_17E + activity_18E + activity_19E + activity_20E + 
+                activity_21E + activity_22E + activity_23E + activity_24E + activity_25E, 
+              #data = pdata_modified, model = "within", vcov = vcovHC, cluster = "id") # throws error for some reason. vcovHC solution below suggested by chatGPT.
+              data = pdata_modified, model = "within", effect = "individual")
+
+model8_vcov <- vcovHC(model8, method = "arellano", type = "HC0", cluster = "group")
+
+# compare results
+dat_combined_znegaff <- bind_rows(
+  model_parameters(model6) |>
+    mutate(model = "original"),
+  #model_parameters(model8)
+  model_parameters(coeftest(model8, model8_vcov)) |>
+    mutate(model = "modified")
+)
+
+ggplot(dat_combined_znegaff, aes(Coefficient, Parameter, color = model)) +
+  geom_vline(xintercept = 0) +
+  geom_linerangeh(aes(xmin = CI_low, xmax = CI_high), position = position_dodge(width = .75)) +
+  geom_point(position = position_dodge(width = .75)) +
+  scale_color_viridis_d(begin = 0.3, end = 0.7) +
+  ggtitle("Negative affect - Interpretation of Reference Category")
+
+```
+
+- why do the models label activity_1E differently when they're specified the same?
+- why is activity_25E missing for for the modified model despite being specified?
+
+# Part III: Absence of "Persons"
+
+NEEDS WORK. whats the comparison?
+
+```{r fig.height=6, fig.width=6}
+
+# Generating variables for presence/absence of persons
+pdata <- pdata %>% 
+  mutate(total_perswith = spousePers + KidsPers + FriendsPers + ParentsPers + WorkPers + PetsPers + OtherPers + NobodyPers,
+         total_distwith = spouseDist + KidsDist + FriendsDist + ParentsDist + WorkDist + PetsDist + OtherDist + NobodyDist,
+         someone_perswith = (spousePers + KidsPers + FriendsPers + ParentsPers + WorkPers + PetsPers + OtherPers) > 0,
+         someone_distwith = (spouseDist + KidsDist + FriendsDist + ParentsDist + WorkDist + PetsDist + OtherDist) > 0,
+         Nobody = (spousePers == 0 & spouseDist == 0 & KidsPers == 0 & KidsDist == 0 & FriendsPers == 0 & FriendsDist == 0 & ParentsPers == 0 & ParentsDist == 0 & WorkPers == 0 & WorkDist == 0 & PetsPers == 0 & PetsDist == 0 & OtherPers == 0 & OtherDist == 0))
+
+# Run regressions
+model9 <- plm(zposaff ~ spousePers + spouseDist + KidsPers + KidsDist + FriendsPers + FriendsDist + 
+                ParentsPers + ParentsDist + WorkPers + WorkDist + PetsPers + PetsDist + OtherPers + OtherDist + NobodyPers, 
+              data = pdata, model = "within")
+
+# Summary of the models
+model_parameters(model9)
+
+# # compare results
+# dat_combined_zposaff <- bind_rows(
+#   model_parameters(model9) |>
+#     mutate(model = "original"),
+#   model_parameters(model10) |>
+#     mutate(model = "modified")
+# )
+# 
+# ggplot(dat_combined_zposaff, aes(Coefficient, Parameter, color = model)) +
+#   geom_vline(xintercept = 0) +
+#   geom_linerangeh(aes(xmin = CI_low, xmax = CI_high), position = position_dodge(width = .5)) +
+#   geom_point(position = position_dodge(width = .5)) +
+#   scale_color_viridis_d(begin = 0.3, end = 0.7)
+
+```
+
+```{r fig.height=6, fig.width=6}
+
+# Run regressions
+model10 <- plm(znegaff ~ spousePers + spouseDist + KidsPers + KidsDist + FriendsPers + FriendsDist + 
+                 ParentsPers + ParentsDist + WorkPers + WorkDist + PetsPers + PetsDist + OtherPers + OtherDist + NobodyPers, 
+               data = pdata, model = "within")
+
+# Summary of the models
+model_parameters(model10)
+
+# # compare results
+# dat_combined_znegaff <- bind_rows(
+#   model_parameters(model9) |>
+#     mutate(model = "original"),
+#   model_parameters(model10) |>
+#     mutate(model = "modified")
+# )
+# 
+# ggplot(dat_combined_znegaff, aes(Coefficient, Parameter, color = model)) +
+#   geom_vline(xintercept = 0) +
+#   geom_linerangeh(aes(xmin = CI_low, xmax = CI_high), position = position_dodge(width = .5)) +
+#   geom_point(position = position_dodge(width = .5)) +
+#   scale_color_viridis_d(begin = 0.3, end = 0.7)
+
+```
+
+# BH corrections on p values
+
+```{r}
+
+model_parameters(model8) |> # is this the model to adjust?
+  as_tibble() |>
+  mutate(p_adj = p.adjust(p, method = "BH"),
+         p_sig = p < .05,
+         p_adj_sig = p_adj < .05) |>
+  mutate_if(is.numeric, round_half_up, digits = 2)
+
+```
+
