@@ -1,0 +1,53 @@
+---
+title: "Check correlation tables"
+author: "Ian Hussey"
+output:
+  html_document:
+    code_folding: hide
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+```{r include=FALSE}
+
+# formatting options
+# set default chunk options
+knitr::opts_chunk$set(message = FALSE, 
+                      warning = FALSE)
+
+# disable scientific notation
+options(scipen = 999) 
+
+```
+
+
+```{r}
+
+library(tidyverse)
+library(janitor)
+library(knitr)
+library(kableExtra)
+
+data_df <- read_csv("example_correlation_matrix.csv", show_col_types = FALSE) |>
+  janitor::clean_names()
+
+temp <- data_df |>
+  rename(X1 = employability_1,
+         X2 = self_efficacy_t1,
+         X3 = employability_3,
+         X4 = region_metropolitan,
+         X5 = gender,
+         X6 = education,
+         X7 = age,
+         X8 = self_efficacy_t2) |>
+  mutate(across(where(is.numeric), ~sprintf("%.2f", .))) |>
+  mutate(X1 = "NA") |>
+  mutate(across(everything(), ~str_replace(., "NA", "")))
+
+temp |>
+  kable(align = 'r') |>
+  kable_classic(full_width = FALSE)
+
+```
