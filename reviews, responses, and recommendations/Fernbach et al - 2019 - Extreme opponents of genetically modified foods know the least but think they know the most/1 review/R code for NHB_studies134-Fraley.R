@@ -62,6 +62,42 @@ df$gen4score=ifelse(df$gen4==1,-3, ifelse(df$gen4==2,-2, ifelse(df$gen4==3,-1, i
 
 df$gen5score=ifelse(df$gen5==1,3, ifelse(df$gen5==2,2, ifelse(df$gen5==3,1, ifelse(df$gen5==4,0, ifelse(df$gen5==5,-1, ifelse(df$gen5==6,-2,-3))))))
 
+
+
+
+#-----------------------------------------
+# Fraley // Begin Fraley code insert 1
+#-----------------------------------------
+	# Checking to ensure there are no missing values
+	# that may be accidentally coded as 3
+	# There are no missing values.
+
+	table(is.na(df$geo1))
+	table(is.na(df$geo2))
+	table(is.na(df$chem1))
+	table(is.na(df$phys1))
+	table(is.na(df$chem2))
+	table(is.na(df$geo3))
+	table(is.na(df$bio1))
+	table(is.na(df$bio2))
+	table(is.na(df$bio3))
+	table(is.na(df$bio4))
+	table(is.na(df$gen1))
+	table(is.na(df$gen2))
+	table(is.na(df$gen3))
+	table(is.na(df$gen4))
+	table(is.na(df$gen5))
+
+#-----------------------------------------
+# Fraley // End Fraley code insert 1
+#-----------------------------------------
+
+
+
+
+
+
+
 # sum the scientific literacy variable scores to create the main variable itself
 df$scilit <- (df$geo1score + df$geo2score + df$bio1score + df$bio2score + df$bio3score + df$chem1score + df$gen1score + df$phys1score + df$bio4score + df$chem2score + df$gen2score + df$gen3score + df$gen4score + df$gen5score + df$geo3score)
 
@@ -136,9 +172,28 @@ S1GMOsub$know.diff <- S1GMOsub$GMsubj.z - S1GMOsub$scilit.z
 # Objective knowledge means by level of extremity
 aggregate(S1GMOsub$scilit ~ S1GMOsub$extremity, FUN = mean)
 
-# Fraley
-plot(aggregate(S1GMOsub$scilit ~ S1GMOsub$extremity, FUN = mean)[,1],aggregate(S1GMOsub$scilit ~ S1GMOsub$extremity, FUN = mean)
-[,2], ylim=c(-5,45))
+
+
+
+
+#-----------------------------------------
+# Fraley // Begin Fraley code insert 2
+#-----------------------------------------
+	# Plotting sci lit means as a function of extremity
+	# as a double-check on published plots.
+	# Looks fine.
+
+	plot(aggregate(S1GMOsub$scilit ~ S1GMOsub$extremity, FUN = mean)[,1],aggregate(S1GMOsub$scilit ~ S1GMOsub$extremity, FUN = mean)
+	[,2], ylim=c(-5,45))
+
+#-----------------------------------------
+# Fraley // End Fraley code insert 2
+#-----------------------------------------
+
+
+
+
+
 
 
 
@@ -146,21 +201,29 @@ plot(aggregate(S1GMOsub$scilit ~ S1GMOsub$extremity, FUN = mean)[,1],aggregate(S
 aggregate(S1GMOsub$GMOsubj ~ S1GMOsub$extremity, FUN = mean)
 
 
-# Fraley
-plot(aggregate(S1GMOsub$GMOsubj ~ S1GMOsub$extremity, FUN = mean)[,1],aggregate(S1GMOsub$GMOsubj ~ S1GMOsub$extremity, FUN = mean)
-[,2], ylim=c(1,7))
+
+
+
+#-----------------------------------------
+# Fraley // Begin Fraley code insert 3
+#-----------------------------------------
+	# Plotting GMO subjective knowledge as a function of extremity
+	# Checks out.
+
+	plot(aggregate(S1GMOsub$GMOsubj ~ S1GMOsub$extremity, FUN = mean)[,1],aggregate(S1GMOsub$GMOsubj ~ S1GMOsub$extremity, FUN = mean)
+	[,2], ylim=c(1,7))
+
+#-----------------------------------------
+# Fraley // End Fraley code insert 3
+#-----------------------------------------
+
+
 
 
 
 
 # Regressions - Relationships between knowledge and extremity
 
-
-# Fraley
-summary(S1GMOsub$extremity)
-S1GMOsub$extremityz = scale(S1GMOsub$extremity)
-options(scipen = 999)
-summary( lm( know.diff ~ extremityz, data = S1GMOsub))
 
 
 
@@ -189,6 +252,103 @@ summary( lm( know.diff ~ extremityz, data = S1GMOsub))
             boot.ci(results, type="bca", index=1) # intercept 
             boot.ci(results, type="bca", index=2) # extremity
       
+
+
+#-----------------------------------------
+# Fraley // Begin Fraley code insert 4
+#-----------------------------------------
+
+	# Plot the results of the main regression so the intercept can be used
+	# to more easily make sense of the pattern.
+
+
+	cfres = summary(( lm( know.diff ~ extremity, data = S1GMOsub)))
+	cfres
+	cfpred = cfres$coef[1,1] + (cfres$coef[2,1]*(1:7)) 
+	plot(1:7, cfpred, ylim=c(-1,1), type="n", ylab="Knowledge Difference", xlab="Extremity")
+	lines(1:7, cfpred, col="blue")
+	abline(h=0, lty=2)
+
+#-----------------------------------------
+# Fraley // End Fraley code insert 4
+#-----------------------------------------
+
+
+
+
+
+
+
+#-----------------------------------------
+# Fraley // Begin Fraley code insert 5
+#-----------------------------------------
+
+
+	# The original analyses examine the relationship between extremity and
+	# the subjective-objective knowledge difference separately
+	# in each condition.
+	#
+	# An alternative approach is to examine condition in the same model,
+	# including an interaction. There are, of course, potential complications
+	# in that the knowledge difference variable isn't exactly the same 
+	# across the two conditions (one is about CC and the other about GMO).
+	# Nonetheless, for completeness, I've done such an analysis below.
+	# Results are compatible with the conclusions in the manuscript.
+	#
+	# To do so, I took the two sub-datasets for the GMO and CC subsets
+	# and put them back together, coding GMO as +1 and CC as - 1
+	# General take away: the interaction suggests that the 
+	# association between extremity and knowledge difference is stronger
+	# for those in the GMO condition than those in the CC condition.
+
+	cf = rbind(S1GMOsub[ ,c("extremity","scilit","know.diff","cond")], S1CCsub[ ,c("extremity","scilit","know.diff","cond")] )
+	cf$cond2=ifelse(cf$cond=="GMO",-1,1)
+	table(cf$cond, cf$cond2)
+	cfres = summary( lm( know.diff ~ extremity * cond2, data = cf))
+	cfres
+
+	# quick graph to visually check
+
+	cfpredlow = cfres$coef[1,1] + (cfres$coef[2,1]*(1:7)) + (cfres$coef[3,1]*-1) + (cfres$coef[4,1]*(1:7)*-1)
+	cfpredhigh = cfres$coef[1,1] + (cfres$coef[2,1]*(1:7)) + (cfres$coef[3,1]*1) + (cfres$coef[4,1]*(1:7)*1)
+	plot(1:7, cfpredlow, ylim=c(-1,1), type="n", ylab="Knowledge Difference", xlab="Extremity")
+	lines(1:7, cfpredlow, col="blue")
+	lines(1:7, cfpredhigh, col="red")
+
+	# I also examined an alternative to difference scores. Namely, I regressed
+	# subjective knowledge on objective knowledge (scilit) and saved
+	# the residuals. Positive residuals characterize those who are more confident
+	# than would be expected given their objective performance. Negative residuals
+	# indicate the opposite.
+	# I then regressed those residuals on extremity.
+	# Conclusions were the same: 
+	# People who were the most extreme in their opposition to GMO were more confident
+	# than expected given their obejctive knowledge. Those who were the least extreme
+	# were less confident than their obejctive knowledge would suggest.
+
+	summary(lm(GMOsubj ~ scilit, data=S1GMOsub))
+
+	# Save residuals
+	# positive resid means more confident than objective test would predict
+	# negative resid means less confident than objective test would predict
+
+	S1GMOsub$resid = summary(lm(GMOsubj ~ scilit, data=S1GMOsub))$resid
+	hist(S1GMOsub$resid)
+
+
+	summary(lm(resid ~ extremity, data=S1GMOsub))
+	plot(S1GMOsub$extremity, S1GMOsub$resid)
+	abline(lm(resid ~ extremity, data=S1GMOsub))
+	abline(h=0)
+
+#-----------------------------------------
+# Fraley // End Fraley code insert 5
+#-----------------------------------------
+
+
+
+
+
       # run the extremity on knowledge models with the genetics knowledge subscale 
       # for robustness
             summary( lm( genlit ~ extremity, data = S1GMOsub))
@@ -213,26 +373,63 @@ summary( lm( know.diff ~ extremityz, data = S1GMOsub))
             boot.ci(results, type="bca", index=2) # extremity
             
 
-# Fraley
-S1GMOsub$extremityz = scale(S1GMOsub$extremity)
-summary(lm(gen.diff ~ extremityz, data = S1GMOsub))
-plot(S1GMOsub$extremityz, S1GMOsub$gen.diff)
-abline((lm(gen.diff ~ extremityz, data = S1GMOsub)))
-abline(h=0)
 
-summary(lm(gen.diff ~ extremity, data = S1GMOsub))
-plot(S1GMOsub$extremity, S1GMOsub$gen.diff)
-abline((lm(gen.diff ~ extremity, data = S1GMOsub)))
-abline(h=0)
 
-# Fraley simple slopes
-# to see if sig diff in objective and self-assessed at extreme objection
-# testing intercept when extremityC = 0 (i.e., at scale scores of 7)
-S1GMOsub$extremityC = S1GMOsub$extremity - 7
-summary(lm(gen.diff ~ extremityC, data = S1GMOsub))
-plot(S1GMOsub$extremityC, S1GMOsub$gen.diff)
-abline((lm(gen.diff ~ extremityC, data = S1GMOsub)))
-abline(h=0)
+
+
+#-----------------------------------------
+# Fraley // Begin Fraley code insert 6
+#-----------------------------------------
+	# Creating plots to examine cross-over point for y = 0
+	# and double-check the interpretation of the effect
+
+	S1GMOsub$extremityz = scale(S1GMOsub$extremity)
+	summary(lm(gen.diff ~ extremityz, data = S1GMOsub))
+	plot(S1GMOsub$extremityz, S1GMOsub$gen.diff)
+	abline((lm(gen.diff ~ extremityz, data = S1GMOsub)))
+	abline(h=0)
+
+	summary(lm(gen.diff ~ extremity, data = S1GMOsub))
+	plot(S1GMOsub$extremity, S1GMOsub$gen.diff)
+	abline((lm(gen.diff ~ extremity, data = S1GMOsub)))
+	abline(h=0)
+
+#-----------------------------------------
+# Fraley // End Fraley code insert 6
+#-----------------------------------------
+
+
+
+
+
+
+
+#-----------------------------------------
+# Fraley // Begin Fraley code insert 7
+#-----------------------------------------
+	# simple slopes
+	# to see if sig diff in objective and self-assessed at extreme levels of extremity
+	# testing intercept when extremityC = 0 (i.e., at scale scores of 7)
+	# add simple plot to eyeball
+
+	# Extreme Opposition
+	S1GMOsub$extremityC = S1GMOsub$extremity - 7
+	summary(lm(gen.diff ~ extremityC, data = S1GMOsub))
+	plot(S1GMOsub$extremityC, S1GMOsub$gen.diff)
+	abline((lm(gen.diff ~ extremityC, data = S1GMOsub)))
+	abline(h=0, lty=2)
+
+	# Other end of opposition
+	S1GMOsub$extremityC = S1GMOsub$extremity - 1
+	summary(lm(gen.diff ~ extremityC, data = S1GMOsub))
+	plot(S1GMOsub$extremityC, S1GMOsub$gen.diff)
+	abline((lm(gen.diff ~ extremityC, data = S1GMOsub)))
+	abline(h=0, lty=2)
+
+#-----------------------------------------
+# Fraley // End Fraley code insert 7
+#-----------------------------------------
+
 
 
 
@@ -252,9 +449,6 @@ abline(h=0)
             # create the difference score again, this time with non-genetics knowledge for objective
             S1GMOsub$nogen.diff <-  S1GMOsub$GMsubj.z - S1GMOsub$nogenlit.Z
         
-
-
-
     
       # run the difference score model with non-genetics knowledge
             summary(lm(nogen.diff ~ extremity, data = S1GMOsub))
@@ -287,6 +481,59 @@ abline(h=0)
             boot.ci(results, type="bca", index=2) # extremity
             
             
+
+
+#-----------------------------------------
+# Fraley // Begin Fraley code insert 8
+#-----------------------------------------
+
+	# using mixed linear models to evaluate knowledge as a function of 
+	# knowledge type (subjective or objective) and extremity
+
+
+	# Create stacked dataset with common name for subjective knowledge
+
+	cf1 = S1GMOsub[ ,c("ResponseId","extremity","scilit","GMOsubj","know.diff","cond")]
+	colnames(cf1)=c("ResponseId","extremity","scilit","subj","know.diff","cond")
+
+	cf2 =  S1CCsub[ ,c("ResponseId","extremity","scilit","CCsubj","know.diff","cond")]
+	colnames(cf2)=c("ResponseId","extremity","scilit","subj","know.diff","cond")
+	cf = rbind(cf1, cf2)
+	cf$cond2=ifelse(cf$cond=="GMO",1,-1)
+
+	# reshape data into long form
+	cf=data.frame(cf)
+	cf$id = 1:1000
+	cf3 = reshape(data = cf, idvar="id", varying = 3:4, v.names = "knowledge", timevar="knowledge_type",times=c(0,1), direction="long", new.row.names = 1:2000 )
+	head(cf3[order(cf3$id),],20)
+	# knowledge_type 1 = sujective
+	#		     0 = objective
+
+	# load libraries
+	install.packages("lme4","lmerTest")
+	library(lme4)
+	library(lmerTest)
+
+	# simple analysis
+	# interaction is significant
+
+	cfres = lmer(knowledge ~ extremity +  knowledge_type + extremity *knowledge_type + (1 | id), data=cf3)
+	summary(cfres)
+
+	# GMO only
+
+	cfres = lmer(knowledge ~ extremity +  knowledge_type + extremity *knowledge_type + (1 | id), data=subset(cf3,cond2==1) )
+	summary(cfres)
+
+
+#-----------------------------------------
+# Fraley // End Fraley code insert 8
+#-----------------------------------------
+
+
+
+
+
 
 # Interactions
             
@@ -543,9 +790,24 @@ s3$nogen.know.diff <- s3$GMOsubj.z - s3$nogenlit.z
             boot.ci(results, type="bca", index=2) # extremity
             
 
-# Fraley
-s3$extremityz = scale(s3$extremity)
-summary( lm( know.diff ~ extremityz, data = s3))
+
+
+
+#-----------------------------------------
+# Fraley // Begin Fraley code insert 9
+#-----------------------------------------
+	# Checking with standardized extremity
+
+	s3$extremityz = scale(s3$extremity)
+	summary( lm( know.diff ~ extremityz, data = s3))
+
+#-----------------------------------------
+# Fraley // End Fraley code insert 9
+#-----------------------------------------
+
+
+
+
 
       # extremity of opposition on the z-scored binary knowledge difference score 
       # (positive values indicate overconfidence)
@@ -774,11 +1036,28 @@ s4$nogen.know.diff <- s4$GTsubj.z - s4$nogenlit.z
             boot.ci(results, type="bca", index=1) # intercept 
             boot.ci(results, type="bca", index=2) # extremity
 
-# Fraley
-s4$extremityz = scale(s4$extremity)
-summary( lm( know.diff ~ extremityz, data = s4))
-plot(s4$extremityz, s4$know.diff)
-abline(( lm( know.diff ~ extremityz, data = s4)))
+
+
+
+#-----------------------------------------
+# Fraley // Begin Fraley code insert 10
+#-----------------------------------------
+	# Checking with standardized extremity
+
+	s4$extremityz = scale(s4$extremity)
+	summary( lm( know.diff ~ extremityz, data = s4))
+	plot(s4$extremityz, s4$know.diff)
+	abline(( lm( know.diff ~ extremityz, data = s4)))
+
+#-----------------------------------------
+# Fraley // End Fraley code insert 10
+#-----------------------------------------
+
+
+
+
+
+
 
 
 
@@ -835,6 +1114,27 @@ summary(s3.GMOsubj.q)
 s3.GMOscilit.q <- lm(s3$scilit ~ s3$extremity.C + I(s3$extremity.C^2))
 summary(s3.GMOscilit.q)
 
+
+
+#-----------------------------------------
+# Fraley // Begin Fraley code insert 11
+#-----------------------------------------
+
+	# the centered extremity variable for study 4 is missing
+	# I've created it here, to allow the next step of the code to function
+
+	s4$extremity.C <- (s4$extremity - mean(s4$extremity))
+
+#-----------------------------------------
+# Fraley // End Fraley code insert 11
+#-----------------------------------------
+
+
+
+
+
+
+
 s4.GTsubj.q <- lm(s4$subjective.knowledge ~ s4$extremity.C + I(s4$extremity.C^2))
 summary(s4.GTsubj.q)
 s4.GTscilit.q <- lm(s4$scilit ~ s4$extremity.C + I(s4$extremity.C^2))
@@ -843,8 +1143,21 @@ summary(s4.GTscilit.q)
 ## Create the All studies quadratic table ##
 
 
-# Fraley
-install.packages("stargazer")
+#-----------------------------------------
+# Fraley // Begin Fraley code insert 12
+#-----------------------------------------
+	# The install command missing
+	# so I have added it here.
+
+	install.packages("stargazer")
+
+#-----------------------------------------
+# Fraley // End Fraley code insert 12
+#-----------------------------------------
+
+
+
+
 
 library(stargazer)
 stargazer::stargazer(s1.GMOsubj.q, s1.GMOscilit.q, s1.CCsubj.q, s1.CCscilit.q, s2.GMOsubj.q, s2.scilit.q,   s3.GMOsubj.q, s3.GMOscilit.q, s4.GTsubj.q, s4.GTscilit.q, type = "html", out = "NHBALLstudiesQuadratics2.htm")
@@ -918,6 +1231,43 @@ summary(s1CC.pol.anova)
 
 
 ## Figure 2 ##
+
+
+#-----------------------------------------
+# Fraley // Begin Fraley code insert 13
+#-----------------------------------------
+
+	# My own simple attempt to check Figure 2 in the ms
+
+	cfres = summary(lm(GMOsubj ~ scilit*extremity, data = S1GMOsub))
+	cfres
+
+	plot(S1GMOsub$scilit, S1GMOsub$GMOsubj, ylim=c(0,7), xlim=c(0,50), type="n", 
+		xlab="Objective knowledge", ylab="Self-assessed knowledge" )
+
+	# regression for people who have extremity score of 2
+	cfpred1 = cfres$coef[1,1] + cfres$coef[2,1]*(0:50) + cfres$coef[3,1]*2 + cfres$coef[4,1]*(0:50)*(2)
+	lines(0:50, cfpred1, col = "blue")
+
+	# regression for people who have extremity score of 4.5
+	cfpred2 = cfres$coef[1,1] + cfres$coef[2,1]*(0:50) + cfres$coef[3,1]*4.5 + cfres$coef[4,1]*(0:50)*(4.5)
+	lines(0:50, cfpred2)
+
+	# regression for people who have extremity score of 7
+	cfpred3 = cfres$coef[1,1] + cfres$coef[2,1]*(0:50) + cfres$coef[3,1]*7 + cfres$coef[4,1]*(0:50)*(7)
+	lines(0:50, cfpred3, col="red")
+
+
+#-----------------------------------------
+# Fraley // End Fraley code insert 13
+#-----------------------------------------
+
+
+
+
+
+
+
 
 # install legend.enhanced function #
 
@@ -1271,5 +1621,5 @@ grid.arrange(row1, row2, nrow=2)
 dev.off()
 
 
-fraley2 <- read.csv("FernbachetalNHBStudy2Data.csv")
+
 
