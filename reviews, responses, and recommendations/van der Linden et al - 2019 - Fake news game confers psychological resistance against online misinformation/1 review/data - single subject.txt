@@ -1,0 +1,905 @@
+{
+  "time": 1713578659,
+  "guid": "1ea8dc63-62a4-4a24-2137-587ddd7b4e99",
+  "agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
+  "answers": [
+    {
+      "acf_fc_layout": "dropdown",
+      "tag": "1680857345670_4757771",
+      "question": {
+        "text": "What makes you think the headline is misleading?",
+        "image": false
+      },
+      "answers": [
+        {
+          "text": "It evokes strong negative emotions",
+          "variables": "score=-132, feedback1=Not quite! This headline is more just a simple statement of fact and not overtly emotional or manipulative. You lost a few followers!",
+          "go_to": "1666690783403_9439251"
+        },
+        {
+          "text": "It's conspiratorial",
+          "variables": "score=-132, feedback1=Not quite! This headline is more just a simple statement of fact and not overtly conspiratorial. You lost a few followers!",
+          "go_to": "1666690783403_9439251"
+        },
+        {
+          "text": "It's highly polarizing",
+          "variables": "score=-132, feedback1=Not quite! This headline is more just a simple statement of fact and not overtly emotional or polarizing. You lost a few followers!",
+          "go_to": "1666690783403_9439251"
+        },
+        {
+          "text": "It's just a headline. I see nothing wrong with it",
+          "variables": "score=+1932, feedback1=That's right! This is just a normal headline. It's not overly emotional or manipulative and more of a simple statement of fact. You got some more followers!",
+          "go_to": "1666690783403_9439251"
+        }
+      ],
+      "id": "timeline304",
+      "slideIndex": 0,
+      "inTimeline": true,
+      "chosenOption": {
+        "text": "It's just a headline. I see nothing wrong with it",
+        "variables": "score=+1932, feedback1=That's right! This is just a normal headline. It's not overly emotional or manipulative and more of a simple statement of fact. You got some more followers!",
+        "go_to": "1666690783403_9439251"
+      }
+    },
+    {
+      "acf_fc_layout": "dropdown",
+      "tag": "1680858338910_7689241",
+      "question": {
+        "text": "What makes you think this headline is misleading?",
+        "image": false
+      },
+      "answers": [
+        {
+          "text": "It's conspiratorial",
+          "variables": "score=+36, feedback2=Almost! The headline doesn't directly imply a conspiracy even though it is misleading. It tries to override your sense of accuracy by evoking strong negative emotions and implying that the baby died *because* of the vaccine (which doesn't have to be true!). You got a few followers!",
+          "go_to": "1666691716293_2796721"
+        },
+        {
+          "text": "It's a personal attack",
+          "variables": "score=+34, feedback2=Almost! The headline doesn't attack or discredit anyone directly even though it is misleading. It tries to override your sense of accuracy by evoking strong negative emotions and implying that the baby died *because* of the vaccine (which doesn't have to be true!). You got a few followers!",
+          "go_to": "1666691716293_2796721"
+        },
+        {
+          "text": "It evokes strong negative emotions",
+          "variables": "score=+1136, feedback2=That's right! This headline is misleading. It tries to override your sense of accuracy by evoking strong negative emotions. The headline implies that the baby died *because* of the vaccine (which doesn't have to be true!). You got looots of followers.",
+          "go_to": "1666691716293_2796721"
+        },
+        {
+          "text": "It's just a headline. I see nothing wrong with it",
+          "variables": "score=-109, feedback2=No not quite! This headline is clearly misleading: it tries to override your sense of accuracy (did the baby die *because* of the vaccine? We don't know) by playing into your emotions. You lost a few followers.",
+          "go_to": "1666691716293_2796721"
+        }
+      ],
+      "id": "timeline310",
+      "slideIndex": 0,
+      "inTimeline": true,
+      "chosenOption": {
+        "text": "It evokes strong negative emotions",
+        "variables": "score=+1136, feedback2=That's right! This headline is misleading. It tries to override your sense of accuracy by evoking strong negative emotions. The headline implies that the baby died *because* of the vaccine (which doesn't have to be true!). You got looots of followers.",
+        "go_to": "1666691716293_2796721"
+      }
+    },
+    {
+      "acf_fc_layout": "dropdown",
+      "tag": "1680859871136_6654661",
+      "question": {
+        "text": "What makes you think this headline is misleading?",
+        "image": false
+      },
+      "answers": [
+        {
+          "text": "It's highly polarizing",
+          "variables": "score=+112, feedback3=That's true but not quite what I was looking for. To be more precise: it's conspiratorial. The headline implies that the microchip company and 'Big Pharma' are concocting an evil plot together. You got some followers!",
+          "go_to": "1666692436090_6130521"
+        },
+        {
+          "text": "It's conspiratorial",
+          "variables": "score=+1493, feedback3=That's right! This headline is conspiratorial. It implies that the microchip company and 'Big Pharma' are concocting an evil plot together. You got loots of followers!",
+          "go_to": "1666692436090_6130521"
+        },
+        {
+          "text": "It discredits people or organizations",
+          "variables": "score=+112, feedback3=That's true but not quite what I was looking for. To be more precise: it's conspiratorial. The headline implies that the microchip company and 'Big Pharma' are concocting an evil plot together. You got some followers!",
+          "go_to": "1666692436090_6130521"
+        },
+        {
+          "text": "It's just a headline. I see nothing wrong with it",
+          "variables": "score=-322, feedback3=No not exactly! It's conspiratorial. The headline implies that the microchip company and 'Big Pharma' are concocting an evil plot together. You lost some followers!",
+          "go_to": "1666692436090_6130521"
+        }
+      ],
+      "id": "timeline316",
+      "slideIndex": 0,
+      "inTimeline": true,
+      "chosenOption": {
+        "text": "It's highly polarizing",
+        "variables": "score=+112, feedback3=That's true but not quite what I was looking for. To be more precise: it's conspiratorial. The headline implies that the microchip company and 'Big Pharma' are concocting an evil plot together. You got some followers!",
+        "go_to": "1666692436090_6130521"
+      }
+    },
+    {
+      "acf_fc_layout": "dropdown",
+      "tag": "1680860235587_5229531",
+      "question": {
+        "text": "What makes you think this headline is misleading?",
+        "image": false
+      },
+      "answers": [
+        {
+          "text": "This is trolling",
+          "variables": "score=-113, feedback4=Hm I wouldn'say so! The headline is very descriptive and simply stating a (presumed) fact. It's not overtly conspiratorial and doesn't use strongly emotional language. Sometimes a headline is just a headline. You lost some followers!",
+          "go_to": "1666693700665_1918341"
+        },
+        {
+          "text": "It's highly polarizing",
+          "variables": "score=-113, feedback4=Hm I wouldn'say so! The headline is very descriptive and simply stating a (presumed) fact. It's not overtly conspiratorial and doesn't use strongly emotional language. Sometimes a headline is just a headline. You lost some followers!",
+          "go_to": "1666693700665_1918341"
+        },
+        {
+          "text": "It discredits people or organizations",
+          "variables": "score=-113, feedback4=Hm I wouldn'say so! The headline is very descriptive and simply stating a (presumed) fact. It's not overtly conspiratorial and doesn't use strongly emotional language. Sometimes a headline is just a headline. You lost some followers!",
+          "go_to": "1666693700665_1918341"
+        },
+        {
+          "text": "It's just a headline. I see nothing wrong with it",
+          "variables": "score=+2311, feedback4=That's right! The headline is very descriptive and simply stating a (presumed) fact. It's not overtly conspiratorial and doesn't use strongly emotional language. Sometimes a headline is just a headline. You got lots of followers!",
+          "go_to": "1666693700665_1918341"
+        }
+      ],
+      "id": "timeline322",
+      "slideIndex": 0,
+      "inTimeline": true,
+      "chosenOption": {
+        "text": "It discredits people or organizations",
+        "variables": "score=-113, feedback4=Hm I wouldn'say so! The headline is very descriptive and simply stating a (presumed) fact. It's not overtly conspiratorial and doesn't use strongly emotional language. Sometimes a headline is just a headline. You lost some followers!",
+        "go_to": "1666693700665_1918341"
+      }
+    },
+    {
+      "acf_fc_layout": "dropdown",
+      "tag": "1667923192168_8146321",
+      "question": {
+        "text": "Cheers! Your answers are completely anonymous and can't be linked to you personally. They may be used for the purpose of scientific research. To agree to have your data (anonymously) collected, please select 'yes'.",
+        "image": false
+      },
+      "answers": [
+        {
+          "text": "Yes",
+          "variables": "",
+          "go_to": "1680856731632_3996661"
+        },
+        {
+          "text": "No thanks",
+          "variables": "",
+          "go_to": "1636393312805_8488181"
+        }
+      ],
+      "id": "timeline328",
+      "slideIndex": 0,
+      "inTimeline": true,
+      "chosenOption": {
+        "text": "Yes",
+        "variables": "",
+        "go_to": "1680856731632_3996661"
+      }
+    },
+    {
+      "acf_fc_layout": "dropdown",
+      "tag": "1680856731632_3996661",
+      "question": {
+        "text": "Nice! First question: What's the name of the game you're playing right now?",
+        "image": false
+      },
+      "answers": [
+        {
+          "text": "Bad Brews",
+          "variables": "",
+          "go_to": "1667923272059_5579991"
+        },
+        {
+          "text": "Bad Snooze",
+          "variables": "",
+          "go_to": "1667923272059_5579991"
+        },
+        {
+          "text": "Bad News",
+          "variables": "",
+          "go_to": "1667923272059_5579991"
+        },
+        {
+          "text": "I have no idea",
+          "variables": "",
+          "go_to": "1667923272059_5579991"
+        }
+      ],
+      "id": "timeline330",
+      "slideIndex": 0,
+      "inTimeline": true,
+      "chosenOption": {
+        "text": "Bad News",
+        "variables": "",
+        "go_to": "1667923272059_5579991"
+      }
+    },
+    {
+      "acf_fc_layout": "dropdown",
+      "tag": "1667923272059_5579991",
+      "question": {
+        "text": "Great! We'll now again show you a series of social media posts. For each headline please indicate how reliable you deem it to be. 1 means 'not at all reliable' and 7 means 'very reliable'.",
+        "image": false
+      },
+      "answers": [
+        {
+          "text": "Got it",
+          "variables": "",
+          "go_to": "1667923305231_2043511"
+        }
+      ],
+      "id": "timeline332",
+      "slideIndex": 0,
+      "inTimeline": true,
+      "chosenOption": {
+        "text": "Got it",
+        "variables": "",
+        "go_to": "1667923305231_2043511"
+      }
+    },
+    {
+      "acf_fc_layout": "multiplechoice",
+      "tag": "1667923305231_2043511",
+      "question": {
+        "text": "How reliable do you find this post?",
+        "image": [
+          "https://www.getbadnews.com/wp-content/uploads/2023/09/Trolling-1-Sociology.png",
+          707,
+          331,
+          false
+        ]
+      },
+      "answers": [
+        {
+          "text": "Not at all 1",
+          "variables": "",
+          "go_to": "1667923886754_5783231"
+        },
+        {
+          "text": "2",
+          "variables": "",
+          "go_to": "1667923886754_5783231"
+        },
+        {
+          "text": "3",
+          "variables": "",
+          "go_to": "1667923886754_5783231"
+        },
+        {
+          "text": "4",
+          "variables": "",
+          "go_to": "1667923886754_5783231"
+        },
+        {
+          "text": "5",
+          "variables": "",
+          "go_to": "1667923886754_5783231"
+        },
+        {
+          "text": "6",
+          "variables": "",
+          "go_to": "1667923886754_5783231"
+        },
+        {
+          "text": "7 Very",
+          "variables": "",
+          "go_to": "1667923886754_5783231"
+        }
+      ],
+      "id": "timeline334",
+      "slideIndex": 0,
+      "inTimeline": true,
+      "chosenOption": {
+        "text": "5",
+        "variables": "",
+        "go_to": "1667923886754_5783231"
+      }
+    },
+    {
+      "acf_fc_layout": "multiplechoice",
+      "tag": "1667923886754_5783231",
+      "question": {
+        "text": "How reliable do you find this post?",
+        "image": [
+          "https://www.getbadnews.com/wp-content/uploads/2023/09/Real-1-Biden2.png",
+          705,
+          331,
+          false
+        ]
+      },
+      "answers": [
+        {
+          "text": "Not at all 1",
+          "variables": "",
+          "go_to": "1667923941253_3324651"
+        },
+        {
+          "text": "2",
+          "variables": "",
+          "go_to": "1667923941253_3324651"
+        },
+        {
+          "text": "3",
+          "variables": "",
+          "go_to": "1667923941253_3324651"
+        },
+        {
+          "text": "4",
+          "variables": "",
+          "go_to": "1667923941253_3324651"
+        },
+        {
+          "text": "5",
+          "variables": "",
+          "go_to": "1667923941253_3324651"
+        },
+        {
+          "text": "6",
+          "variables": "",
+          "go_to": "1667923941253_3324651"
+        },
+        {
+          "text": "7 Very",
+          "variables": "",
+          "go_to": "1667923941253_3324651"
+        }
+      ],
+      "id": "timeline336",
+      "slideIndex": 0,
+      "inTimeline": true,
+      "chosenOption": {
+        "text": "2",
+        "variables": "",
+        "go_to": "1667923941253_3324651"
+      }
+    },
+    {
+      "acf_fc_layout": "multiplechoice",
+      "tag": "1667923941253_3324651",
+      "question": {
+        "text": "How reliable do you find this post?",
+        "image": [
+          "https://www.getbadnews.com/wp-content/uploads/2023/09/Polarization-1-Violence.png",
+          707,
+          329,
+          false
+        ]
+      },
+      "answers": [
+        {
+          "text": "Not at all 1",
+          "variables": "",
+          "go_to": "1667924101815_1539881"
+        },
+        {
+          "text": "2",
+          "variables": "",
+          "go_to": "1667924101815_1539881"
+        },
+        {
+          "text": "3",
+          "variables": "",
+          "go_to": "1667924101815_1539881"
+        },
+        {
+          "text": "4",
+          "variables": "",
+          "go_to": "1667924101815_1539881"
+        },
+        {
+          "text": "5",
+          "variables": "",
+          "go_to": "1667924101815_1539881"
+        },
+        {
+          "text": "6",
+          "variables": "",
+          "go_to": "1667924101815_1539881"
+        },
+        {
+          "text": "7 Very",
+          "variables": "",
+          "go_to": "1667924101815_1539881"
+        }
+      ],
+      "id": "timeline338",
+      "slideIndex": 0,
+      "inTimeline": true,
+      "chosenOption": {
+        "text": "5",
+        "variables": "",
+        "go_to": "1667924101815_1539881"
+      }
+    },
+    {
+      "acf_fc_layout": "multiplechoice",
+      "tag": "1667924101815_1539881",
+      "question": {
+        "text": "How reliable do you find this post?",
+        "image": [
+          "https://www.getbadnews.com/wp-content/uploads/2023/09/Emotion-1-Suicide.png",
+          707,
+          329,
+          false
+        ]
+      },
+      "answers": [
+        {
+          "text": "Not at all 1",
+          "variables": "",
+          "go_to": "1667924171072_1337201"
+        },
+        {
+          "text": "2",
+          "variables": "",
+          "go_to": "1667924171072_1337201"
+        },
+        {
+          "text": "3",
+          "variables": "",
+          "go_to": "1667924171072_1337201"
+        },
+        {
+          "text": "4",
+          "variables": "",
+          "go_to": "1667924171072_1337201"
+        },
+        {
+          "text": "5",
+          "variables": "",
+          "go_to": "1667924171072_1337201"
+        },
+        {
+          "text": "6",
+          "variables": "",
+          "go_to": "1667924171072_1337201"
+        },
+        {
+          "text": "7 Very",
+          "variables": "",
+          "go_to": "1667924171072_1337201"
+        }
+      ],
+      "id": "timeline340",
+      "slideIndex": 0,
+      "inTimeline": true,
+      "chosenOption": {
+        "text": "2",
+        "variables": "",
+        "go_to": "1667924171072_1337201"
+      }
+    },
+    {
+      "acf_fc_layout": "multiplechoice",
+      "tag": "1667924171072_1337201",
+      "question": {
+        "text": "How reliable do you find this post?",
+        "image": [
+          "https://www.getbadnews.com/wp-content/uploads/2023/09/Real-2-Labour2.png",
+          707,
+          331,
+          false
+        ]
+      },
+      "answers": [
+        {
+          "text": "Not at all 1",
+          "variables": "",
+          "go_to": "1674493600779_8055921"
+        },
+        {
+          "text": "2",
+          "variables": "",
+          "go_to": "1674493600779_8055921"
+        },
+        {
+          "text": "3",
+          "variables": "",
+          "go_to": "1674493600779_8055921"
+        },
+        {
+          "text": "4",
+          "variables": "",
+          "go_to": "1674493600779_8055921"
+        },
+        {
+          "text": "5",
+          "variables": "",
+          "go_to": "1674493600779_8055921"
+        },
+        {
+          "text": "6",
+          "variables": "",
+          "go_to": "1674493600779_8055921"
+        },
+        {
+          "text": "7 Very",
+          "variables": "",
+          "go_to": "1674493600779_8055921"
+        }
+      ],
+      "id": "timeline342",
+      "slideIndex": 0,
+      "inTimeline": true,
+      "chosenOption": {
+        "text": "5",
+        "variables": "",
+        "go_to": "1674493600779_8055921"
+      }
+    },
+    {
+      "acf_fc_layout": "multiplechoice",
+      "tag": "1674493600779_8055921",
+      "question": {
+        "text": "How reliable do you find this post?",
+        "image": [
+          "https://www.getbadnews.com/wp-content/uploads/2023/09/Real-5-NASA.png",
+          707,
+          331,
+          false
+        ]
+      },
+      "answers": [
+        {
+          "text": "Not at all 1",
+          "variables": "",
+          "go_to": "1667924244016_2641351"
+        },
+        {
+          "text": "2",
+          "variables": "",
+          "go_to": "1667924244016_2641351"
+        },
+        {
+          "text": "3",
+          "variables": "",
+          "go_to": "1667924244016_2641351"
+        },
+        {
+          "text": "4",
+          "variables": "",
+          "go_to": "1667924244016_2641351"
+        },
+        {
+          "text": "5",
+          "variables": "",
+          "go_to": "1667924244016_2641351"
+        },
+        {
+          "text": "6",
+          "variables": "",
+          "go_to": "1667924244016_2641351"
+        },
+        {
+          "text": "7 Very",
+          "variables": "",
+          "go_to": "1667924244016_2641351"
+        }
+      ],
+      "id": "timeline344",
+      "slideIndex": 0,
+      "inTimeline": true,
+      "chosenOption": {
+        "text": "5",
+        "variables": "",
+        "go_to": "1667924244016_2641351"
+      }
+    },
+    {
+      "acf_fc_layout": "multiplechoice",
+      "tag": "1667924244016_2641351",
+      "question": {
+        "text": "How reliable do you find this post?",
+        "image": [
+          "https://www.getbadnews.com/wp-content/uploads/2023/09/Conspiracy-1-Aliens.png",
+          707,
+          399,
+          false
+        ]
+      },
+      "answers": [
+        {
+          "text": "Not at all 1",
+          "variables": "",
+          "go_to": "1667924301036_4713851"
+        },
+        {
+          "text": "2",
+          "variables": "",
+          "go_to": "1667924301036_4713851"
+        },
+        {
+          "text": "3",
+          "variables": "",
+          "go_to": "1667924301036_4713851"
+        },
+        {
+          "text": "4",
+          "variables": "",
+          "go_to": "1667924301036_4713851"
+        },
+        {
+          "text": "5",
+          "variables": "",
+          "go_to": "1667924301036_4713851"
+        },
+        {
+          "text": "6",
+          "variables": "",
+          "go_to": "1667924301036_4713851"
+        },
+        {
+          "text": "7 Very",
+          "variables": "",
+          "go_to": "1667924301036_4713851"
+        }
+      ],
+      "id": "timeline346",
+      "slideIndex": 0,
+      "inTimeline": true,
+      "chosenOption": {
+        "text": "5",
+        "variables": "",
+        "go_to": "1667924301036_4713851"
+      }
+    },
+    {
+      "acf_fc_layout": "multiplechoice",
+      "tag": "1667924301036_4713851",
+      "question": {
+        "text": "How reliable do you find this post?",
+        "image": [
+          "https://www.getbadnews.com/wp-content/uploads/2023/09/Real-3-Honda.png",
+          709,
+          325,
+          false
+        ]
+      },
+      "answers": [
+        {
+          "text": "Not at all 1",
+          "variables": "",
+          "go_to": "1667924399897_9961701"
+        },
+        {
+          "text": "2",
+          "variables": "",
+          "go_to": "1667924399897_9961701"
+        },
+        {
+          "text": "3",
+          "variables": "",
+          "go_to": "1667924399897_9961701"
+        },
+        {
+          "text": "4",
+          "variables": "",
+          "go_to": "1667924399897_9961701"
+        },
+        {
+          "text": "5",
+          "variables": "",
+          "go_to": "1667924399897_9961701"
+        },
+        {
+          "text": "6",
+          "variables": "",
+          "go_to": "1667924399897_9961701"
+        },
+        {
+          "text": "7 Very",
+          "variables": "",
+          "go_to": "1667924399897_9961701"
+        }
+      ],
+      "id": "timeline348",
+      "slideIndex": 0,
+      "inTimeline": true,
+      "chosenOption": {
+        "text": "5",
+        "variables": "",
+        "go_to": "1667924399897_9961701"
+      }
+    },
+    {
+      "acf_fc_layout": "dropdown",
+      "tag": "1667924399897_9961701",
+      "question": {
+        "text": "Thank you so much! We just have a few more very short (and anonymous) questions about your background. First of all, what is your gender?",
+        "image": false
+      },
+      "answers": [
+        {
+          "text": "Female",
+          "variables": "",
+          "go_to": "1667924449093_5448621"
+        },
+        {
+          "text": "Male",
+          "variables": "",
+          "go_to": "1667924449093_5448621"
+        },
+        {
+          "text": "Non-binary",
+          "variables": "",
+          "go_to": "1667924449093_5448621"
+        },
+        {
+          "text": "Other",
+          "variables": "",
+          "go_to": "1667924449093_5448621"
+        },
+        {
+          "text": "Prefer not to say",
+          "variables": "",
+          "go_to": "1667924449093_5448621"
+        }
+      ],
+      "id": "timeline350",
+      "slideIndex": 0,
+      "inTimeline": true,
+      "chosenOption": {
+        "text": "Female",
+        "variables": "",
+        "go_to": "1667924449093_5448621"
+      }
+    },
+    {
+      "acf_fc_layout": "dropdown",
+      "tag": "1667924449093_5448621",
+      "question": {
+        "text": "Thanks! And what is your age?",
+        "image": false
+      },
+      "answers": [
+        {
+          "text": "Under 18",
+          "variables": "",
+          "go_to": "1667924505398_4741201"
+        },
+        {
+          "text": "18-25",
+          "variables": "",
+          "go_to": "1667924505398_4741201"
+        },
+        {
+          "text": "26-35",
+          "variables": "",
+          "go_to": "1667924505398_4741201"
+        },
+        {
+          "text": "36-45",
+          "variables": "",
+          "go_to": "1667924505398_4741201"
+        },
+        {
+          "text": "46-55",
+          "variables": "",
+          "go_to": "1667924505398_4741201"
+        },
+        {
+          "text": "56-65",
+          "variables": "",
+          "go_to": "1667924505398_4741201"
+        },
+        {
+          "text": "Over 65",
+          "variables": "",
+          "go_to": "1667924505398_4741201"
+        }
+      ],
+      "id": "timeline352",
+      "slideIndex": 0,
+      "inTimeline": true,
+      "chosenOption": {
+        "text": "Over 65",
+        "variables": "",
+        "go_to": "1667924505398_4741201"
+      }
+    },
+    {
+      "acf_fc_layout": "dropdown",
+      "tag": "1667924505398_4741201",
+      "question": {
+        "text": "Thanks! And where would you place yourself on the political spectrum?",
+        "image": false
+      },
+      "answers": [
+        {
+          "text": "Very left-wing",
+          "variables": "",
+          "go_to": "1667924572211_2568791"
+        },
+        {
+          "text": "Left-wing",
+          "variables": "",
+          "go_to": "1667924572211_2568791"
+        },
+        {
+          "text": "A bit left-wing",
+          "variables": "",
+          "go_to": "1667924572211_2568791"
+        },
+        {
+          "text": "Middle of the road",
+          "variables": "",
+          "go_to": "1667924572211_2568791"
+        },
+        {
+          "text": "A bit right-wing",
+          "variables": "",
+          "go_to": "1667924572211_2568791"
+        },
+        {
+          "text": "Right-wing",
+          "variables": "",
+          "go_to": "1667924572211_2568791"
+        },
+        {
+          "text": "Very right-wing",
+          "variables": "",
+          "go_to": "1667924572211_2568791"
+        }
+      ],
+      "id": "timeline354",
+      "slideIndex": 0,
+      "inTimeline": true,
+      "chosenOption": {
+        "text": "Very left-wing",
+        "variables": "",
+        "go_to": "1667924572211_2568791"
+      }
+    },
+    {
+      "acf_fc_layout": "dropdown",
+      "tag": "1667924572211_2568791",
+      "question": {
+        "text": "Thanks! Final question: How much would you say you trust mainstream news organisations?",
+        "image": false
+      },
+      "answers": [
+        {
+          "text": "Not at all",
+          "variables": "",
+          "go_to": "1636393312805_8488181"
+        },
+        {
+          "text": "Not really",
+          "variables": "",
+          "go_to": "1636393312805_8488181"
+        },
+        {
+          "text": "Neither trust nor distrust",
+          "variables": "",
+          "go_to": "1636393312805_8488181"
+        },
+        {
+          "text": "A bit",
+          "variables": "",
+          "go_to": "1636393312805_8488181"
+        },
+        {
+          "text": "A lot",
+          "variables": "",
+          "go_to": "1636393312805_8488181"
+        }
+      ],
+      "id": "timeline356",
+      "slideIndex": 0,
+      "inTimeline": true,
+      "chosenOption": {
+        "text": "Not at all",
+        "variables": "",
+        "go_to": "1636393312805_8488181"
+      }
+    }
+  ],
+  "bookid": 261
+}
