@@ -362,11 +362,11 @@ data %>%
 
 None of these numbers perfectly match the reported response count of N = 43,687. The closest reproduced value to what the article reports is (3) the number of subjects with at least one pre-test response: `r prettyNum(N_pre, ",")`. However, the one digit is incorrect (8 in the article, 9 in this calculation).
 
-Nevertheless, I can't work out a good rationale for reporting the number of subjects with pre-test responses because some subjects have post-test responses without any pre-test responses. So a more appropriate N would be the number of subjects who responded to at least one question: `r prettyNum(N_any, ",")`
+Nevertheless, I can't work out a good rationale for reporting the number of subjects with pre-test responses because some subjects have post-test responses without any pre-test responses. Perhaps a more appropriate N would have been the number of subjects who responded to at least one question: `r prettyNum(N_any, ",")`
 
 ## ⚠️ Paired response count
 
-The number of subjects with usable data also has reporting issues. The abstract and methods list different numbers:
+The number of subjects with usable data also appears to have reporting issues. The abstract and methods list different numbers:
 
 **Abstract**: "We conducted a large-scale evaluation of the game with N = 15,000 participants."
 
@@ -500,11 +500,11 @@ Each effect size should have the same sign as the corresponding difference value
 
 ## ⚠️ Hedges' *g*
 
-Oddly, the Hedges' *g* values in the article are slightly different from the article's Cohen's *d* values, even though they should be nearly identical for very large sample sizes. Upon more careful reading of the "Main effects of the intervention" section, I noticed that the article reports Cohen's *d* using the standard deviation of the paired differences (Cohen's *d~z~*), while Hedges' *g* uses an average of the two standard deviations (Hedges' *g~av~*).
+The Hedges' *g* values in the article are slightly different from the article's Cohen's *d* values, even though they should be nearly identical for very large sample sizes. Upon more careful reading of the "Main effects of the intervention" section, I noticed that the article reports Cohen's *d* using the standard deviation of the paired differences (Cohen's *d~z~*), while Hedges' *g* uses an average of the two standard deviations (Hedges' *g~av~*).
 
-I can't think of any good reason to use different approaches for pooling standard deviations. Just picking one approach for the standard deviation and one effect size would be more clear. At the very least, reporting the sub-type of effect size is important for clarity (see takeaways in <http://steveharoz.com/blog/2023/simulating-how-replicate-trial-count-impacts-cohens-d-effect-size/>).
+I am unclear about the reason to use different approaches for pooling standard deviations. Reporting the sub-type of effect size is important for clarity (see takeaways in <http://steveharoz.com/blog/2023/simulating-how-replicate-trial-count-impacts-cohens-d-effect-size/>).
 
-The article cites ([Laken 2013](https://doi.org/10.3389/fpsyg.2013.00863)) as the basis of its reporting. But that article does not advocate reporting both Cohen's *d* and Hedges' *g*, let alone using different pooling methods.
+The article cites ([Laken 2013](https://doi.org/10.3389/fpsyg.2013.00863)) as the basis of its reporting. But that article does not advocate reporting both Cohen's *d* and Hedges' *g* or using different pooling methods.
 
 ```{r hedges_g_av, class.source = 'fold-hide'}
 data_paired %>% 
@@ -573,7 +573,7 @@ unique(data_paired_long$category) %>%
 
 > In contrast, there were ... statistically significant ... differences in the pre-scores and post-scores for the fake tweets and headlines for each of the badges
 
-It is uninformative to contrast the p-values for interventions with the p-values for controls. P-values cannot be meaningfully compared that way. Instead, one needs to test for or estimate an interaction effect between pre-vs-post and category. For an explanation of the problem, see:
+I would argue that it is uninformative to contrast the p-values for interventions with the p-values for controls. P-values cannot be meaningfully compared that way. Instead, one needs to test for or estimate an interaction effect between pre-vs-post and category. For an explanation of the problem, see:
 
 -   <http://www.stat.columbia.edu/~gelman/research/published/signif4.pdf>
 -   <https://www.bmj.com/content/342/bmj.d561.full>
@@ -679,7 +679,7 @@ lm(cbind(pre, post) ~ category + (1/subjectID), data_all) %>%
   summary(test="Wilks")
 ```
 
-## ⚠️ Yet another N
+## ⚠️ sample size discrepencies
 
 The "Subgroup Analysis" section describes an overall t-test with 13787 degrees of freedom, which for a paired t-test means 13,788 subjects. This number is different from all of the Ns calculated above, and it is not explained in the article. After some trial and error, I figured out that it is the number of subjects with responses for all intervention questions, where subjects missing any control responses are NOT excluded.
 
@@ -702,7 +702,7 @@ data_all_intervention %>%
   length()
 ```
 
-Only including subjects with responses for all the analyzed categories is a perfectly valid and arguably the most appropriate choice. However, inclusion and exclusion criteria need to be documented clearly in the text, especially when they are unique to a particular analysis.
+Only including subjects with responses for all the analyzed categories is a perfectly valid and arguably the most appropriate choice. However, inclusion and exclusion criteria would benefit from being documented clearly in the text, especially when they are unique to a particular analysis.
 
 ## ⚠️ Averaged t-test
 
@@ -727,7 +727,7 @@ The t-test and effect sizes should have the same sign. Although which sign is us
 
 ## ✅ Hedges' *g* (clarity issue)
 
-Just like with the per-question t-tests, the averaged t-test's Hedges' *g* (0.43) differs from both the article's Cohen's *d* (0.52) and the reproduced effect size (-0.52). Using a different SD pooling method fixes the discrepancy regarding the magnitude.
+As with the per-question t-tests, the averaged t-test's Hedges' *g* (0.43) differs from both the article's Cohen's *d* (0.52) and the reproduced effect size (-0.52). Using a different SD pooling method fixes the discrepancy regarding the magnitude.
 
 ```{r averaged_t_g, class.source = 'fold-hide'}
 g_av = data_all_intervention %>% 
