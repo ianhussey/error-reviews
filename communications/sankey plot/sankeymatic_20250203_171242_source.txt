@@ -1,0 +1,87 @@
+// SankeyMATIC diagram inputs - Saved: 03/02/2025, 17:12:42
+// https://sankeymatic.com/build/
+
+// === Nodes and Flows ===
+
+// Enter Flows between Nodes, like this:
+//         Source [AMOUNT] Target
+
+Nominated [53] Replied
+Nominated [89] No reply
+	
+Replied [16] Consented	
+Replied [10] In discusssion
+Replied [27] Did not consent
+
+Consented [12] Reviewer\nassigned
+Consented [4] Needs\nreviewer
+
+Reviewer\nassigned [6] Review\ncompleted
+Reviewer\nassigned [6] Under\nreview
+
+Review\ncompleted [4] Report\npublished
+Review\ncompleted [2] Report\nin preparation
+
+Did not consent [14] No time
+Did not consent [2] Not interested
+Did not consent [1] Unclear
+Did not consent [3] Ghosted
+Did not consent [1] Concern about being singled out
+Did not consent [3] Declined to share code or data
+Did not consent [1] Detecting errors should not be incentivised
+Did not consent [1] Did not want known error pointed out
+Did not consent [1] Work does not contain errors
+
+// === Settings ===
+
+size w 900
+  h 1000
+margin l 12
+  r 12
+  t 18
+  b 20
+bg color #ffffff
+  transparent N
+node w 12
+  h 50
+  spacing 75
+  border 0
+  theme c
+  color #888888
+  opacity 1
+flow curvature 0.5
+  inheritfrom outside-in
+  color #999999
+  opacity 0.45
+layout order automatic
+  justifyorigins N
+  justifyends N
+  reversegraph N
+  attachincompletesto nearest
+labels color #000000
+  hide N
+  highlight 0.75
+  fontface sans-serif
+  linespacing 0.2
+  relativesize 110
+  magnify 100
+labelname appears Y
+  size 16
+  weight 400
+labelvalue appears Y
+  fullprecision Y
+  position below
+  weight 400
+labelposition autoalign 0
+  scheme auto
+  first before
+  breakpoint 7
+value format ',.'
+  prefix ''
+  suffix ''
+themeoffset a 6
+  b 0
+  c 7
+  d 0
+meta mentionsankeymatic Y
+  listimbalances Y
