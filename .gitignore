@@ -2,3 +2,4 @@
 *.DS_Store
 *.Rhistory
 /old
+secret_vars.R
