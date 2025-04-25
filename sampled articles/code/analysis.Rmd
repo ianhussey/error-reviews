@@ -374,7 +374,11 @@ PLOS ONE IS MISSING FOR SOME REASON
 
 ```{r}
 
+library(stringr)
+
 data_publications_summary <- data_publications_with_criterion |>
+  mutate(title = tolower(title)) |>
+  filter(!str_detect(title, "meta") & !str_detect(title, "review")) |>
   count(journal, required_citations_per_year) |>
   pivot_wider(names_from = "required_citations_per_year",
               values_from = "n",
@@ -397,6 +401,8 @@ data_publications_summary |>
 ```{r}
 
 data_publications_summary_overall <- data_publications_with_criterion |>
+  mutate(title = tolower(title)) |>
+  filter(!str_detect(title, "meta") & !str_detect(title, "review")) |>
   count(required_citations_per_year) |>
   pivot_wider(names_from = "required_citations_per_year",
               values_from = "n",
