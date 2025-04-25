@@ -277,11 +277,7 @@ fetch_publications <- function(issn, pubyear_start, pubyear_end){
   
   res <- processed_item_df |>
     mutate(citation_count = as.numeric(as.character(citation_count)),
-           year = as.numeric(as.character(year)),
-           year = ifelse(year > 2023, 2023, year)) |>
-    mutate(citations_per_year = round_half_up(citation_count / (2024 - year), 0),
-           n_articles_meeting_criterion = citations_per_year >= 30) |>
-    arrange(desc(citations_per_year))
+           year = as.numeric(as.character(year)))
   
   return(res)
 }
@@ -293,7 +289,7 @@ fetch_publications <- function(issn, pubyear_start, pubyear_end){
 (estimated at 1hour 20mins for 1 year)
 
 ```{r}
- 
+
 data_publications <- 
   expand_grid(issn = issn_vector, 
               pubyear_start = 2015, 
@@ -302,10 +298,29 @@ data_publications <-
                          pubyear_start,
                          pubyear_end),
                     possibly(fetch_publications, otherwise = NA))) |>
-  unnest(res) 
+  unnest(res) |>
+  distinct(doi, .keep_all = TRUE) |>
+  select(issn,
+         doi,
+         authors,
+         year,
+         title,
+         journal,
+         volume,
+         issue,
+         pages,
+         apa_reference,
+         link,
+         citation_count,
+         pubyear_search_start = pubyear_start,
+         pubyear_search_end = pubyear_end) |>
+  # wrangle citations per year
+  mutate(year_for_citations_by_year = ifelse(year > pubyear_search_end-1, pubyear_search_end, year)) |>
+  mutate(citations_per_year = round_half_up(citation_count / (pubyear_search_end-1 - year_for_citations_by_year), 2),
+         more_than_30_citations_per_year = citations_per_year >= 30)
 
 # write to disk
-write_csv(data_publications, "../data/articles/data_publications.csv")
+write_csv(data_publications, "../data/articles/data_publications_scopus.csv")
 
 ```
 
