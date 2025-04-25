@@ -19,11 +19,6 @@ knitr::opts_chunk$set(echo = TRUE, eval = TRUE, include = TRUE, warning = FALSE,
 
 Code adapted from [Julian Quandt's repo](https://github.com/julianquandt/zcurve_autorep).
 
-# Remember
-
-- Must be connected to VPN! Connect to UniBe VPN (via FortiClient) before running.
-- Must have a scopus API secret key, which is not on the github. See "secret_key blank example.R".
-
 # Dependencies
 
 ```{r}
@@ -40,19 +35,14 @@ library(kableExtra)
 
 ```
 
-# Setup
+# Load journal ISSNs to be searched
 
 ```{r}
 
-# get ISSNs
 issn_dat <- read_csv("../data/journals/processed_journal_issns.csv") 
 
 issn_vector <- issn_dat |>
   pull(issn)
-
-# Set your Scopus API key
-source("../../secret_vars.R")
-set_api_key(scopus_key)
 
 ```
 
