@@ -36,301 +36,120 @@ library(kableExtra)
 
 ```
 
-## Functions
+# Summary
+
+## N articles meeting criterion
 
 ```{r}
 
-# create a data frame of the list of queried items
-queried_items_to_df <- function(query_return) {
+data_publications_summary_overall <- data_publications |>
+  drop_na(n_articles_meeting_criterion) |>
+  count(n_articles_meeting_criterion) |>
+  pivot_wider(names_from = "n_articles_meeting_criterion",
+              values_from = "n",
+              names_prefix = "n_articles_meeting_criterion_") |>
+  rename(n_meeting_threshold = n_articles_meeting_criterion_TRUE,
+         n_not_meeting_threshold = n_articles_meeting_criterion_FALSE) |>
+  mutate(percent_meeting_threshold = round_half_up(n_meeting_threshold/(n_meeting_threshold + n_not_meeting_threshold)*100, 1))
 
-  # create empty data frame to store results
-
-  # Find the maximum number of columns in any entry
-  ncols_per_entry <- sapply(query_return, function(x) length(unlist(x)))
-  max_ncol <- max(ncols_per_entry)
-
-  # Find the column names for the entry with the maximum number of columns
-  colnames_raw <- names(unlist(query_return[[which(ncols_per_entry == max_ncol)[1]]]))
-
-  # Create a data frame with the maximum number of columns
-  queried_items_df <- data.frame(matrix(NA, nrow = length(query_return), ncol = max_ncol))
-
-  # Add suffixes to the column names to make them unique and assign them to the data frame
-  max_unique_colnames <- add_colname_suffix(colnames_raw)
-  colnames(queried_items_df) <- max_unique_colnames
-
-  for (i in seq_along(query_return)) {
-    # iterate through list and store results of each entry to a row in the data frame
-    tmp_queried_items <- unlist(query_return[[i]])
-
-    # Add suffixes to the temporary data column names to make them unique
-    tmp_unique_colnames <- add_colname_suffix(names(tmp_queried_items)) 
-    names(tmp_queried_items) <- tmp_unique_colnames
-
-    # Find indices where tmp_queried_items keys match max_unique_colnames
-    matched_indices <- match(names(tmp_queried_items), max_unique_colnames, nomatch = 0)
-
-    # Only keep those which have a match (i.e., non-zero indices)
-    has_match <- matched_indices > 0
-
-    if (any(has_match)) {
-      queried_items_df[i, matched_indices[has_match]] <- tmp_queried_items[has_match]
-    }
-  }
-
-  return(queried_items_df)
-}
-
-# process the queried_items_df
-process_queried_items_df <- function(queried_items_df, vars_to_keep = c()) {
-  processed_df <- droplevels(subset(queried_items_df, subtypeDescription == "Article"))
-
-  # get all columns that contain author names
-  authname_cols <- grep("author\\.authname", names(processed_df))
-  # concaternate author names in APA style by pattern matching all author.authorname.suffix variables
-  authors_apa <- apply(processed_df[, authname_cols], 1, concat_authname)
-  
-  # get publication year in APA style
-  pupyear_apa <- unname(sapply(processed_df[, "prism:coverDate"], function(x) substr(x, 1, 4)))
-
-  # get title in APA style
-  title_apa <- unname(sapply(processed_df$`dc:title`, function(x) to_apa_title_case(x)))
-
-  # get journal and publication info in APA style
-  journal_apa <- get_column_value(processed_df, "prism:publicationName")
-  volume_apa <- get_column_value(processed_df, "prism:volume")
-  issue_apa <- get_column_value(processed_df, "prism:issueIdentifier")
-  pages_apa <- get_column_value(processed_df, "prism:pageRange")
-  doi_apa <- paste0("https://doi.org/", processed_df$`prism:doi`)
-
-  # create a bibliography entry in APA style for the fetched articles
-  apa_references <- sprintf(
-    "%s (%s). %s. %s, %s(%s)%s. %s",
-    ifelse(is.na(authors_apa) | authors_apa == "", "", authors_apa),
-    ifelse(is.na(pupyear_apa) | pupyear_apa == "", "", pupyear_apa),
-    ifelse(is.na(title_apa) | title_apa == "", "", title_apa),
-    ifelse(is.na(journal_apa) | journal_apa == "", "", journal_apa),
-    ifelse(is.na(volume_apa) | volume_apa == "", "", volume_apa),
-    ifelse(is.na(issue_apa) | issue_apa == "", "", issue_apa),
-    ifelse(is.na(pages_apa) | pages_apa == "", "", paste0(", ", pages_apa)),
-    ifelse(is.na(doi_apa) | doi_apa == "", "", doi_apa)
-  )
-
-  # get the columns that we want to keep (by default vars_to_keep is empty, because we create all relevant columns ourselves)
-  # should you need to change it, you can do so by providing a vector of column names to the function
-  processed_df_final <- processed_df[, which(names(processed_df) %in% vars_to_keep)]
-
-  processed_df_final$journal_issn <- if ("prism:issn" %in% names(processed_df)) {
-    processed_df$`prism:issn`
-  } else {
-    processed_df$`prism:eIssn`
-  }
-  processed_df_final$title <- title_apa
-  processed_df_final$authors <- authors_apa
-  processed_df_final$journal <- journal_apa
-  processed_df_final$year <- pupyear_apa
-  processed_df_final$volume <- volume_apa
-  processed_df_final$issue <- issue_apa
-  processed_df_final$pages <- pages_apa
-  processed_df_final$doi <- processed_df$`prism:doi`
-  processed_df_final$apa_reference <- apa_references
-  processed_df_final$link <- doi_apa
-  processed_df_final$citation_count <- processed_df$`citedby-count`
-  processed_df_final$abstract <- processed_df$`dc:description`
-  processed_df_final$first_author_affiliation <- processed_df$`affiliation.affilname`
-  processed_df_final$first_author_country <- processed_df$`affiliation.affiliation-country`
-  processed_df_final$open_access <- processed_df$`openaccess`
-  processed_df_final$n_authors <- processed_df$`author-count.$`
-
-  # sort by year, volume, issue
-  processed_df_final <- processed_df_final[order(-as.numeric(processed_df_final$year), -as.numeric(processed_df_final$volume), -as.numeric(processed_df_final$issue)), ]
-
-  # return the processed data frame
-  return(processed_df_final)
-}
-
-add_colname_suffix <- function(colnames) {
-  # Initialize an empty vector to hold the new unique names
-  unique_names <- character(length(colnames))
-
-  # Use a named vector to keep track of counts for each unique name
-  name_count <- integer(0)
-
-  for (i in seq_along(colnames)) {
-    name <- colnames[i]
-
-    # Update the count for this name
-    if (!name %in% names(name_count)) {
-      name_count[name] <- 0
-    }
-    name_count[name] <- name_count[name] + 1
-
-    # Create a new unique name using the count as a suffix
-    if (name_count[name] > 1) {
-      new_name <- paste0(name, ".", name_count[name])
-    } else {
-      new_name <- name
-    }
-
-    # Store the new unique name in the result vector
-    unique_names[i] <- new_name
-  }
-
-  # Show the vector with unique names
-  return(unique_names)
-}
-
-# Function to concatenate non-NA authname for each row
-concat_authname <- function(row) {
-  # Omit NA and concatenate
-  authors_unformatted <- paste(na.omit(row), collapse = ", ")
-  authors_formatted <- gsub(" ([A-Z])\\.", ", \\1\\.", authors_unformatted)
-
-  return(authors_formatted)
-}
-
-to_apa_title_case <- function(str) {
-  minor_words <- c(
-    "and", "as", "but", "for", "if", "nor", "or", "so", "yet",
-    "a", "an", "the",
-    "as", "at", "by", "for", "in", "of", "off", "on", "per", "to", "up", "via"
-  )
-
-  # Helper function to capitalize a single word
-  capitalize <- function(word) {
-    first_letter_pos <- regexpr("[a-zA-Z]", word)[1]
-    prefix <- substr(word, 1, first_letter_pos - 1)
-    first_letter <- substr(word, first_letter_pos, first_letter_pos)
-    suffix <- substr(word, first_letter_pos + 1, nchar(word))
-    paste0(prefix, toupper(first_letter), suffix)
-  }
-
-  # Convert to lowercase
-  str <- tolower(str)
-
-  # Split string into words
-  words <- unlist(strsplit(str, " "))
-
-  # Capitalize remaining words based on APA rules
-  words <- unname(sapply(words, function(x) ifelse(x %in% minor_words, x, capitalize(x))))
-
-  # Capitalize the word after a colon
-  after_colon <- grep(": [a-z]", str)
-  if (length(after_colon) > 0) {
-    words[after_colon] <- capitalize(words[after_colon])
-  }
-
-  # Capitalize second part of hyphenated major words and words of four letters or more
-  hyphen_splits <- strsplit(words, "-")
-  hyphen_splits <- lapply(hyphen_splits, function(x) {
-    if (length(x) > 1 || nchar(x[[1]]) >= 4) {
-      x <- capitalize(x)
-    }
-    return(x)
-  })
-  words <- sapply(hyphen_splits, paste, collapse = "-")
-
-  return(paste(words, collapse = " "))
-}
-
-get_column_value <- function(df, column_name) {
-  if (!is.null(df[[column_name]])) {
-    ifelse(is.na(df[[column_name]]), NA, df[[column_name]])
-  } else {
-    NA
-  }
-}
-
-
-fetch_publications <- function(issn, pubyear_start, pubyear_end){
-  
-  query_return <- rscopus::scopus_search(query = paste0("ISSN(", issn, ") AND PUBYEAR > ", (pubyear_start-1), " AND PUBYEAR < ", (pubyear_end+1)),
-                                         view = "STANDARD",
-                                         max_count = 10000,
-                                         count = 200,
-                                         verbose = FALSE,
-                                         wait_time = 1)
-  
-  # convert the queried items to a data frame by calling the queried_items_to_df function from above
-  queried_items_df <- queried_items_to_df(query_return[[1]])
-  # process the queried items by calling the process_queried_items_df function from above
-  processed_item_df <- process_queried_items_df(queried_items_df)
-  
-  return(processed_item_df)
-}
+data_publications_summary_overall |>
+  kable() |>
+  kable_classic(full_width = FALSE)
 
 ```
 
-## Run query - single year and journal
-
-```{r eval=FALSE, include=FALSE}
-
-issn_vector <- read_csv("journal_issns.csv") |>
-  pull(issn)
-
-issn <- issn_vector[1]
-issn <- "1537-4416"
-
-pubyear_start <- 2015
-pubyear_end <- 2025
-
-# Set your Scopus API key
-source("../../secret_vars.R")
-set_api_key(scopus_key)
-
-query_return <-
-  rscopus::scopus_search(query = paste0("ISSN(", issn, ") AND PUBYEAR > ", (pubyear_start-1), " AND PUBYEAR < ", (pubyear_end+1)),
-                         view = "STANDARD",
-                         max_count = 10000,
-                         count = 200,
-                         verbose = FALSE,
-                         wait_time = 1)
-
-# convert the queried items to a data frame by calling the queried_items_to_df function from above
-queried_items_df <- queried_items_to_df(query_return[[1]])
-# process the queried items by calling the process_queried_items_df function from above
-processed_item_df <- process_queried_items_df(queried_items_df)
-# # merge the processed items with the previously processed items
-# if(is.null(processed_df_final)){
-#   processed_df_final <- processed_item_df
-# } else {
-#   processed_df_final <- rbind.fill(processed_df_final, processed_item_df)
-# }
-
-```
-
-## Run query
+## N articles meeting criterion by journal
 
 ```{r}
 
-# get ISSNs
-data_issn <- read_csv("journal_issns.csv")
+data_publications_summary <- data_publications |>
+  drop_na(journal, issn, n_articles_meeting_criterion) |>
+  count(journal, issn, n_articles_meeting_criterion) |>
+  distinct(journal, n_articles_meeting_criterion, n, .keep_all = TRUE) |>
+  pivot_wider(names_from = "n_articles_meeting_criterion",
+              values_from = "n",
+              names_prefix = "n_articles_meeting_criterion_") |>
+  rename(n_meeting_threshold = n_articles_meeting_criterion_TRUE,
+         n_not_meeting_threshold = n_articles_meeting_criterion_FALSE) |>
+  mutate(percent_meeting_threshold = round_half_up(n_meeting_threshold/(n_meeting_threshold + n_not_meeting_threshold)*100, 1)) |>
+  mutate(n_meeting_threshold = ifelse(is.na(n_meeting_threshold), 0, n_meeting_threshold),
+         percent_meeting_threshold = ifelse(is.na(percent_meeting_threshold), 0, percent_meeting_threshold)) |>
+  arrange(desc(percent_meeting_threshold))
 
-# set your Scopus API key
-source("../../secret_vars.R")
-set_api_key(scopus_key)
- 
-
-if(file.exists("data_publications.csv")){
-  
-  data_publications <- read_csv("data_publications.csv")
-  
-} else {
-  
-  # run query
-  data_publications <- data_issn |>
-    mutate(res = pmap(list(issn,
-                           2015,
-                           2025),
-                      possibly(fetch_publications, otherwise = NA))) |>
-    unnest(res) 
-  
-  # save to disk
-  write_csv(data_publications, "data_publications.csv")
-  
-}
+data_publications_summary |>
+  kable() |>
+  kable_classic(full_width = FALSE)
 
 ```
+
+## Proportion of journals with no articles meeting criteria
+
+```{r}
+
+data_publications_summary_2 <- data_publications_summary |>
+  mutate(no_articles_meeting_criterion = percent_meeting_threshold == 0) |>
+  summarize(prop_journals_with_no_articles_meeting_criterion = round_half_up(mean(no_articles_meeting_criterion), 3))
+
+data_publications_summary_2 |>
+  kable() |>
+  kable_classic(full_width = FALSE)
+
+```
+
+# Other stuff dev
+
+- count articles per subfield, count journals per subfield
+- count qualifying articles, journals per subfield (ie: how proportionately represented are the subfields)
+
+TODO
+
+```{r}
+
+# categories_dat <- issn_dat |>
+#   mutate(category = tolower(str_remove(category, "PSYCHOLOGY, ")),
+#          category = ifelse(category == "psychology", "general", category)) |>
+#   select(issn, category, impact_factor_rank)
+# 
+# dat_combined <- data_publications |>
+#   mutate(journal = tolower(journal)) |>
+#   full_join(categories_dat, by = "issn")
+# 
+#  |>
+#   drop_na(journal, issn, n_articles_meeting_criterion) |>
+#   count(journal, issn, n_articles_meeting_criterion) |>
+#   distinct(journal, n_articles_meeting_criterion, n, .keep_all = TRUE) |>
+#   pivot_wider(names_from = "n_articles_meeting_criterion",
+#               values_from = "n",
+#               names_prefix = "n_articles_meeting_criterion_") |>
+#   rename(n_meeting_threshold = n_articles_meeting_criterion_TRUE,
+#          n_not_meeting_threshold = n_articles_meeting_criterion_FALSE) |>
+#   mutate(percent_meeting_threshold = round_half_up(n_meeting_threshold/(n_meeting_threshold + n_not_meeting_threshold)*100, 1)) |>
+#   mutate(n_meeting_threshold = ifelse(is.na(n_meeting_threshold), 0, n_meeting_threshold),
+#          percent_meeting_threshold = ifelse(is.na(percent_meeting_threshold), 0, percent_meeting_threshold)) |>
+#   arrange(desc(percent_meeting_threshold))
+# 
+# data_publications_summary |>
+#   kable() |>
+#   kable_classic(full_width = FALSE)
+
+query_return <- rscopus::scopus_search(query = paste0("ISSN(", "2003-2714", ") AND PUBYEAR > ", (2023-1), " AND PUBYEAR < ", (2024+1)),
+                                       view = "STANDARD",
+                                       max_count = 10000,
+                                       count = 200,
+                                       verbose = FALSE,
+                                       wait_time = 1)
+
+query_return <- rscopus::scopus_search(query = paste0("ISSN(", "2823-9393", ") AND PUBYEAR > ", (2023-1), " AND PUBYEAR < ", (2024+1)),
+                                       view = "STANDARD",
+                                       max_count = 10000,
+                                       count = 200,
+                                       verbose = FALSE,
+                                       wait_time = 1)
+
+```
+
+
+# old
 
 ## Summarise results
 

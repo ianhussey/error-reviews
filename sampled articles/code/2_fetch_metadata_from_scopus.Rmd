@@ -11,13 +11,6 @@ output:
     toc_float: yes
 ---
 
-# TODO
-
-- required_citations_per_year is confusingly named, rename
-
-
-
-
 ```{r, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE, eval = TRUE, include = TRUE, warning = FALSE, message = FALSE)
 ```
@@ -43,9 +36,6 @@ library(purrr)
 library(janitor)
 library(knitr)
 library(kableExtra)
-# library(jsonlite)
-# library(stringr)
-# library(httr)
 
 ```
 
@@ -54,7 +44,9 @@ library(kableExtra)
 ```{r}
 
 # get ISSNs
-issn_vector <- read_csv("../data/journal_issns.csv") |>
+issn_dat <- read_csv("../data/journals/processed_journal_issns.csv") 
+
+issn_vector <- issn_dat |>
   pull(issn)
 
 # Set your Scopus API key
@@ -288,7 +280,7 @@ fetch_publications <- function(issn, pubyear_start, pubyear_end){
            year = as.numeric(as.character(year)),
            year = ifelse(year > 2023, 2023, year)) |>
     mutate(citations_per_year = round_half_up(citation_count / (2024 - year), 0),
-           required_citations_per_year = citations_per_year >= 30) |>
+           n_articles_meeting_criterion = citations_per_year >= 30) |>
     arrange(desc(citations_per_year))
   
   return(res)
@@ -298,14 +290,14 @@ fetch_publications <- function(issn, pubyear_start, pubyear_end){
 
 # Run the query
 
-started 12.38
+(estimated at 1hour 20mins for 1 year)
 
 ```{r}
  
 data_publications <- 
   expand_grid(issn = issn_vector, 
-              pubyear_start = 2023, # 2015 - changed for testing
-              pubyear_end = 2024) |>
+              pubyear_start = 2015, 
+              pubyear_end = 2025) |>
   mutate(res = pmap(list(issn,
                          pubyear_start,
                          pubyear_end),
@@ -313,51 +305,7 @@ data_publications <-
   unnest(res) 
 
 # write to disk
-write_csv(data_publications, "../data/data_publications.csv")
-
-```
-
-# Summary
-
-## N articles meeting criterion
-
-```{r}
-
-data_publications_summary_overall <- data_publications |>
-  drop_na(required_citations_per_year) |>
-  count(required_citations_per_year) |>
-  pivot_wider(names_from = "required_citations_per_year",
-              values_from = "n",
-              names_prefix = "required_citations_per_year_") |>
-  rename(n_meeting_threshold = required_citations_per_year_TRUE,
-         n_not_meeting_threshold = required_citations_per_year_FALSE) |>
-  mutate(percent_meeting_threshold = round_half_up(n_meeting_threshold/(n_meeting_threshold + n_not_meeting_threshold)*100, 1))
-
-data_publications_summary_overall |>
-  kable() |>
-  kable_classic(full_width = FALSE)
-
-required_citations_per_year
-
-```
-
-## N articles meeting criterion by journal
-
-```{r}
-
-data_publications_summary <- data_publications |>
-  drop_na(journal, required_citations_per_year) |>
-  count(journal, required_citations_per_year) |>
-  pivot_wider(names_from = "required_citations_per_year",
-              values_from = "n",
-              names_prefix = "required_citations_per_year_") |>
-  rename(n_meeting_threshold = required_citations_per_year_TRUE,
-         n_not_meeting_threshold = required_citations_per_year_FALSE) |>
-  mutate(percent_meeting_threshold = round_half_up(n_meeting_threshold/(n_meeting_threshold + n_not_meeting_threshold)*100, 1))
-
-data_publications_summary |>
-  kable() |>
-  kable_classic(full_width = FALSE)
+write_csv(data_publications, "../data/articles/data_publications.csv")
 
 ```
 

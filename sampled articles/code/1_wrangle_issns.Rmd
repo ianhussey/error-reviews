@@ -30,29 +30,46 @@ library(janitor)
 # Processing
 
 ```{r}
+
 dat <- bind_rows(
-  read_csv("../data/JCR_psych_1.csv", skip = 2) |> 
-    mutate(rank = row_number(), 
-           source = "psych1"),
-  read_csv("../data/JCR_psych_2.csv", skip = 2) |> 
-    mutate(rank = row_number(), 
-           source = "psych2")
+  read_csv("../data/journals/JCR_psych_1.csv", skip = 2) |> 
+    mutate(source = "psych1"),
+  read_csv("../data/journals/JCR_psych_2.csv", skip = 2) |> 
+    mutate(source = "psych2"),
+  read_csv("../data/journals/manual_additions.csv") |> 
+    mutate(source = "manual additions")
 ) |>
   # wrangling
   janitor::clean_names() |>
+  select(-notes) |>
   mutate(journal_name = tolower(journal_name)) |>
   distinct(journal_name, issn, e_issn, .keep_all = TRUE) |>
   mutate(issn = ifelse(issn == "N/A", NA, issn),
          e_issn = ifelse(e_issn == "N/A", NA, e_issn)) |>
-  # exclude all journals with "review" in the title
+  # exclude all journals with "review" or current opinion in the title
   filter(!str_detect(journal_name, "review")) |>
+  filter(!str_detect(journal_name, "current opinion")) |>
+  # exclude specific well known non-empirical (or mostly non-empirical) journals
+  filter(!journal_name %in% c("psychological bulletin", 
+                              "psychological science in the public interest", 
+                              "perspectives on psychological science",
+                              "behavioral and brain sciences",
+                              "current directions in psychological science",
+                              "trends in cognitive sciences", 
+                              "psychological inquiry",
+                              "american psychologist", # mostly non-empirical
+                              "educational psychologist", # mostly non-empirical
+                              "industrial and organizational psychology-perspectives on science and practice", # mostly non-empirical
+                              "clinical psychology-science and practice")) |>
+  # add IF rank
+  mutate(impact_factor_rank = row_number()) |>
   # reshape
   pivot_longer(cols = c("issn", "e_issn"),
                names_to = "issn_type", 
                values_to = "issn") |>
-  drop_na()
+  drop_na() 
 
-write_csv(dat, "../data/journal_issns.csv")
+write_csv(dat, "../data/journals/processed_journal_issns.csv")
 
 ```
 
