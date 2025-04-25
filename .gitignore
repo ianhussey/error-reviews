@@ -3,3 +3,38 @@
 *.Rhistory
 /old
 secret_vars.R
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019.zip
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Data objects/anti comparisons_dependent trends_051118.csv
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Data objects/countrycodevector.csv
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Data objects/full.demogs.NOZIP_012518.RData
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Data objects/fullsample_alldata_043018.RData
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Data objects/fullsample_timeseries_043018.RData
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Data objects/fullsample_TSvectors_043018.RData
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Data objects/ism comparisons_dependent trends_041318.csv
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Data objects/rights comparisons_dependent trends_051118.csv
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Data objects/timeseries_allattitudes_011918.RData
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Data objects/timeseries_censusweights_012118.RData
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Data objects/TSvectors_2016data_011918.RData
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Data objects/TSvectors_census2016_012218.RData
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Data objects/us_postal_codes.csv
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Instructions for Reproducing Analyses_082418.docx
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Main analyses (R Scripts)/arima_011918.Rmd
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Main analyses (R Scripts)/descriptives_011918.html
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Main analyses (R Scripts)/descriptives_011918.Rmd
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Supplemental analyses (R scripts)/arima_census_012118.R
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Supplemental analyses (R scripts)/arima_cohortgroups_012018.R
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Supplemental analyses (R scripts)/arima_demographicgroups_050118.R
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Supplemental analyses (R scripts)/arima_noveltakers_012118.R
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Supplemental analyses (R scripts)/arima_traintest_012118.R
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Supplemental analyses (R scripts)/arima_unweighted_012018.R
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Supplemental analyses (R scripts)/datacleaning_041218.R
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Supplemental analyses (R scripts)/full sample_analyses_043018.R
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Supplemental analyses (R scripts)/imputation_011918.R
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Supplemental analyses (R scripts)/imputation_census_012118.R
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Supplemental analyses (R scripts)/imputation_fullsample_041218.R
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Supplemental analyses (R scripts)/MRmodels_012118.R
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Supplemental analyses (R scripts)/raking_011918.R
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Supplemental analyses (R scripts)/raking_fullsample_041218.R
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Supplemental analyses (R scripts)/rakingweightingcensus_012118.R
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/charlesworth et al 2019/Supplemental analyses (R scripts)/supplementary_IE analyses_051018.R
+reviews, responses, and recommendations/Charlesworth et al. - 2019 - Patterns of Implicit and Explicit Attitudes/0 original materials/osf.txt
