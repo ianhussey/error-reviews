@@ -1,4 +1,26 @@
-says study 2 is a replication, but a) they didn't see if the same effect as study 1 replicates in the new data, and b) are only partially capable of doing so as they swapped out the anxiety measure for a different one (+ added a few other measures) + the outcome measure for accuracy changed between studies. so its a weak conceptual replication at best, which doesn't try to more directly replciate the original effect where it could.
+# Points of note
+
+In this section, I'll draw your attention to things that stood out to me when reading the review. To help me write the decision and recommendation, I would particularly like you to respond to these points in your author response, should you choose to submit one.
+
+- The original article states that Study 2 is a replication of Study 1, but a different analytic approach was used. When the reviewer applied Study 1's analytic appraoch to Study 2 and vice versa, different results were found suggesting that a close replication of the analytic strategy does not replicate the effects.
+- The reviewer estimated the reliability of the M-Ratio measure and found it to be quite low especially in Study 3 (Study 1 = .64, Study 2 = .19). This raises some concerns about measurement given the generality of the claims. 
+- This point about measurement raises the more general point that the article appears to make two claims, one explicitly (that psychiatric symptom dimensions are associated with dissociable shifts in metacognition but not task performance) and one implicitly (that there is a robust factor structure among psychiatric symptom dimensions). This latter implicit claim is quite far reaching, give that the structure of psychopathology is hotly debated. This may represent a key auxiliary hypothesis. 
+- The reviewer did not raise this point themselves, but I would also ask you to consider whether any claims in the article rely on the interpretation of non-significant effects as evidence of absence (see Aczel et al. 2018 10.1177/2515245918773742).
+
+# Non errors
+
+Given most researchers experience with doing pre-publication peer review, we have noticed a general tendency to overgeneralise the skill of writing pre-publication peer reviews to writing error reviews. We do our best to instruct reviewers about the scope of error reviews, but some things still slip through. In this section, I'll mention some things that the reviewer raised which I can tell you ahead of time that the full report will label as not errors, which you therefore do not need to respond to, and go beyond the scope of an error review.
+
+- Reliance on M-turk populations: not itself an error.
+  - Although the reviewer's point about generalisability of the claims is worth considering. While the reviewer made efforts to compare the sample means to known scale means and concluded that there were no known substantial deviations, I think this risks being overly simplistic (ie ignores variation and distribution) and would not rely too heavily on it. 
+
+
+
+
+
+# notes to self
+
+
 
 the factors used in study 2 are derived from the data in an exploratory fashion and then used to test differences between them in a confirmatory fashion, without validating these superordinate factors. The concept and specifics of superordinate psychopathology factors are contentious, and this purely data driven approach may suffer conceptually or in terms of replicability. Risk of overfitting here.
 
