@@ -1,18 +1,22 @@
 ---
 title: "Fetching Paper and Journal metadata from Scopus"
-author: "Ian Hussey"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
-output: 
+author: "Ian Hussey & Jamie Cummins"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
   html_document:
-    theme: cerulean
-    highlight: tango
-    toc: true
-    toc_depth: 3
-    toc_float: true
-    self_contained: true
     code_folding: hide
-    code_download: true
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
 ---
+
+# TODO
+
+- required_citations_per_year is confusingly named, rename
+
+
+
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE, eval = TRUE, include = TRUE, warning = FALSE, message = FALSE)
@@ -22,19 +26,12 @@ knitr::opts_chunk$set(echo = TRUE, eval = TRUE, include = TRUE, warning = FALSE,
 
 Code adapted from [Julian Quandt's repo](https://github.com/julianquandt/zcurve_autorep).
 
-# About
+# Remember
 
-This file demonstrates how to use the Scopus Api to collect all papers from a journal or list of journals. 
-Moreover, it shows how to collect the metadata of the journals themselves.
+- Must be connected to VPN! Connect to UniBe VPN (via FortiClient) before running.
+- Must have a scopus API secret key, which is not on the github. See "secret_key blank example.R".
 
-<div style="border: 1px solid #999; border-radius: 5px; padding: 20px; margin-top: 20px; background-color: #ffffe0;">
-  <h3 style="color: #0056b3; margin-top: 0;">The code in this document</h3>
-  In this HTML version of the document, the code chunks that are just doing background work or intermediate steps are hidden to make it more readable. If you want to see the code, you can click on the "Show" buttons on the right hand side of the text. To run the code in R yourself, download the .Rmd file by clicking on the "Code" button on the top right of the document and then selecting "Download Rmd".
-</div>
-
-# Improved example
-
-Remember to connect to UniBe VPN (via FortiClient) before running
+# Dependencies
 
 ```{r}
 
@@ -50,13 +47,25 @@ library(kableExtra)
 # library(stringr)
 # library(httr)
 
-issn_vector <- read_csv("journal_issns.csv") |>
+```
+
+# Setup
+
+```{r}
+
+# get ISSNs
+issn_vector <- read_csv("../data/journal_issns.csv") |>
   pull(issn)
 
 # Set your Scopus API key
 source("../../secret_vars.R")
 set_api_key(scopus_key)
 
+```
+
+# Functions for query
+
+```{r}
 
 # create a data frame of the list of queried items
 queried_items_to_df <- function(query_return) {
@@ -284,10 +293,18 @@ fetch_publications <- function(issn, pubyear_start, pubyear_end){
   
   return(res)
 }
+
+```
+
+# Run the query
+
+started 12.38
+
+```{r}
  
 data_publications <- 
   expand_grid(issn = issn_vector, 
-              pubyear_start = 2023, # 2015 
+              pubyear_start = 2023, # 2015 - changed for testing
               pubyear_end = 2024) |>
   mutate(res = pmap(list(issn,
                          pubyear_start,
@@ -295,20 +312,16 @@ data_publications <-
                     possibly(fetch_publications, otherwise = NA))) |>
   unnest(res) 
 
-data_publications_summary <- data_publications |>
-  drop_na(journal, required_citations_per_year) |>
-  count(journal, required_citations_per_year) |>
-  pivot_wider(names_from = "required_citations_per_year",
-              values_from = "n",
-              names_prefix = "required_citations_per_year_") |>
-  rename(n_meeting_threshold = required_citations_per_year_TRUE,
-         n_not_meeting_threshold = required_citations_per_year_FALSE) |>
-  mutate(percent_meeting_threshold = round_half_up(n_meeting_threshold/(n_meeting_threshold + n_not_meeting_threshold)*100, 1))
+# write to disk
+write_csv(data_publications, "../data/data_publications.csv")
 
-data_publications_summary |>
-  kable() |>
-  kable_classic(full_width = FALSE)
+```
 
+# Summary
+
+## N articles meeting criterion
+
+```{r}
 
 data_publications_summary_overall <- data_publications |>
   drop_na(required_citations_per_year) |>
@@ -324,7 +337,35 @@ data_publications_summary_overall |>
   kable() |>
   kable_classic(full_width = FALSE)
 
+required_citations_per_year
+
 ```
 
+## N articles meeting criterion by journal
 
+```{r}
+
+data_publications_summary <- data_publications |>
+  drop_na(journal, required_citations_per_year) |>
+  count(journal, required_citations_per_year) |>
+  pivot_wider(names_from = "required_citations_per_year",
+              values_from = "n",
+              names_prefix = "required_citations_per_year_") |>
+  rename(n_meeting_threshold = required_citations_per_year_TRUE,
+         n_not_meeting_threshold = required_citations_per_year_FALSE) |>
+  mutate(percent_meeting_threshold = round_half_up(n_meeting_threshold/(n_meeting_threshold + n_not_meeting_threshold)*100, 1))
+
+data_publications_summary |>
+  kable() |>
+  kable_classic(full_width = FALSE)
+
+```
+
+# Session info
+
+```{r}
+
+sessionInfo()
+
+```
 

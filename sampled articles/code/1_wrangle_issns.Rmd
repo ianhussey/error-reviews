@@ -1,0 +1,65 @@
+---
+title: "Wrangle ISSNs"
+author: "Ian Hussey & Jamie Cummins"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  html_document:
+    code_folding: hide
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE, include = TRUE, warning = FALSE, message = FALSE)
+```
+
+# Depencencies
+
+```{r}
+
+library(dplyr)
+library(readr)
+library(tidyr)
+library(stringr)
+library(janitor)
+
+```
+
+# Processing
+
+```{r}
+dat <- bind_rows(
+  read_csv("../data/JCR_psych_1.csv", skip = 2) |> 
+    mutate(rank = row_number(), 
+           source = "psych1"),
+  read_csv("../data/JCR_psych_2.csv", skip = 2) |> 
+    mutate(rank = row_number(), 
+           source = "psych2")
+) |>
+  # wrangling
+  janitor::clean_names() |>
+  mutate(journal_name = tolower(journal_name)) |>
+  distinct(journal_name, issn, e_issn, .keep_all = TRUE) |>
+  mutate(issn = ifelse(issn == "N/A", NA, issn),
+         e_issn = ifelse(e_issn == "N/A", NA, e_issn)) |>
+  # exclude all journals with "review" in the title
+  filter(!str_detect(journal_name, "review")) |>
+  # reshape
+  pivot_longer(cols = c("issn", "e_issn"),
+               names_to = "issn_type", 
+               values_to = "issn") |>
+  drop_na()
+
+write_csv(dat, "../data/journal_issns.csv")
+
+```
+
+# Session info
+
+```{r}
+
+sessionInfo()
+
+```
