@@ -1,0 +1,122 @@
+---
+title: "Analyze citation data from the crossref dataset"
+author: "Ian Hussey"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    code_folding: hide
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
+    self_contained: true
+    code_download: true
+---
+
+# Data source
+
+Data was taken from the March 2025 Public Data File from Crossref: https://academictorrents.com/details/e0eda0104902d61c025e27e4846b66491d4c9f98 
+
+The file is about 200GB so is too large to include the the public github, but can be freely downloaded from the torrent. Place the jsonl.gz files in the data/raw/ directory, there is no need to decompress them.
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE, include = TRUE, warning = FALSE, message = FALSE)
+
+# disable scientific notation
+options(scipen = 999) 
+```
+
+# Dependencies
+
+```{r}
+
+library(tidyverse)
+library(janitor)
+library(knitr)
+library(kableExtra)
+
+```
+
+# Descriptives
+
+```{r}
+
+# check saved data loads
+data_processed <- read_csv("../data/processed/data_processed.csv") |>
+  filter(more_than_30_citations_per_year)
+
+n_articles_meeting_citation_criterion <- data_processed |>
+  count() |>
+  pull(n)
+
+data_logs <- read_csv("../data/processed/data_log.csv")
+
+n_files_processed <- data_logs |>
+  count() |>
+  pull(n)
+
+n_files_to_be_processed <- list.files(path = "../data/raw/", pattern = "\\.jsonl\\.gz$", full.names = TRUE) |>
+  length()
+
+n_articles_meeting_other_criteria <- data_logs |>
+  summarize(total_n = sum(n_articles)) |>
+  pull(total_n)
+
+percent_articles_meeting_citation_criterion <- n_articles_meeting_citation_criterion / n_articles_meeting_other_criteria * 100
+
+```
+
+.jsonl files to be processed: `r n_files_to_be_processed`
+
+.jsonl files processed: `r n_files_processed`
+
+Articles in psych journals published after 2015: `r n_articles_meeting_other_criteria`
+
+Articles meeting citations per year criterion: `r n_articles_meeting_citation_criterion`
+
+Percent of articles meeting the journals and year criteria that also met the 30 citations per year criterion: `r janitor::round_half_up(percent_articles_meeting_citation_criterion, 2)`%
+
+```{r}
+
+citations_total <- data_logs |>
+  summarize(citations_total = sum(citations_total)) |>
+  pull(citations_total)
+
+citations_articles_meeting_citation_criterion <- data_processed |>
+  summarize(citations_sample = sum(citations)) |>
+  pull(citations_sample)
+
+```
+
+Citations of all psych articles since 2015: `r citations_total`
+
+Citations of our subset of articles with 30+ citations per year: `r citations_articles_meeting_citation_criterion`
+
+Percent of all citations made up by our subset: `r round_half_up(citations_articles_meeting_citation_criterion/citations_total*100, 1)`%
+
+As such, our sample of just `r janitor::round_half_up(percent_articles_meeting_citation_criterion, 2)`% of articles represented `r round_half_up(citations_articles_meeting_citation_criterion/citations_total*100, 1)`% of all citations.
+
+```{r}
+
+data_processed |>
+  count(journal) |>
+  arrange(desc(n)) |>
+  kable() |>
+  kable_classic(full_width = FALSE)
+
+data_processed |>
+  count(category) |>
+  arrange(desc(n)) |>
+  kable() |>
+  kable_classic(full_width = FALSE)
+
+```
+
+# Session info
+
+```{r}
+
+sessionInfo()
+
+```
+

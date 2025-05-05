@@ -1,6 +1,5 @@
-journal_name,category,source,impact_factor_rank,issn_type,issn
+journal_name,category,source,impact_factor_rank,ISSN_type,ISSN
 nature human behaviour,"PSYCHOLOGY, EXPERIMENTAL",psych1,1,issn,2397-3374
-nature human behaviour,"PSYCHOLOGY, EXPERIMENTAL",psych1,1,e_issn,2397-3374
 psychotherapy and psychosomatics,PSYCHOLOGY,psych1,2,issn,0033-3190
 psychotherapy and psychosomatics,PSYCHOLOGY,psych1,2,e_issn,1423-0348
 advances in methods and practices in psychological science,PSYCHOLOGY,psych1,3,issn,2515-2459
@@ -81,7 +80,6 @@ behavioural public policy,"PSYCHOLOGY, APPLIED",psych1,40,issn,2398-063X
 behavioural public policy,"PSYCHOLOGY, APPLIED",psych1,40,e_issn,2398-0648
 asian journal of social health and behavior,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,41,e_issn,2772-4204
 computers in human behavior reports,"PSYCHOLOGY, EXPERIMENTAL",psych1,42,issn,2451-9588
-computers in human behavior reports,"PSYCHOLOGY, EXPERIMENTAL",psych1,42,e_issn,2451-9588
 journal of occupational and organizational psychology,"PSYCHOLOGY, APPLIED",psych1,43,issn,0963-1798
 journal of occupational and organizational psychology,"PSYCHOLOGY, APPLIED",psych1,43,e_issn,2044-8325
 psychological science,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,44,issn,0956-7976
@@ -192,7 +190,6 @@ psychosocial intervention,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,97,e_issn,2173-
 psychology of sexual orientation and gender diversity,PSYCHOLOGY,psych1,98,issn,2329-0382
 psychology of sexual orientation and gender diversity,PSYCHOLOGY,psych1,98,e_issn,2329-0390
 neurobiology of language,"PSYCHOLOGY, EXPERIMENTAL",psych1,99,issn,2641-4368
-neurobiology of language,"PSYCHOLOGY, EXPERIMENTAL",psych1,99,e_issn,2641-4368
 npj science of learning,"PSYCHOLOGY, EXPERIMENTAL",psych1,100,e_issn,2056-7936
 annals of behavioral medicine,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,101,issn,0883-6612
 annals of behavioral medicine,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,101,e_issn,1532-4796
@@ -208,7 +205,6 @@ assessment,"PSYCHOLOGY, CLINICAL",psych1,106,e_issn,1552-3489
 transportation research part f-traffic psychology and behaviour,"PSYCHOLOGY, APPLIED",psych1,107,issn,1369-8478
 transportation research part f-traffic psychology and behaviour,"PSYCHOLOGY, APPLIED",psych1,107,e_issn,1873-5517
 journal of eating disorders,"PSYCHOLOGY, CLINICAL",psych1,108,issn,2050-2974
-journal of eating disorders,"PSYCHOLOGY, CLINICAL",psych1,108,e_issn,2050-2974
 media psychology,"PSYCHOLOGY, APPLIED",psych1,109,issn,1521-3269
 media psychology,"PSYCHOLOGY, APPLIED",psych1,109,e_issn,1532-785X
 child abuse & neglect,"PSYCHOLOGY, SOCIAL",psych1,110,issn,0145-2134
@@ -224,7 +220,6 @@ organizational behavior and human decision processes,"PSYCHOLOGY, APPLIED",psych
 behavior therapy,"PSYCHOLOGY, CLINICAL",psych1,115,issn,0005-7894
 behavior therapy,"PSYCHOLOGY, CLINICAL",psych1,115,e_issn,1878-1888
 cognitive research-principles and implications,"PSYCHOLOGY, EXPERIMENTAL",psych1,116,issn,2365-7464
-cognitive research-principles and implications,"PSYCHOLOGY, EXPERIMENTAL",psych1,116,e_issn,2365-7464
 journal of positive psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,117,issn,1743-9760
 journal of positive psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,117,e_issn,1743-9779
 american journal of community psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,118,issn,0091-0562
@@ -284,7 +279,6 @@ development and psychopathology,"PSYCHOLOGY, DEVELOPMENTAL",psych1,144,e_issn,14
 british journal of educational psychology,"PSYCHOLOGY, EDUCATIONAL",psych1,145,issn,0007-0998
 british journal of educational psychology,"PSYCHOLOGY, EDUCATIONAL",psych1,145,e_issn,2044-8279
 collabra-psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,146,issn,2474-7394
-collabra-psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,146,e_issn,2474-7394
 journal of psychopathology and clinical science,"PSYCHOLOGY, CLINICAL",psych1,147,issn,2769-7541
 journal of psychopathology and clinical science,"PSYCHOLOGY, CLINICAL",psych1,147,e_issn,2769-755X
 developmental psychology,"PSYCHOLOGY, DEVELOPMENTAL",psych1,148,issn,0012-1649
@@ -310,7 +304,6 @@ journal of managerial psychology,"PSYCHOLOGY, APPLIED",psych1,157,e_issn,1758-77
 organizational dynamics,"PSYCHOLOGY, APPLIED",psych1,158,issn,0090-2616
 organizational dynamics,"PSYCHOLOGY, APPLIED",psych1,158,e_issn,1873-3530
 research in organizational behavior,"PSYCHOLOGY, APPLIED",psych1,159,issn,0191-3085
-research in organizational behavior,"PSYCHOLOGY, APPLIED",psych1,159,e_issn,0191-3085
 gifted child quarterly,"PSYCHOLOGY, EDUCATIONAL",psych1,160,issn,0016-9862
 gifted child quarterly,"PSYCHOLOGY, EDUCATIONAL",psych1,160,e_issn,1934-9041
 journal of the learning sciences,"PSYCHOLOGY, EDUCATIONAL",psych1,161,issn,1050-8406
@@ -355,7 +348,6 @@ psychophysiology,PSYCHOLOGY,psych1,180,e_issn,1469-8986
 research on child and adolescent psychopathology,"PSYCHOLOGY, CLINICAL",psych1,181,issn,2730-7166
 research on child and adolescent psychopathology,"PSYCHOLOGY, CLINICAL",psych1,181,e_issn,2730-7174
 performance enhancement & health,"PSYCHOLOGY, APPLIED",psych1,182,issn,2211-2669
-performance enhancement & health,"PSYCHOLOGY, APPLIED",psych1,182,e_issn,2211-2669
 psychosomatic medicine,PSYCHOLOGY,psych1,183,issn,0033-3174
 psychosomatic medicine,PSYCHOLOGY,psych1,183,e_issn,1534-7796
 journal of applied behavior analysis,"PSYCHOLOGY, CLINICAL",psych1,184,issn,0021-8855
@@ -379,7 +371,6 @@ journal of creative behavior,"PSYCHOLOGY, EDUCATIONAL",psych1,192,e_issn,2162-60
 european journal of social psychology,"PSYCHOLOGY, SOCIAL",psych1,193,issn,0046-2772
 european journal of social psychology,"PSYCHOLOGY, SOCIAL",psych1,193,e_issn,1099-0992
 psychology research and behavior management,"PSYCHOLOGY, CLINICAL",psych1,194,issn,1179-1578
-psychology research and behavior management,"PSYCHOLOGY, CLINICAL",psych1,194,e_issn,1179-1578
 cognition,"PSYCHOLOGY, EXPERIMENTAL",psych1,195,issn,0010-0277
 cognition,"PSYCHOLOGY, EXPERIMENTAL",psych1,195,e_issn,1873-7838
 journal of intelligence,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,196,e_issn,2079-3200
@@ -392,7 +383,6 @@ biological psychology,PSYCHOLOGY,psych1,199,e_issn,1873-6246
 journal of personality assessment,"PSYCHOLOGY, CLINICAL",psych1,200,issn,0022-3891
 journal of personality assessment,"PSYCHOLOGY, CLINICAL",psych1,200,e_issn,1532-7752
 journal of pacific rim psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,201,issn,1834-4909
-journal of pacific rim psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,201,e_issn,1834-4909
 infant and child development,"PSYCHOLOGY, DEVELOPMENTAL",psych1,202,issn,1522-7227
 infant and child development,"PSYCHOLOGY, DEVELOPMENTAL",psych1,202,e_issn,1522-7219
 psychology of aesthetics creativity and the arts,"PSYCHOLOGY, EXPERIMENTAL",psych1,203,issn,1931-3896
@@ -433,9 +423,7 @@ american journal of drug and alcohol abuse,"PSYCHOLOGY, CLINICAL",psych1,220,e_i
 journal of community & applied social psychology,"PSYCHOLOGY, SOCIAL",psych1,221,issn,1052-9284
 journal of community & applied social psychology,"PSYCHOLOGY, SOCIAL",psych1,221,e_issn,1099-1298
 journal of the academy of consultation-liaison psychiatry,PSYCHOLOGY,psych1,222,issn,2667-2960
-journal of the academy of consultation-liaison psychiatry,PSYCHOLOGY,psych1,222,e_issn,2667-2960
 psychologica belgica,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,223,issn,0033-2879
-psychologica belgica,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,223,e_issn,0033-2879
 studies in educational evaluation,"PSYCHOLOGY, EDUCATIONAL",psych1,224,issn,0191-491X
 instructional science,"PSYCHOLOGY, EDUCATIONAL",psych1,225,issn,0020-4277
 instructional science,"PSYCHOLOGY, EDUCATIONAL",psych1,225,e_issn,1573-1952
@@ -444,7 +432,6 @@ family process,"PSYCHOLOGY, CLINICAL",psych1,226,e_issn,1545-5300
 journal of interpersonal violence,"PSYCHOLOGY, APPLIED",psych1,227,issn,0886-2605
 journal of interpersonal violence,"PSYCHOLOGY, APPLIED",psych1,227,e_issn,1552-6518
 frontiers in psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,228,issn,1664-1078
-frontiers in psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,228,e_issn,1664-1078
 emerging adulthood,"PSYCHOLOGY, DEVELOPMENTAL",psych1,229,issn,2167-6968
 emerging adulthood,"PSYCHOLOGY, DEVELOPMENTAL",psych1,229,e_issn,2167-6984
 journal of research in personality,"PSYCHOLOGY, SOCIAL",psych1,230,issn,0092-6566
@@ -478,7 +465,6 @@ bilingualism-language and cognition,"PSYCHOLOGY, EXPERIMENTAL",psych1,243,e_issn
 psychology of women quarterly,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,244,issn,0361-6843
 psychology of women quarterly,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,244,e_issn,1471-6402
 autism & developmental language impairments,"PSYCHOLOGY, DEVELOPMENTAL",psych1,245,issn,2396-9415
-autism & developmental language impairments,"PSYCHOLOGY, DEVELOPMENTAL",psych1,245,e_issn,2396-9415
 journal of black psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,246,issn,0095-7984
 journal of black psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,246,e_issn,1552-4558
 journal of diversity in higher education,"PSYCHOLOGY, EDUCATIONAL",psych1,247,issn,1938-8926
@@ -519,7 +505,6 @@ applied psycholinguistics,"PSYCHOLOGY, EXPERIMENTAL",psych1,264,e_issn,1469-1817
 asian american journal of psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,265,issn,1948-1985
 asian american journal of psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,265,e_issn,1948-1993
 cyberpsychology-journal of psychosocial research on cyberspace,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,266,issn,1802-7962
-cyberpsychology-journal of psychosocial research on cyberspace,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,266,e_issn,1802-7962
 discourse & society,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,267,issn,0957-9265
 discourse & society,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,267,e_issn,1460-3624
 journal of homosexuality,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,268,issn,0091-8369
@@ -541,7 +526,6 @@ journal of gambling studies,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,275,e_issn,15
 psychology & health,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,276,issn,0887-0446
 psychology & health,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,276,e_issn,1476-8321
 health psychology and behavioral medicine,"PSYCHOLOGY, CLINICAL",psych1,277,issn,2164-2850
-health psychology and behavioral medicine,"PSYCHOLOGY, CLINICAL",psych1,277,e_issn,2164-2850
 journal of traumatic stress,"PSYCHOLOGY, CLINICAL",psych1,278,issn,0894-9867
 journal of traumatic stress,"PSYCHOLOGY, CLINICAL",psych1,278,e_issn,1573-6598
 eating behaviors,"PSYCHOLOGY, CLINICAL",psych1,279,issn,1471-0153
@@ -551,9 +535,7 @@ psychology & sexuality,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,280,e_issn,1941-99
 revista iberoamericana de psicologia y salud,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,281,issn,2171-2069
 revista iberoamericana de psicologia y salud,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,281,e_issn,1989-9246
 frontiers in human neuroscience,PSYCHOLOGY,psych1,282,issn,1662-5161
-frontiers in human neuroscience,PSYCHOLOGY,psych1,282,e_issn,1662-5161
 i-perception,"PSYCHOLOGY, EXPERIMENTAL",psych1,283,issn,2041-6695
-i-perception,"PSYCHOLOGY, EXPERIMENTAL",psych1,283,e_issn,2041-6695
 psychology public policy and law,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,284,issn,1076-8971
 psychology public policy and law,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,284,e_issn,1939-1528
 neuropsychobiology,PSYCHOLOGY,psych1,285,issn,0302-282X
@@ -594,9 +576,7 @@ new ideas in psychology,"PSYCHOLOGY, EXPERIMENTAL",psych1,302,e_issn,1873-3522
 journal of trauma & dissociation,"PSYCHOLOGY, CLINICAL",psych1,303,issn,1529-9732
 journal of trauma & dissociation,"PSYCHOLOGY, CLINICAL",psych1,303,e_issn,1529-9740
 schizophrenia research-cognition,"PSYCHOLOGY, EXPERIMENTAL",psych1,304,issn,2215-0013
-schizophrenia research-cognition,"PSYCHOLOGY, EXPERIMENTAL",psych1,304,e_issn,2215-0013
 biopsychosocial medicine,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,305,issn,1751-0759
-biopsychosocial medicine,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,305,e_issn,1751-0759
 clinica y salud,"PSYCHOLOGY, CLINICAL",psych1,306,issn,1130-5274
 clinica y salud,"PSYCHOLOGY, CLINICAL",psych1,306,e_issn,2174-0550
 journal of theoretical social psychology,"PSYCHOLOGY, SOCIAL",psych1,307,e_issn,2475-0387
@@ -687,7 +667,6 @@ transgender health,"PSYCHOLOGY, CLINICAL",psych1,350,e_issn,2380-193X
 applied cognitive psychology,"PSYCHOLOGY, EXPERIMENTAL",psych1,351,issn,0888-4080
 applied cognitive psychology,"PSYCHOLOGY, EXPERIMENTAL",psych1,351,e_issn,1099-0720
 cognitive behaviour therapist,"PSYCHOLOGY, CLINICAL",psych1,352,issn,1754-470X
-cognitive behaviour therapist,"PSYCHOLOGY, CLINICAL",psych1,352,e_issn,1754-470X
 affective science,PSYCHOLOGY,psych1,353,issn,2662-2041
 affective science,PSYCHOLOGY,psych1,353,e_issn,2662-205X
 journal of reproductive and infant psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,354,issn,0264-6838
@@ -703,7 +682,6 @@ zeitschrift fur psychologie-journal of psychology,"PSYCHOLOGY, MULTIDISCIPLINARY
 australian psychologist,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,359,issn,0005-0067
 australian psychologist,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,359,e_issn,1742-9544
 ecopsychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,360,issn,1942-9347
-ecopsychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,360,e_issn,1942-9347
 journal of neuropsychology,PSYCHOLOGY,psych1,361,issn,1748-6645
 journal of neuropsychology,PSYCHOLOGY,psych1,361,e_issn,1748-6653
 ergonomics,PSYCHOLOGY,psych1,362,issn,0014-0139
@@ -715,7 +693,6 @@ translational issues in psychological science,"PSYCHOLOGY, MULTIDISCIPLINARY",ps
 journal of general psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,365,issn,0022-1309
 journal of general psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,365,e_issn,1940-0888
 judgment and decision making,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,366,issn,1930-2975
-judgment and decision making,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,366,e_issn,1930-2975
 psychology learning and teaching-plat,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,367,issn,1475-7257
 psychology learning and teaching-plat,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,367,e_issn,2057-3022
 learning & behavior,"PSYCHOLOGY, BIOLOGICAL",psych1,368,issn,1543-4494
@@ -723,7 +700,6 @@ learning & behavior,"PSYCHOLOGY, BIOLOGICAL",psych1,368,e_issn,1543-4508
 south african journal of psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,369,issn,0081-2463
 south african journal of psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,369,e_issn,2078-208X
 europes journal of psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,370,issn,1841-0413
-europes journal of psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,370,e_issn,1841-0413
 ethics & behavior,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,371,issn,1050-8422
 ethics & behavior,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,371,e_issn,1532-7019
 scandinavian journal of psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,372,issn,0036-5564
@@ -737,7 +713,6 @@ journal of media psychology-theories methods and applications,"PSYCHOLOGY, MULTI
 crisis-the journal of crisis intervention and suicide prevention,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,376,issn,0227-5910
 crisis-the journal of crisis intervention and suicide prevention,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,376,e_issn,2151-2396
 european journal of psychology open,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,377,issn,2673-8627
-european journal of psychology open,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,377,e_issn,2673-8627
 psychological reports,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,378,issn,0033-2941
 psychological reports,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,378,e_issn,1558-691X
 psicologia educativa,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,379,issn,1135-755X
@@ -745,7 +720,6 @@ psicologia educativa,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,379,e_issn,2174-0526
 journal of genetic psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,380,issn,0022-1325
 journal of genetic psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,380,e_issn,1940-0896
 cogent psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,381,issn,2331-1908
-cogent psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,381,e_issn,2331-1908
 behavior and social issues,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,382,issn,1064-9506
 behavior and social issues,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,382,e_issn,2376-6786
 journal of neuroscience psychology and economics,"PSYCHOLOGY, MULTIDISCIPLINARY",psych1,383,issn,1937-321X
@@ -815,9 +789,7 @@ behavioural and cognitive psychotherapy,"PSYCHOLOGY, CLINICAL",psych2,414,e_issn
 international journal of clinical and experimental hypnosis,"PSYCHOLOGY, CLINICAL",psych2,415,issn,0020-7144
 international journal of clinical and experimental hypnosis,"PSYCHOLOGY, CLINICAL",psych2,415,e_issn,1744-5183
 health psychology research,"PSYCHOLOGY, CLINICAL",psych2,416,issn,2420-8124
-health psychology research,"PSYCHOLOGY, CLINICAL",psych2,416,e_issn,2420-8124
 european journal of trauma & dissociation,"PSYCHOLOGY, CLINICAL",psych2,417,issn,2468-7499
-european journal of trauma & dissociation,"PSYCHOLOGY, CLINICAL",psych2,417,e_issn,2468-7499
 dyslexia,"PSYCHOLOGY, EDUCATIONAL",psych2,418,issn,1076-9242
 dyslexia,"PSYCHOLOGY, EDUCATIONAL",psych2,418,e_issn,1099-0909
 rehabilitation psychology,"PSYCHOLOGY, CLINICAL",psych2,419,issn,0090-5550
@@ -843,7 +815,6 @@ indian journal of psychological medicine,PSYCHOLOGY,psych2,428,e_issn,0975-1564
 journal of trust research,"PSYCHOLOGY, SOCIAL",psych2,429,issn,2151-5581
 journal of trust research,"PSYCHOLOGY, SOCIAL",psych2,429,e_issn,2151-559X
 american indian and alaska native mental health research,"PSYCHOLOGY, CLINICAL",psych2,430,issn,1533-7731
-american indian and alaska native mental health research,"PSYCHOLOGY, CLINICAL",psych2,430,e_issn,1533-7731
 journal of college student psychotherapy,"PSYCHOLOGY, APPLIED",psych2,431,issn,8756-8225
 journal of college student psychotherapy,"PSYCHOLOGY, APPLIED",psych2,431,e_issn,1540-4730
 journal of gay & lesbian mental health,"PSYCHOLOGY, CLINICAL",psych2,432,issn,1935-9705
@@ -869,7 +840,6 @@ child care health and development,"PSYCHOLOGY, DEVELOPMENTAL",psych2,441,e_issn,
 journal of adult development,"PSYCHOLOGY, DEVELOPMENTAL",psych2,442,issn,1068-0667
 journal of adult development,"PSYCHOLOGY, DEVELOPMENTAL",psych2,442,e_issn,1573-3440
 mediterranean journal of clinical psychology,"PSYCHOLOGY, CLINICAL",psych2,443,issn,2282-1619
-mediterranean journal of clinical psychology,"PSYCHOLOGY, CLINICAL",psych2,443,e_issn,2282-1619
 psychology in the schools,"PSYCHOLOGY, EDUCATIONAL",psych2,444,issn,0033-3085
 psychology in the schools,"PSYCHOLOGY, EDUCATIONAL",psych2,444,e_issn,1520-6807
 journal of college student development,"PSYCHOLOGY, APPLIED",psych2,445,issn,0897-5264
@@ -924,7 +894,6 @@ neuropsychological rehabilitation,PSYCHOLOGY,psych2,469,e_issn,1464-0694
 attention perception & psychophysics,PSYCHOLOGY,psych2,470,issn,1943-3921
 attention perception & psychophysics,PSYCHOLOGY,psych2,470,e_issn,1943-393X
 journal of behavioral and cognitive therapy,"PSYCHOLOGY, CLINICAL",psych2,471,issn,2589-9791
-journal of behavioral and cognitive therapy,"PSYCHOLOGY, CLINICAL",psych2,471,e_issn,2589-9791
 journal of rational-emotive and cognitive-behavior therapy,"PSYCHOLOGY, CLINICAL",psych2,472,issn,0894-9085
 journal of rational-emotive and cognitive-behavior therapy,"PSYCHOLOGY, CLINICAL",psych2,472,e_issn,1573-6563
 child & youth care forum,"PSYCHOLOGY, DEVELOPMENTAL",psych2,473,issn,1053-1890
@@ -949,7 +918,6 @@ language cognition and neuroscience,"PSYCHOLOGY, EXPERIMENTAL",psych2,482,e_issn
 counselling psychology quarterly,"PSYCHOLOGY, APPLIED",psych2,483,issn,0951-5070
 counselling psychology quarterly,"PSYCHOLOGY, APPLIED",psych2,483,e_issn,1469-3674
 research in psychotherapy-psychopathology process and outcome,"PSYCHOLOGY, CLINICAL",psych2,484,issn,2239-8031
-research in psychotherapy-psychopathology process and outcome,"PSYCHOLOGY, CLINICAL",psych2,484,e_issn,2239-8031
 social justice research,"PSYCHOLOGY, SOCIAL",psych2,485,issn,0885-7466
 social justice research,"PSYCHOLOGY, SOCIAL",psych2,485,e_issn,1573-6725
 journal of aggression maltreatment & trauma,"PSYCHOLOGY, CLINICAL",psych2,486,issn,1092-6771
@@ -1138,7 +1106,6 @@ american journal of clinical hypnosis,"PSYCHOLOGY, CLINICAL",psych2,579,e_issn,2
 clinical practice in pediatric psychology,"PSYCHOLOGY, CLINICAL",psych2,580,issn,2169-4826
 clinical practice in pediatric psychology,"PSYCHOLOGY, CLINICAL",psych2,580,e_issn,2169-4834
 adaptive human behavior and physiology,"PSYCHOLOGY, BIOLOGICAL",psych2,581,issn,2198-7335
-adaptive human behavior and physiology,"PSYCHOLOGY, BIOLOGICAL",psych2,581,e_issn,2198-7335
 european journal of education and psychology,"PSYCHOLOGY, EDUCATIONAL",psych2,582,issn,1888-8992
 european journal of education and psychology,"PSYCHOLOGY, EDUCATIONAL",psych2,582,e_issn,1989-2209
 hispanic journal of behavioral sciences,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,583,issn,0739-9863
@@ -1186,7 +1153,6 @@ theory & psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,603,e_issn,1461-7447
 journal for the study of education and development,"PSYCHOLOGY, DEVELOPMENTAL",psych2,604,issn,0210-3702
 journal for the study of education and development,"PSYCHOLOGY, DEVELOPMENTAL",psych2,604,e_issn,1578-4126
 evolutionary psychology,"PSYCHOLOGY, EXPERIMENTAL",psych2,605,issn,1474-7049
-evolutionary psychology,"PSYCHOLOGY, EXPERIMENTAL",psych2,605,e_issn,1474-7049
 canadian journal of experimental psychology-revue canadienne de psychologie experimentale,"PSYCHOLOGY, EXPERIMENTAL",psych2,606,issn,1196-1961
 canadian journal of experimental psychology-revue canadienne de psychologie experimentale,"PSYCHOLOGY, EXPERIMENTAL",psych2,606,e_issn,1878-7290
 military psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,607,issn,0899-5605
@@ -1196,15 +1162,12 @@ experimental psychology,"PSYCHOLOGY, EXPERIMENTAL",psych2,608,e_issn,2190-5142
 journal of motor behavior,PSYCHOLOGY,psych2,609,issn,0022-2895
 journal of motor behavior,PSYCHOLOGY,psych2,609,e_issn,1940-1027
 advances in autism,"PSYCHOLOGY, DEVELOPMENTAL",psych2,610,issn,2056-3868
-advances in autism,"PSYCHOLOGY, DEVELOPMENTAL",psych2,610,e_issn,2056-3868
 international journal of educational psychology,"PSYCHOLOGY, EDUCATIONAL",psych2,611,issn,2014-3591
-international journal of educational psychology,"PSYCHOLOGY, EDUCATIONAL",psych2,611,e_issn,2014-3591
 integrative psychological and behavioral science,"PSYCHOLOGY, BIOLOGICAL",psych2,612,issn,1932-4502
 integrative psychological and behavioral science,"PSYCHOLOGY, BIOLOGICAL",psych2,612,e_issn,1936-3567
 psychology in russia-state of the art,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,613,issn,2074-6857
 psychology in russia-state of the art,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,613,e_issn,2307-2202
 revista latinoamericana de psicologia,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,614,issn,0120-0534
-revista latinoamericana de psicologia,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,614,e_issn,0120-0534
 behavioral interventions,"PSYCHOLOGY, CLINICAL",psych2,615,issn,1072-0847
 behavioral interventions,"PSYCHOLOGY, CLINICAL",psych2,615,e_issn,1099-078X
 behavioral sciences & the law,"PSYCHOLOGY, APPLIED",psych2,616,issn,0735-3936
@@ -1248,7 +1211,6 @@ social behavior and personality,"PSYCHOLOGY, SOCIAL",psych2,635,e_issn,1179-6391
 zeitschrift fur arbeits-und organisationspsychologie,"PSYCHOLOGY, APPLIED",psych2,636,issn,0932-4089
 zeitschrift fur arbeits-und organisationspsychologie,"PSYCHOLOGY, APPLIED",psych2,636,e_issn,2190-6270
 advances in cognitive psychology,"PSYCHOLOGY, EXPERIMENTAL",psych2,637,issn,1895-1171
-advances in cognitive psychology,"PSYCHOLOGY, EXPERIMENTAL",psych2,637,e_issn,1895-1171
 british journal of guidance & counselling,"PSYCHOLOGY, APPLIED",psych2,638,issn,0306-9885
 british journal of guidance & counselling,"PSYCHOLOGY, APPLIED",psych2,638,e_issn,1469-3534
 current issues in personality psychology,"PSYCHOLOGY, SOCIAL",psych2,639,issn,2353-4192
@@ -1289,7 +1251,6 @@ american journal of psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,656,e_issn
 journal of psychophysiology,"PSYCHOLOGY, BIOLOGICAL",psych2,657,issn,0269-8803
 journal of psychophysiology,"PSYCHOLOGY, BIOLOGICAL",psych2,657,e_issn,2151-2124
 international journal of evidence based coaching & mentoring,"PSYCHOLOGY, APPLIED",psych2,658,issn,1741-8305
-international journal of evidence based coaching & mentoring,"PSYCHOLOGY, APPLIED",psych2,658,e_issn,1741-8305
 journal of pediatric neuropsychology,PSYCHOLOGY,psych2,659,issn,2199-2681
 journal of pediatric neuropsychology,PSYCHOLOGY,psych2,659,e_issn,2199-2673
 archive for the psychology of religion-archiv fur religionspsychologie,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,660,issn,0084-6724
@@ -1297,7 +1258,6 @@ archive for the psychology of religion-archiv fur religionspsychologie,"PSYCHOLO
 pastoral psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,661,issn,0031-2789
 pastoral psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,661,e_issn,1573-6679
 revista de psicologia clinica con ninos y adolescentes,"PSYCHOLOGY, DEVELOPMENTAL",psych2,662,issn,2340-8340
-revista de psicologia clinica con ninos y adolescentes,"PSYCHOLOGY, DEVELOPMENTAL",psych2,662,e_issn,2340-8340
 dreaming,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,663,issn,1053-0797
 dreaming,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,663,e_issn,1573-3351
 journal of educational and psychological consultation,"PSYCHOLOGY, EDUCATIONAL",psych2,664,issn,1047-4412
@@ -1319,7 +1279,6 @@ zeitschrift fur sexualforschung,"PSYCHOLOGY, CLINICAL",psych2,671,e_issn,1438-94
 geropsych-the journal of gerontopsychology and geriatric psychiatry,"PSYCHOLOGY, DEVELOPMENTAL",psych2,672,issn,1662-9647
 geropsych-the journal of gerontopsychology and geriatric psychiatry,"PSYCHOLOGY, DEVELOPMENTAL",psych2,672,e_issn,1662-971X
 terapia psicologica,"PSYCHOLOGY, CLINICAL",psych2,673,issn,0718-4808
-terapia psicologica,"PSYCHOLOGY, CLINICAL",psych2,673,e_issn,0718-4808
 japanese psychological research,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,674,issn,0021-5368
 japanese psychological research,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,674,e_issn,1468-5884
 journal of evidence-based psychotherapies,"PSYCHOLOGY, CLINICAL",psych2,675,issn,2360-0853
@@ -1338,7 +1297,6 @@ journal of creativity in mental health,"PSYCHOLOGY, CLINICAL",psych2,681,e_issn,
 studies in psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,682,issn,0210-9395
 studies in psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,682,e_issn,1579-3699
 interdisciplinaria,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,683,issn,1668-7027
-interdisciplinaria,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,683,e_issn,1668-7027
 teaching of psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,684,issn,0098-6283
 teaching of psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,684,e_issn,1532-8023
 psikhologicheskaya nauka i obrazovanie-psychological science and education,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,685,issn,1814-2052
@@ -1361,15 +1319,12 @@ psychotherapie psychosomatik medizinische psychologie,"PSYCHOLOGY, CLINICAL",psy
 revista de psicologia del deporte,"PSYCHOLOGY, APPLIED",psych2,694,issn,1132-239X
 revista de psicologia del deporte,"PSYCHOLOGY, APPLIED",psych2,694,e_issn,1988-5636
 behavioral psychology-psicologia conductual,"PSYCHOLOGY, CLINICAL",psych2,695,issn,1132-9483
-behavioral psychology-psicologia conductual,"PSYCHOLOGY, CLINICAL",psych2,695,e_issn,1132-9483
 counseling and values,"PSYCHOLOGY, APPLIED",psych2,696,issn,0160-7960
 counseling and values,"PSYCHOLOGY, APPLIED",psych2,696,e_issn,2161-007X
 journal of psychological and educational research,"PSYCHOLOGY, EDUCATIONAL",psych2,697,issn,2247-1537
-journal of psychological and educational research,"PSYCHOLOGY, EDUCATIONAL",psych2,697,e_issn,2247-1537
 neurocase,PSYCHOLOGY,psych2,698,issn,1355-4794
 neurocase,PSYCHOLOGY,psych2,698,e_issn,1465-3656
 revista espanola de orientacion y psicopedagogia,"PSYCHOLOGY, APPLIED",psych2,699,issn,1989-7448
-revista espanola de orientacion y psicopedagogia,"PSYCHOLOGY, APPLIED",psych2,699,e_issn,1989-7448
 international journal of psychology and psychological therapy,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,700,issn,1577-7057
 international journal of psychology and psychological therapy,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,700,e_issn,1989-2780
 neuropsychological trends,PSYCHOLOGY,psych2,701,issn,1970-321X
@@ -1379,7 +1334,6 @@ acta colombiana de psicologia,"PSYCHOLOGY, CLINICAL",psych2,702,e_issn,1909-9711
 verhaltenstherapie,"PSYCHOLOGY, CLINICAL",psych2,703,issn,1016-6262
 verhaltenstherapie,"PSYCHOLOGY, CLINICAL",psych2,703,e_issn,1423-0402
 psychologist,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,704,issn,0952-8229
-psychologist,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,704,e_issn,0952-8229
 psychomusicology,"PSYCHOLOGY, EXPERIMENTAL",psych2,705,issn,0275-3987
 psychomusicology,"PSYCHOLOGY, EXPERIMENTAL",psych2,705,e_issn,2162-1535
 ethos,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,706,issn,0091-2131
@@ -1401,7 +1355,6 @@ sexual health & compulsivity,"PSYCHOLOGY, CLINICAL",psych2,713,e_issn,2692-9996
 journal of cognitive psychotherapy,"PSYCHOLOGY, CLINICAL",psych2,714,issn,0889-8391
 journal of cognitive psychotherapy,"PSYCHOLOGY, CLINICAL",psych2,714,e_issn,1938-887X
 revista iberoamericana de diagnostico y evaluacion-e avaliacao psicologica,"PSYCHOLOGY, CLINICAL",psych2,715,issn,2183-6051
-revista iberoamericana de diagnostico y evaluacion-e avaliacao psicologica,"PSYCHOLOGY, CLINICAL",psych2,715,e_issn,2183-6051
 diagnostica,"PSYCHOLOGY, CLINICAL",psych2,716,issn,0012-1924
 diagnostica,"PSYCHOLOGY, CLINICAL",psych2,716,e_issn,2190-622X
 international journal of sport psychology,PSYCHOLOGY,psych2,717,issn,0047-0767
@@ -1417,9 +1370,7 @@ anuario de psicologia,PSYCHOLOGY,psych2,722,e_issn,1988-5253
 psychologica,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,723,issn,0871-4657
 psychologica,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,723,e_issn,1647-8606
 international journal of emotional education,"PSYCHOLOGY, EDUCATIONAL",psych2,724,issn,2073-7629
-international journal of emotional education,"PSYCHOLOGY, EDUCATIONAL",psych2,724,e_issn,2073-7629
 journal of youth development,"PSYCHOLOGY, DEVELOPMENTAL",psych2,725,issn,2325-4017
-journal of youth development,"PSYCHOLOGY, DEVELOPMENTAL",psych2,725,e_issn,2325-4017
 psicologia sociale,"PSYCHOLOGY, SOCIAL",psych2,726,issn,1827-2517
 psicologia sociale,"PSYCHOLOGY, SOCIAL",psych2,726,e_issn,2612-2006
 negotiation and conflict management research,"PSYCHOLOGY, APPLIED",psych2,727,issn,1750-4708
@@ -1431,7 +1382,6 @@ annee psychologique,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,729,e_issn,1955-2580
 psychologia,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,730,issn,0033-2852
 psychologia,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,730,e_issn,1347-5916
 journal of measurement and evaluation in education and psychology-epod,"PSYCHOLOGY, EDUCATIONAL",psych2,731,issn,1309-6575
-journal of measurement and evaluation in education and psychology-epod,"PSYCHOLOGY, EDUCATIONAL",psych2,731,e_issn,1309-6575
 ansiedad y estres-anxiety and stress,"PSYCHOLOGY, CLINICAL",psych2,732,issn,1134-7937
 ansiedad y estres-anxiety and stress,"PSYCHOLOGY, CLINICAL",psych2,732,e_issn,2174-0437
 journal of muslim mental health,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,733,issn,1556-4908
@@ -1451,14 +1401,12 @@ ceskoslovenska psychologie,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,739,e_issn,180
 primenjena psihologija,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,740,issn,1821-0147
 primenjena psihologija,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,740,e_issn,2334-7287
 psychology-journal of the higher school of economics,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,741,issn,1813-8918
-psychology-journal of the higher school of economics,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,741,e_issn,1813-8918
 zeitschrift fur neuropsychologie,PSYCHOLOGY,psych2,742,issn,1016-264X
 zeitschrift fur neuropsychologie,PSYCHOLOGY,psych2,742,e_issn,1664-2902
 psikhologicheskii zhurnal,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,743,issn,0205-9592
 revista iberoamericana de psicologia del ejercicio y el deporte,"PSYCHOLOGY, APPLIED",psych2,744,issn,1886-8576
 revista iberoamericana de psicologia del ejercicio y el deporte,"PSYCHOLOGY, APPLIED",psych2,744,e_issn,2340-7700
 revista argentina de ciencias del comportamiento,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,745,issn,1852-4206
-revista argentina de ciencias del comportamiento,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,745,e_issn,1852-4206
 international journal of applied psychoanalytic studies,"PSYCHOLOGY, PSYCHOANALYSIS",psych2,746,issn,1742-3341
 international journal of applied psychoanalytic studies,"PSYCHOLOGY, PSYCHOANALYSIS",psych2,746,e_issn,1556-9187
 journal of psychology and theology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,747,issn,0091-6471
@@ -1478,7 +1426,6 @@ canadian journal of career development,"PSYCHOLOGY, APPLIED",psych2,753,e_issn,1
 psihologijske teme,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,754,issn,1332-0742
 psihologijske teme,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,754,e_issn,1849-0395
 psychology and law,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,755,issn,2222-5196
-psychology and law,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,755,e_issn,2222-5196
 zeitschrift fur sportpsychologie,"PSYCHOLOGY, APPLIED",psych2,756,issn,1612-5010
 zeitschrift fur sportpsychologie,"PSYCHOLOGY, APPLIED",psych2,756,e_issn,2190-6300
 eksperimentalnaya psikhologiya,"PSYCHOLOGY, EXPERIMENTAL",psych2,757,issn,2072-7593
@@ -1488,11 +1435,9 @@ international journal of systemic therapy,"PSYCHOLOGY, CLINICAL",psych2,758,e_is
 praxis der kinderpsychologie und kinderpsychiatrie,"PSYCHOLOGY, DEVELOPMENTAL",psych2,759,issn,0032-7034
 praxis der kinderpsychologie und kinderpsychiatrie,"PSYCHOLOGY, DEVELOPMENTAL",psych2,759,e_issn,2196-8225
 psychologie francaise,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,760,issn,0033-2984
-psychologie francaise,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,760,e_issn,0033-2984
 journal of child psychotherapy,"PSYCHOLOGY, CLINICAL",psych2,761,issn,0075-417X
 journal of child psychotherapy,"PSYCHOLOGY, CLINICAL",psych2,761,e_issn,1469-9370
 organizatsionnaya psikologiya,"PSYCHOLOGY, APPLIED",psych2,762,issn,2312-5942
-organizatsionnaya psikologiya,"PSYCHOLOGY, APPLIED",psych2,762,e_issn,2312-5942
 psicoterapia e scienze umane,"PSYCHOLOGY, CLINICAL",psych2,763,issn,0394-2864
 psicoterapia e scienze umane,"PSYCHOLOGY, CLINICAL",psych2,763,e_issn,1972-5043
 accion psicologica,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,764,issn,1578-908X
@@ -1509,11 +1454,9 @@ quaderns de psicologia,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,769,e_issn,2014-45
 geriatrie et psychologie neuropsychiatrie du vieillissement,PSYCHOLOGY,psych2,770,issn,2115-8789
 geriatrie et psychologie neuropsychiatrie du vieillissement,PSYCHOLOGY,psych2,770,e_issn,2115-7863
 current research in social psychology,"PSYCHOLOGY, SOCIAL",psych2,771,issn,1088-7423
-current research in social psychology,"PSYCHOLOGY, SOCIAL",psych2,771,e_issn,1088-7423
 organisational and social dynamics,"PSYCHOLOGY, APPLIED",psych2,772,issn,1474-2780
 organisational and social dynamics,"PSYCHOLOGY, APPLIED",psych2,772,e_issn,2044-3765
 psicologia clinica dello sviluppo,"PSYCHOLOGY, DEVELOPMENTAL",psych2,773,issn,1824-078X
-psicologia clinica dello sviluppo,"PSYCHOLOGY, DEVELOPMENTAL",psych2,773,e_issn,1824-078X
 psychoanalysis and history,"PSYCHOLOGY, PSYCHOANALYSIS",psych2,774,issn,1460-8235
 psychoanalysis and history,"PSYCHOLOGY, PSYCHOANALYSIS",psych2,774,e_issn,1755-201X
 journal of child and adolescent mental health,"PSYCHOLOGY, CLINICAL",psych2,775,issn,1728-0583
@@ -1523,13 +1466,11 @@ psychodynamic practice,"PSYCHOLOGY, CLINICAL",psych2,776,e_issn,1475-3626
 gedrag & organisatie,"PSYCHOLOGY, APPLIED",psych2,777,issn,0921-5077
 gedrag & organisatie,"PSYCHOLOGY, APPLIED",psych2,777,e_issn,1875-7235
 clinical psychology and special education,"PSYCHOLOGY, CLINICAL",psych2,778,issn,2304-0394
-clinical psychology and special education,"PSYCHOLOGY, CLINICAL",psych2,778,e_issn,2304-0394
 revista de psicoterapia,"PSYCHOLOGY, CLINICAL",psych2,779,issn,1130-5142
 revista de psicoterapia,"PSYCHOLOGY, CLINICAL",psych2,779,e_issn,2339-7950
 journal of educational cultural and psychological studies,"PSYCHOLOGY, EDUCATIONAL",psych2,780,issn,2037-7932
 journal of educational cultural and psychological studies,"PSYCHOLOGY, EDUCATIONAL",psych2,780,e_issn,2037-7924
 psychologie in erziehung und unterricht,"PSYCHOLOGY, EDUCATIONAL",psych2,781,issn,0342-183X
-psychologie in erziehung und unterricht,"PSYCHOLOGY, EDUCATIONAL",psych2,781,e_issn,0342-183X
 revista de psicologia pucp,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,782,issn,0254-9247
 revista de psicologia pucp,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,782,e_issn,2223-3733
 sibirskiy psikhologicheskiy zhurnal-siberian journal of psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,783,issn,1726-7080
@@ -1537,14 +1478,12 @@ sibirskiy psikhologicheskiy zhurnal-siberian journal of psychology,"PSYCHOLOGY, 
 journal of cognitive education and psychology,"PSYCHOLOGY, EDUCATIONAL",psych2,784,issn,1945-8959
 journal of cognitive education and psychology,"PSYCHOLOGY, EDUCATIONAL",psych2,784,e_issn,1810-7621
 psychologie du travail et des organisations,"PSYCHOLOGY, APPLIED",psych2,785,issn,1420-2530
-psychologie du travail et des organisations,"PSYCHOLOGY, APPLIED",psych2,785,e_issn,1420-2530
 revista costarricense de psicologia,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,786,issn,0257-1439
 revista costarricense de psicologia,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,786,e_issn,1659-2913
 revista de historia de la psicologia,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,787,issn,0211-0040
 revista de historia de la psicologia,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,787,e_issn,2445-0928
 universitas psychologica,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,788,issn,1657-9267
 cuadernos de neuropsicologia-panamerican journal of neuropsychology,"PSYCHOLOGY, BIOLOGICAL",psych2,789,issn,0718-4123
-cuadernos de neuropsicologia-panamerican journal of neuropsychology,"PSYCHOLOGY, BIOLOGICAL",psych2,789,e_issn,0718-4123
 eureka-revista cientifica de psicologia,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,790,issn,2218-0559
 eureka-revista cientifica de psicologia,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,790,e_issn,2220-9026
 forum der psychoanalyse,"PSYCHOLOGY, PSYCHOANALYSIS",psych2,791,issn,0178-7667
@@ -1553,7 +1492,6 @@ psyche-zeitschrift fur psychoanalyse und ihre anwendungen,"PSYCHOLOGY, PSYCHOANA
 rivista internazionale di filosofia e psicologia,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,793,issn,2039-4667
 rivista internazionale di filosofia e psicologia,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,793,e_issn,2239-2629
 journal of psychosocial studies,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,794,issn,1478-6737
-journal of psychosocial studies,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,794,e_issn,1478-6737
 studies in psychology-psikoloji calismalari dergisi,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,795,issn,1304-4680
 studies in psychology-psikoloji calismalari dergisi,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,795,e_issn,2602-2982
 actualidades en psicologia,PSYCHOLOGY,psych2,796,issn,0258-6444
@@ -1561,17 +1499,13 @@ actualidades en psicologia,PSYCHOLOGY,psych2,796,e_issn,2215-3535
 asia pacific journal of counselling and psychotherapy,"PSYCHOLOGY, CLINICAL",psych2,797,issn,2150-7686
 asia pacific journal of counselling and psychotherapy,"PSYCHOLOGY, CLINICAL",psych2,797,e_issn,2150-7708
 suicidology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,798,issn,2224-1264
-suicidology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,798,e_issn,2224-1264
 revista ces psicologia,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,799,issn,2011-3080
-revista ces psicologia,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,799,e_issn,2011-3080
 voprosy psikhologii,"PSYCHOLOGY, EDUCATIONAL",psych2,800,issn,0042-8841
-voprosy psikhologii,"PSYCHOLOGY, EDUCATIONAL",psych2,800,e_issn,0042-8841
 avances en psicologia latinoamericana,PSYCHOLOGY,psych2,801,issn,1794-4724
 avances en psicologia latinoamericana,PSYCHOLOGY,psych2,801,e_issn,2145-4515
 gruppenpsychotherapie und gruppendynamik,"PSYCHOLOGY, CLINICAL",psych2,802,issn,0017-4947
 gruppenpsychotherapie und gruppendynamik,"PSYCHOLOGY, CLINICAL",psych2,802,e_issn,2196-7989
 turk psikoloji dergisi,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,803,issn,1300-4433
-turk psikoloji dergisi,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,803,e_issn,1300-4433
 pensando psicologia,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,804,issn,1900-3099
 pensando psicologia,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,804,e_issn,2382-3984
 zeitschrift fuer individualpsychologie,"PSYCHOLOGY, PSYCHOANALYSIS",psych2,805,issn,0342-393X
@@ -1585,32 +1519,23 @@ new zealand journal of psychology,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,808,e_i
 enfance,"PSYCHOLOGY, DEVELOPMENTAL",psych2,809,issn,0013-7545
 enfance,"PSYCHOLOGY, DEVELOPMENTAL",psych2,809,e_issn,1969-6981
 psicologia conocimiento y sociedad,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,810,issn,1688-7026
-psicologia conocimiento y sociedad,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,810,e_issn,1688-7026
 psycho-oncologie,PSYCHOLOGY,psych2,811,issn,1778-3798
 psycho-oncologie,PSYCHOLOGY,psych2,811,e_issn,1778-381X
 diversitas-perspectivas en psicologia,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,812,issn,1794-9998
 diversitas-perspectivas en psicologia,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,812,e_issn,2256-3067
 arquivos brasileros de psicologia,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,813,issn,1809-5267
-arquivos brasileros de psicologia,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,813,e_issn,1809-5267
 calidad de vida y salud,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,814,issn,1850-6216
-calidad de vida y salud,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,814,e_issn,1850-6216
 international journal of integrative psychotherapy,"PSYCHOLOGY, CLINICAL",psych2,815,issn,2156-9703
-international journal of integrative psychotherapy,"PSYCHOLOGY, CLINICAL",psych2,815,e_issn,2156-9703
 desde el jardin de freud-revista de psicoanalisis,"PSYCHOLOGY, PSYCHOANALYSIS",psych2,816,issn,1657-3986
 desde el jardin de freud-revista de psicoanalisis,"PSYCHOLOGY, PSYCHOANALYSIS",psych2,816,e_issn,2256-5477
 filigrane-revue de psychanalyse,"PSYCHOLOGY, PSYCHOANALYSIS",psych2,817,issn,1192-1412
 filigrane-revue de psychanalyse,"PSYCHOLOGY, PSYCHOANALYSIS",psych2,817,e_issn,1911-4656
 ecos-estudos contemporaneos da subjetividade,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,818,issn,2237-941X
-ecos-estudos contemporaneos da subjetividade,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,818,e_issn,2237-941X
 indian journal of psychological science,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,819,issn,0976-9218
-indian journal of psychological science,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,819,e_issn,0976-9218
 revista chilena de neuropsicologia,"PSYCHOLOGY, BIOLOGICAL",psych2,820,issn,0718-4913
-revista chilena de neuropsicologia,"PSYCHOLOGY, BIOLOGICAL",psych2,820,e_issn,0718-4913
 rivista di psicologia dell emergenza e dell assistenza umanitaria,"PSYCHOLOGY, CLINICAL",psych2,821,issn,2280-9120
-rivista di psicologia dell emergenza e dell assistenza umanitaria,"PSYCHOLOGY, CLINICAL",psych2,821,e_issn,2280-9120
 psyart journal-online journal for the psychological study of the arts,"PSYCHOLOGY, MULTIDISCIPLINARY",psych2,822,e_issn,1088-5870
 revista clinica contemporanea,"PSYCHOLOGY, CLINICAL",psych2,823,issn,1989-9912
-revista clinica contemporanea,"PSYCHOLOGY, CLINICAL",psych2,823,e_issn,1989-9912
 journal of open psychology data,PSYCHOLOGY,manual additions,824,issn,2050-9863
 meta-psychology,PSYCHOLOGY,manual additions,825,issn,2003-2714
 pci registered reports,PSYCHOLOGY,manual additions,826,issn,2823-9393

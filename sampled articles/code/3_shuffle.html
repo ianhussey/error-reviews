@@ -9,11 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Ian Hussey &amp; Jamie Cummins" />
+<meta name="author" content="Ian Hussey" />
 
-<meta name="date" content="2025-04-25" />
 
-<title>Wrangle ISSNs</title>
+<title>Shuffle file order</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -1372,6 +1371,19 @@ window.initializeCodeFolding = function(show) {
 
 }
 </script>
+<script>
+window.initializeSourceEmbed = function(filename) {
+  $("#rmd-download-source").click(function() {
+    var src = $("#rmd-source-code").html();
+    var a = document.createElement('a');
+    a.href = "data:text/x-r-markdown;base64," + src;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  });
+};
+</script>
 
 <style type="text/css">
 code{white-space: pre-wrap;}
@@ -1492,6 +1504,11 @@ margin-right: -30px;
 </script>
 
 
+<style type="text/css">
+#rmd-source-code {
+display: none;
+}
+</style>
 
 
 
@@ -1657,67 +1674,42 @@ border-radius: 0px;
 <ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
 </ul>
 </div>
 
 
 
-<h1 class="title toc-ignore">Wrangle ISSNs</h1>
-<h4 class="author">Ian Hussey &amp; Jamie Cummins</h4>
-<h4 class="date">25 April 2025</h4>
+<h1 class="title toc-ignore">Shuffle file order</h1>
+<h4 class="author">Ian Hussey</h4>
+<h4 class="date">05 May, 2025</h4>
 
 </div>
 
 
-<div id="depencencies" class="section level1">
-<h1>Depencencies</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">library</span>(janitor)</span></code></pre></div>
+<div id="data-source" class="section level1">
+<h1>Data source</h1>
+<p>Data was taken from the March 2025 Public Data File from Crossref: <a href="https://academictorrents.com/details/e0eda0104902d61c025e27e4846b66491d4c9f98" class="uri">https://academictorrents.com/details/e0eda0104902d61c025e27e4846b66491d4c9f98</a></p>
+<p>The file is about 200GB so is too large to include the the public
+github, but can be freely downloaded from the torrent. Place the
+jsonl.gz files in the data/raw/ directory, there is no need to
+decompress them.</p>
 </div>
-<div id="processing" class="section level1">
-<h1>Processing</h1>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="fu">read_csv</span>(<span class="st">&quot;../data/journals/JCR_psych_1.csv&quot;</span>, <span class="at">skip =</span> <span class="dv">2</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">source =</span> <span class="st">&quot;psych1&quot;</span>),</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="fu">read_csv</span>(<span class="st">&quot;../data/journals/JCR_psych_2.csv&quot;</span>, <span class="at">skip =</span> <span class="dv">2</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">source =</span> <span class="st">&quot;psych2&quot;</span>),</span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="fu">read_csv</span>(<span class="st">&quot;../data/journals/manual_additions.csv&quot;</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">source =</span> <span class="st">&quot;manual additions&quot;</span>)</span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>  <span class="co"># wrangling</span></span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">|&gt;</span></span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>notes) <span class="sc">|&gt;</span></span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">journal_name =</span> <span class="fu">tolower</span>(journal_name)) <span class="sc">|&gt;</span></span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>  <span class="fu">distinct</span>(journal_name, issn, e_issn, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">issn =</span> <span class="fu">ifelse</span>(issn <span class="sc">==</span> <span class="st">&quot;N/A&quot;</span>, <span class="cn">NA</span>, issn),</span>
-<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>         <span class="at">e_issn =</span> <span class="fu">ifelse</span>(e_issn <span class="sc">==</span> <span class="st">&quot;N/A&quot;</span>, <span class="cn">NA</span>, e_issn)) <span class="sc">|&gt;</span></span>
-<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>  <span class="co"># exclude all journals with &quot;review&quot; or current opinion in the title</span></span>
-<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">str_detect</span>(journal_name, <span class="st">&quot;review&quot;</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">str_detect</span>(journal_name, <span class="st">&quot;current opinion&quot;</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>  <span class="co"># exclude specific well known non-empirical (or mostly non-empirical) journals</span></span>
-<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>journal_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;psychological bulletin&quot;</span>, </span>
-<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>                              <span class="st">&quot;psychological science in the public interest&quot;</span>, </span>
-<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>                              <span class="st">&quot;perspectives on psychological science&quot;</span>,</span>
-<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>                              <span class="st">&quot;behavioral and brain sciences&quot;</span>,</span>
-<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>                              <span class="st">&quot;current directions in psychological science&quot;</span>,</span>
-<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>                              <span class="st">&quot;trends in cognitive sciences&quot;</span>, </span>
-<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>                              <span class="st">&quot;psychological inquiry&quot;</span>,</span>
-<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>                              <span class="st">&quot;american psychologist&quot;</span>, <span class="co"># mostly non-empirical</span></span>
-<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>                              <span class="st">&quot;educational psychologist&quot;</span>, <span class="co"># mostly non-empirical</span></span>
-<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>                              <span class="st">&quot;industrial and organizational psychology-perspectives on science and practice&quot;</span>, <span class="co"># mostly non-empirical</span></span>
-<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a>                              <span class="st">&quot;clinical psychology-science and practice&quot;</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a>  <span class="co"># add IF rank</span></span>
-<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">impact_factor_rank =</span> <span class="fu">row_number</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a>  <span class="co"># reshape</span></span>
-<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(<span class="st">&quot;issn&quot;</span>, <span class="st">&quot;e_issn&quot;</span>),</span>
-<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;issn_type&quot;</span>, </span>
-<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;issn&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a>  <span class="fu">drop_na</span>() </span>
-<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a></span>
-<span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a><span class="fu">write_csv</span>(dat, <span class="st">&quot;../data/journals/processed_journal_issns.csv&quot;</span>)</span></code></pre></div>
+<div id="dependencies" class="section level1">
+<h1>Dependencies</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+</div>
+<div id="shuffle-article-order" class="section level1">
+<h1>Shuffle article order</h1>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>data_processed_subset <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;../data/processed/data_processed.csv&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="fu">filter</span>(more_than_30_citations_per_year)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>data_processed_subset <span class="sc">|&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="fu">nrow</span>(data_processed_subset)) <span class="sc">|&gt;</span> <span class="co"># shuffle rows</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">&quot;../data/processed/data_processed_more_than_30_citations_per_year_shuffled.csv&quot;</span>)</span></code></pre></div>
 </div>
 <div id="session-info" class="section level1">
 <h1>Session info</h1>
@@ -1740,22 +1732,25 @@ border-radius: 0px;
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] janitor_2.2.1 stringr_1.5.1 tidyr_1.3.1   readr_2.1.5   dplyr_1.1.4  
+##  [1] lubridate_1.9.4 forcats_1.0.0   stringr_1.5.1   dplyr_1.1.4    
+##  [5] purrr_1.0.4     readr_2.1.5     tidyr_1.3.1     tibble_3.2.1   
+##  [9] ggplot2_3.5.2   tidyverse_2.0.0
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] bit_4.6.0         jsonlite_1.8.9    crayon_1.5.3      compiler_4.3.3   
-##  [5] tidyselect_1.2.1  parallel_4.3.3    snakecase_0.11.1  jquerylib_0.1.4  
-##  [9] yaml_2.3.10       fastmap_1.2.0     R6_2.6.1          generics_0.1.3   
-## [13] knitr_1.49        tibble_3.2.1      lubridate_1.9.4   bslib_0.8.0      
+##  [1] bit_4.6.0         gtable_0.3.6      jsonlite_1.8.9    crayon_1.5.3     
+##  [5] compiler_4.3.3    tidyselect_1.2.1  parallel_4.3.3    jquerylib_0.1.4  
+##  [9] scales_1.3.0      yaml_2.3.10       fastmap_1.2.0     R6_2.6.1         
+## [13] generics_0.1.3    knitr_1.49        munsell_0.5.1     bslib_0.8.0      
 ## [17] pillar_1.10.2     tzdb_0.5.0        rlang_1.1.6       cachem_1.1.0     
 ## [21] stringi_1.8.7     xfun_0.49         sass_0.4.9        bit64_4.6.0-1    
 ## [25] timechange_0.3.0  cli_3.6.4         withr_3.0.2       magrittr_2.0.3   
-## [29] digest_0.6.37     vroom_1.6.5       rstudioapi_0.17.1 hms_1.1.3        
-## [33] lifecycle_1.0.4   vctrs_0.6.5       evaluate_1.0.1    glue_1.8.0       
-## [37] rmarkdown_2.29    purrr_1.0.4       tools_4.3.3       pkgconfig_2.0.3  
-## [41] htmltools_0.5.8.1</code></pre>
+## [29] digest_0.6.37     grid_4.3.3        vroom_1.6.5       rstudioapi_0.17.1
+## [33] hms_1.1.3         lifecycle_1.0.4   vctrs_0.6.5       evaluate_1.0.1   
+## [37] glue_1.8.0        colorspace_2.1-1  rmarkdown_2.29    tools_4.3.3      
+## [41] pkgconfig_2.0.3   htmltools_0.5.8.1</code></pre>
 </div>
 
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiU2h1ZmZsZSBmaWxlIG9yZGVyIgphdXRob3I6ICJJYW4gSHVzc2V5IgpkYXRlOiAiYHIgZm9ybWF0KFN5cy50aW1lKCksICclZCAlQiwgJVknKWAiCm91dHB1dDoKICBodG1sX2RvY3VtZW50OgogICAgY29kZV9mb2xkaW5nOiBoaWRlCiAgICBoaWdobGlnaHQ6IGhhZGRvY2sKICAgIHRoZW1lOiBmbGF0bHkKICAgIHRvYzogeWVzCiAgICB0b2NfZmxvYXQ6IHllcwogICAgc2VsZl9jb250YWluZWQ6IHRydWUKICAgIGNvZGVfZG93bmxvYWQ6IHRydWUKLS0tCgojIERhdGEgc291cmNlCgpEYXRhIHdhcyB0YWtlbiBmcm9tIHRoZSBNYXJjaCAyMDI1IFB1YmxpYyBEYXRhIEZpbGUgZnJvbSBDcm9zc3JlZjogaHR0cHM6Ly9hY2FkZW1pY3RvcnJlbnRzLmNvbS9kZXRhaWxzL2UwZWRhMDEwNDkwMmQ2MWMwMjVlMjdlNDg0NmI2NjQ5MWQ0YzlmOTggCgpUaGUgZmlsZSBpcyBhYm91dCAyMDBHQiBzbyBpcyB0b28gbGFyZ2UgdG8gaW5jbHVkZSB0aGUgdGhlIHB1YmxpYyBnaXRodWIsIGJ1dCBjYW4gYmUgZnJlZWx5IGRvd25sb2FkZWQgZnJvbSB0aGUgdG9ycmVudC4gUGxhY2UgdGhlIGpzb25sLmd6IGZpbGVzIGluIHRoZSBkYXRhL3Jhdy8gZGlyZWN0b3J5LCB0aGVyZSBpcyBubyBuZWVkIHRvIGRlY29tcHJlc3MgdGhlbS4KCmBgYHtyLCBpbmNsdWRlID0gRkFMU0V9CmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSwgZXZhbCA9IFRSVUUsIGluY2x1ZGUgPSBUUlVFLCB3YXJuaW5nID0gRkFMU0UsIG1lc3NhZ2UgPSBGQUxTRSkKYGBgCgojIERlcGVuZGVuY2llcwoKYGBge3J9CgpsaWJyYXJ5KHRpZHl2ZXJzZSkKCmBgYAoKIyBTaHVmZmxlIGFydGljbGUgb3JkZXIKCmBgYHtyfQoKZGF0YV9wcm9jZXNzZWRfc3Vic2V0IDwtIHJlYWRfY3N2KCIuLi9kYXRhL3Byb2Nlc3NlZC9kYXRhX3Byb2Nlc3NlZC5jc3YiKSB8PgogIGZpbHRlcihtb3JlX3RoYW5fMzBfY2l0YXRpb25zX3Blcl95ZWFyKQoKc2V0LnNlZWQoNDIpCgpkYXRhX3Byb2Nlc3NlZF9zdWJzZXQgfD4KICBzbGljZV9zYW1wbGUobiA9IG5yb3coZGF0YV9wcm9jZXNzZWRfc3Vic2V0KSkgfD4gIyBzaHVmZmxlIHJvd3MKICB3cml0ZV9jc3YoIi4uL2RhdGEvcHJvY2Vzc2VkL2RhdGFfcHJvY2Vzc2VkX21vcmVfdGhhbl8zMF9jaXRhdGlvbnNfcGVyX3llYXJfc2h1ZmZsZWQuY3N2IikKCmBgYAoKIyBTZXNzaW9uIGluZm8KCmBgYHtyfQoKc2Vzc2lvbkluZm8oKQoKYGBgCgo=</div>
 
 
 </div>
@@ -1793,6 +1788,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
+  window.initializeSourceEmbed("3_shuffle.Rmd");
   window.initializeCodeFolding("hide" === "show");
 });
 </script>

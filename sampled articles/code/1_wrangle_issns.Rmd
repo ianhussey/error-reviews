@@ -65,9 +65,10 @@ dat <- bind_rows(
   mutate(impact_factor_rank = row_number()) |>
   # reshape
   pivot_longer(cols = c("issn", "e_issn"),
-               names_to = "issn_type", 
-               values_to = "issn") |>
-  drop_na() 
+               names_to = "ISSN_type", 
+               values_to = "ISSN") |>
+  drop_na() |>
+  distinct(ISSN, .keep_all = TRUE)
 
 write_csv(dat, "../data/journals/processed_journal_issns.csv")
 

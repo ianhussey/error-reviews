@@ -1,0 +1,56 @@
+---
+title: "Shuffle file order"
+author: "Ian Hussey"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    code_folding: hide
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
+    self_contained: true
+    code_download: true
+---
+
+# Data source
+
+Data was taken from the March 2025 Public Data File from Crossref: https://academictorrents.com/details/e0eda0104902d61c025e27e4846b66491d4c9f98 
+
+The file is about 200GB so is too large to include the the public github, but can be freely downloaded from the torrent. Place the jsonl.gz files in the data/raw/ directory, there is no need to decompress them.
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE, include = TRUE, warning = FALSE, message = FALSE)
+```
+
+# Dependencies
+
+```{r}
+
+library(tidyverse)
+
+```
+
+# Shuffle article order
+
+```{r}
+
+data_processed_subset <- read_csv("../data/processed/data_processed.csv") |>
+  filter(more_than_30_citations_per_year)
+
+set.seed(42)
+
+data_processed_subset |>
+  slice_sample(n = nrow(data_processed_subset)) |> # shuffle rows
+  write_csv("../data/processed/data_processed_more_than_30_citations_per_year_shuffled.csv")
+
+```
+
+# Session info
+
+```{r}
+
+sessionInfo()
+
+```
+

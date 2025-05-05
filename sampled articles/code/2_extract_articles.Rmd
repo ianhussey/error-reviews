@@ -1,0 +1,209 @@
+---
+title: "Extracting article data from the crossref dataset"
+author: "Ian Hussey"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    code_folding: hide
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
+    self_contained: true
+    code_download: true
+---
+
+# Data source
+
+Data was taken from the March 2025 Public Data File from Crossref: https://academictorrents.com/details/e0eda0104902d61c025e27e4846b66491d4c9f98 
+
+The file is about 200GB so is too large to include the the public github, but can be freely downloaded from the torrent. Place the jsonl.gz files in the data/raw/ directory, there is no need to decompress them.
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE, include = TRUE, warning = FALSE, message = FALSE)
+```
+
+# Dependencies
+
+```{r}
+
+library(tidyverse)
+library(janitor)
+library(jsonlite)
+library(knitr)
+library(kableExtra)
+
+Sys.setenv(VROOM_CONNECTION_SIZE = 5000000)  # Allow 5MB lines
+
+```
+
+# Load journal ISSNs
+
+```{r}
+
+issn_ref <- read_csv("../data/journals/processed_journal_issns.csv") |>
+  select(ISSN, impact_factor_rank, category)
+
+```
+
+# Process all files
+
+- In the log file, n_articles refers to the number of DOIs published in one of the predetermined ISSNs and with a publication date after 2015. Ie total number of psychology articles per jsonl file prior to filtering for meeting the citations by year criterion. This count could be useful when reporting how many articles in total were screened, and what percentile the articles per year criterion referred to.  
+
+```{r}
+
+# Parameters
+pubyear_search_end <- 2025
+raw_dir            <- "../data/raw"
+outfile            <- "../data/processed/data_processed.csv"
+logfile            <- "../data/processed/data_log.csv"
+
+# Initialize or read the processed‐files log
+if (!file.exists(logfile)) {
+  write_csv(
+    tibble(
+      file       = character(),
+      n_articles = integer(),
+      citations_total = integer()
+    ),
+    logfile,
+    col_names = TRUE   # write header now
+  )
+}
+processed_log <- read_csv(logfile, col_types = cols(.default = "c"))
+
+# Determine which files still need processing
+all_files         <- list.files(raw_dir, pattern = "\\.jsonl\\.gz$", full.names = TRUE)
+files_to_process  <- setdiff(all_files, processed_log$file)
+
+if (length(files_to_process) == 0) {
+  message("No new files to process.")
+  quit(status = 0)
+}
+
+# Track whether we've already written headers to outfile
+header_written <- file.exists(outfile)
+
+
+for (file in files_to_process) {
+  message("Processing: ", file)
+  
+  # 1) Read raw lines and parse JSON
+  lines  <- read_lines(file)
+  parsed <- map(lines, ~ tryCatch(fromJSON(.x, simplifyVector = FALSE),
+                                  error = function(e) NULL)) %>% compact()
+  if (length(parsed) == 0) next
+  
+  # 2) Extract “simple” scalar fields
+  simple_records <- map(parsed, ~ keep(.x, ~ !is.list(.)) %>% as_tibble())
+  data_simple    <- bind_rows(simple_records)
+
+  # 3) Extract complex fields manually
+  issns            <- map_chr(parsed, ~ .x$ISSN[[1]] %||% NA_character_)
+  container_titles <- map_chr(parsed, ~ .x$`container-title`[[1]] %||% NA_character_)
+  titles           <- map_chr(parsed, ~ .x$title[[1]] %||% NA_character_)
+
+  all_authors <- map_chr(parsed, function(record) {
+    if (!is.null(record$author) && length(record$author) > 0) {
+      record$author %>%
+        map_chr(~ .x$family %||% NA_character_) %>%
+        paste(collapse = "; ")
+    } else {
+      NA_character_
+    }
+  })
+
+  pub_years <- map_chr(parsed, function(record) {
+    extract_year <- function(dl) {
+      if (!is.null(dl$`date-parts`) && length(dl$`date-parts`) > 0) {
+        as.character(dl$`date-parts`[[1]][1])
+      } else NA_character_
+    }
+    if (!is.null(record$`published-print`))       extract_year(record$`published-print`)
+    else if (!is.null(record$`published-online`)) extract_year(record$`published-online`)
+    else if (!is.null(record$issued))             extract_year(record$issued)
+    else NA_character_
+  })
+
+  # 4) Combine into one data frame and join ISSN reference
+  data_processed_before_criteria <- data_simple |>
+    mutate(
+      ISSN           = issns,
+      container_title = container_titles,
+      article_title   = titles,
+      authors         = all_authors,
+      year            = pub_years
+    ) |>
+    select(
+      ISSN,
+      DOI,
+      authors,
+      year,
+      title     = article_title,
+      journal   = container_title,
+      URL,
+      citations = `is-referenced-by-count`
+    ) |>
+    mutate(
+      citations = as.numeric(citations),
+      year      = as.numeric(year)
+    ) |>
+    # filter articles after 2015, so they're published in the last decade
+    filter(year >= 2015) |>
+    # filter for ISSNs in your reference table
+    semi_join(issn_ref, by = "ISSN") |>
+    # join impact factor and category
+    left_join(issn_ref, by = "ISSN") 
+  
+  # count distinct DOIs in this initial set 
+  n_articles <- data_processed_before_criteria |>
+    distinct(DOI) |>
+    nrow()
+  
+  # compute total citations across those articles
+  citations_total <- data_processed_before_criteria |>
+    summarise(total = sum(citations, na.rm = TRUE)) |>
+    pull(total)
+
+  # 5) Now apply the citation‐per‐year filters
+  data_processed <- data_processed_before_criteria |>
+    # create criteria and filter for the weakest one
+    mutate(year_for_citations_by_year = ifelse(year > pubyear_search_end - 1,
+                                               pubyear_search_end - 1,
+                                               year),
+           citations_per_year = janitor::round_half_up(citations / (pubyear_search_end - year_for_citations_by_year), 2),
+           more_than_20_citations_per_year = citations_per_year >= 20,
+           more_than_25_citations_per_year = citations_per_year >= 25,
+           more_than_30_citations_per_year = citations_per_year >= 30) |>
+    filter(more_than_20_citations_per_year)
+  
+  # 5) Write to the master CSV
+  if (nrow(data_processed) > 0) {
+    write_csv(
+      data_processed,
+      outfile,
+      append    = header_written,
+      col_names = !header_written
+    )
+    header_written <- TRUE
+  }
+
+  # 6) Log this file as completed
+  write_csv(tibble(file = file, 
+                   n_articles = n_articles,
+                   citations_total = citations_total),
+            logfile,
+            append    = TRUE,
+            col_names = FALSE)
+}
+
+```
+
+# Session info
+
+```{r}
+
+sessionInfo()
+
+```
+
