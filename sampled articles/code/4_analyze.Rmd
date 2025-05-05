@@ -13,6 +13,10 @@ output:
     code_download: true
 ---
 
+# TODO
+
+- if covid/metas were excluded, these would need to be excluded from total citation counts too or the proportion of citations is underestimated.
+
 # Data source
 
 Data was taken from the March 2025 Public Data File from Crossref: https://academictorrents.com/details/e0eda0104902d61c025e27e4846b66491d4c9f98 
@@ -37,13 +41,12 @@ library(kableExtra)
 
 ```
 
-# Descriptives
+# Descriptive statistics
 
 ```{r}
 
 # check saved data loads
-data_processed <- read_csv("../data/processed/data_processed.csv") |>
-  filter(more_than_30_citations_per_year)
+data_processed <- read_csv("../data/processed/data_processed_subset_shuffled.csv") 
 
 n_articles_meeting_citation_criterion <- data_processed |>
   count() |>
@@ -96,16 +99,71 @@ Percent of all citations made up by our subset: `r round_half_up(citations_artic
 
 As such, our sample of just `r janitor::round_half_up(percent_articles_meeting_citation_criterion, 2)`% of articles represented `r round_half_up(citations_articles_meeting_citation_criterion/citations_total*100, 1)`% of all citations.
 
+# COVID in title
+
 ```{r}
 
 data_processed |>
-  count(journal) |>
-  arrange(desc(n)) |>
+  summarize(percent_covid_in_title = round_half_up(mean(str_detect(title, regex("covid", ignore_case = TRUE)))*100, 1)) |>
   kable() |>
   kable_classic(full_width = FALSE)
 
 data_processed |>
+  filter(!str_detect(title, regex("covid", ignore_case = TRUE))) |>
+  count(name = "n_without_covid")
+
+```
+
+# Meta in title
+
+```{r}
+
+data_processed |>
+  summarize(percent_covid_in_title = round_half_up(mean(str_detect(title, regex("meta", ignore_case = TRUE)))*100, 1)) |>
+  kable() |>
+  kable_classic(full_width = FALSE)
+
+data_processed |>
+  filter(!str_detect(title, regex("meta", ignore_case = TRUE))) |>
+  count(name = "n_without_covid")
+
+```
+
+# Meta in title excluding covid
+
+```{r}
+
+data_processed |>
+  filter(!str_detect(title, regex("covid", ignore_case = TRUE))) |>
+  summarize(percent_covid_in_title = round_half_up(mean(str_detect(title, regex("meta", ignore_case = TRUE)))*100, 1)) |>
+  kable() |>
+  kable_classic(full_width = FALSE)
+
+data_processed |>
+  filter(!str_detect(title, regex("covid", ignore_case = TRUE)) &
+           !str_detect(title, regex("meta", ignore_case = TRUE))) |>
+  count(name = "n_without_covid_or_meta")
+
+```
+
+# Subfield
+
+```{r}
+
+data_processed |>
   count(category) |>
+  arrange(desc(n)) |>
+  kable() |>
+  kable_classic(full_width = FALSE)
+
+```
+
+# Journal
+
+```{r}
+
+data_processed |>
+  count(journal) |>
   arrange(desc(n)) |>
   kable() |>
   kable_classic(full_width = FALSE)

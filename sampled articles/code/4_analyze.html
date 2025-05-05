@@ -1913,6 +1913,14 @@ dataset</h1>
 </div>
 
 
+<div id="todo" class="section level1">
+<h1>TODO</h1>
+<ul>
+<li>if covid/metas were excluded, these would need to be excluded from
+total citation counts too or the proportion of citations is
+underestimated.</li>
+</ul>
+</div>
 <div id="data-source" class="section level1">
 <h1>Data source</h1>
 <p>Data was taken from the March 2025 Public Data File from Crossref: <a href="https://academictorrents.com/details/e0eda0104902d61c025e27e4846b66491d4c9f98" class="uri">https://academictorrents.com/details/e0eda0104902d61c025e27e4846b66491d4c9f98</a></p>
@@ -1928,36 +1936,35 @@ decompress them.</p>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span></code></pre></div>
 </div>
-<div id="descriptives" class="section level1">
-<h1>Descriptives</h1>
+<div id="descriptive-statistics" class="section level1">
+<h1>Descriptive statistics</h1>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># check saved data loads</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>data_processed <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;../data/processed/data_processed.csv&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="fu">filter</span>(more_than_30_citations_per_year)</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>n_articles_meeting_citation_criterion <span class="ot">&lt;-</span> data_processed <span class="sc">|&gt;</span></span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="fu">count</span>() <span class="sc">|&gt;</span></span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="fu">pull</span>(n)</span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>data_logs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;../data/processed/data_log.csv&quot;</span>)</span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>n_files_processed <span class="ot">&lt;-</span> data_logs <span class="sc">|&gt;</span></span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>  <span class="fu">count</span>() <span class="sc">|&gt;</span></span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>  <span class="fu">pull</span>(n)</span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>n_files_to_be_processed <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="at">path =</span> <span class="st">&quot;../data/raw/&quot;</span>, <span class="at">pattern =</span> <span class="st">&quot;</span><span class="sc">\\</span><span class="st">.jsonl</span><span class="sc">\\</span><span class="st">.gz$&quot;</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>  <span class="fu">length</span>()</span>
-<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>n_articles_meeting_other_criteria <span class="ot">&lt;-</span> data_logs <span class="sc">|&gt;</span></span>
-<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total_n =</span> <span class="fu">sum</span>(n_articles)) <span class="sc">|&gt;</span></span>
-<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>  <span class="fu">pull</span>(total_n)</span>
-<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a></span>
-<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>percent_articles_meeting_citation_criterion <span class="ot">&lt;-</span> n_articles_meeting_citation_criterion <span class="sc">/</span> n_articles_meeting_other_criteria <span class="sc">*</span> <span class="dv">100</span></span></code></pre></div>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>data_processed <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;../data/processed/data_processed_subset_shuffled.csv&quot;</span>) </span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>n_articles_meeting_citation_criterion <span class="ot">&lt;-</span> data_processed <span class="sc">|&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="fu">count</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="fu">pull</span>(n)</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>data_logs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;../data/processed/data_log.csv&quot;</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>n_files_processed <span class="ot">&lt;-</span> data_logs <span class="sc">|&gt;</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>  <span class="fu">count</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>  <span class="fu">pull</span>(n)</span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>n_files_to_be_processed <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="at">path =</span> <span class="st">&quot;../data/raw/&quot;</span>, <span class="at">pattern =</span> <span class="st">&quot;</span><span class="sc">\\</span><span class="st">.jsonl</span><span class="sc">\\</span><span class="st">.gz$&quot;</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>  <span class="fu">length</span>()</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>n_articles_meeting_other_criteria <span class="ot">&lt;-</span> data_logs <span class="sc">|&gt;</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total_n =</span> <span class="fu">sum</span>(n_articles)) <span class="sc">|&gt;</span></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>  <span class="fu">pull</span>(total_n)</span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>percent_articles_meeting_citation_criterion <span class="ot">&lt;-</span> n_articles_meeting_citation_criterion <span class="sc">/</span> n_articles_meeting_other_criteria <span class="sc">*</span> <span class="dv">100</span></span></code></pre></div>
 <p>.jsonl files to be processed: 33402</p>
 <p>.jsonl files processed: 33402</p>
 <p>Articles in psych journals published after 2015: 645164</p>
-<p>Articles meeting citations per year criterion: 2371</p>
+<p>Articles meeting citations per year criterion: 2092</p>
 <p>Percent of articles meeting the journals and year criteria that also
-met the 30 citations per year criterion: 0.37%</p>
+met the 30 citations per year criterion: 0.32%</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>citations_total <span class="ot">&lt;-</span> data_logs <span class="sc">|&gt;</span></span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">citations_total =</span> <span class="fu">sum</span>(citations_total)) <span class="sc">|&gt;</span></span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="fu">pull</span>(citations_total)</span>
@@ -1967,15 +1974,212 @@ met the 30 citations per year criterion: 0.37%</p>
 <span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>  <span class="fu">pull</span>(citations_sample)</span></code></pre></div>
 <p>Citations of all psych articles since 2015: 7809006</p>
 <p>Citations of our subset of articles with 30+ citations per year:
-805656</p>
-<p>Percent of all citations made up by our subset: 10.3%</p>
-<p>As such, our sample of just 0.37% of articles represented 10.3% of
-all citations.</p>
+719862</p>
+<p>Percent of all citations made up by our subset: 9.2%</p>
+<p>As such, our sample of just 0.32% of articles represented 9.2% of all
+citations.</p>
+</div>
+<div id="covid-in-title" class="section level1">
+<h1>COVID in title</h1>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>data_processed <span class="sc">|&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="fu">count</span>(journal) <span class="sc">|&gt;</span></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">|&gt;</span></span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="fu">kable</span>() <span class="sc">|&gt;</span></span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  <span class="fu">kable_classic</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">percent_covid_in_title =</span> <span class="fu">round_half_up</span>(<span class="fu">mean</span>(<span class="fu">str_detect</span>(title, <span class="fu">regex</span>(<span class="st">&quot;covid&quot;</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>)))<span class="sc">*</span><span class="dv">100</span>, <span class="dv">1</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="fu">kable</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="fu">kable_classic</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+percent_covid_in_title
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+17.2
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>data_processed <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">str_detect</span>(title, <span class="fu">regex</span>(<span class="st">&quot;covid&quot;</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="fu">count</span>(<span class="at">name =</span> <span class="st">&quot;n_without_covid&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 1
+##   n_without_covid
+##             &lt;int&gt;
+## 1            1732</code></pre>
+</div>
+<div id="meta-in-title" class="section level1">
+<h1>Meta in title</h1>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>data_processed <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">percent_covid_in_title =</span> <span class="fu">round_half_up</span>(<span class="fu">mean</span>(<span class="fu">str_detect</span>(title, <span class="fu">regex</span>(<span class="st">&quot;meta&quot;</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>)))<span class="sc">*</span><span class="dv">100</span>, <span class="dv">1</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="fu">kable</span>() <span class="sc">|&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  <span class="fu">kable_classic</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+percent_covid_in_title
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+15.1
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>data_processed <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">str_detect</span>(title, <span class="fu">regex</span>(<span class="st">&quot;meta&quot;</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  <span class="fu">count</span>(<span class="at">name =</span> <span class="st">&quot;n_without_covid&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 1
+##   n_without_covid
+##             &lt;int&gt;
+## 1            1776</code></pre>
+</div>
+<div id="meta-in-title-excluding-covid" class="section level1">
+<h1>Meta in title excluding covid</h1>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>data_processed <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">str_detect</span>(title, <span class="fu">regex</span>(<span class="st">&quot;covid&quot;</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">percent_covid_in_title =</span> <span class="fu">round_half_up</span>(<span class="fu">mean</span>(<span class="fu">str_detect</span>(title, <span class="fu">regex</span>(<span class="st">&quot;meta&quot;</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>)))<span class="sc">*</span><span class="dv">100</span>, <span class="dv">1</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>  <span class="fu">kable</span>() <span class="sc">|&gt;</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>  <span class="fu">kable_classic</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+percent_covid_in_title
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+17.6
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>data_processed <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">str_detect</span>(title, <span class="fu">regex</span>(<span class="st">&quot;covid&quot;</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>)) <span class="sc">&amp;</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>           <span class="sc">!</span><span class="fu">str_detect</span>(title, <span class="fu">regex</span>(<span class="st">&quot;meta&quot;</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>  <span class="fu">count</span>(<span class="at">name =</span> <span class="st">&quot;n_without_covid_or_meta&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 1
+##   n_without_covid_or_meta
+##                     &lt;int&gt;
+## 1                    1427</code></pre>
+</div>
+<div id="subfield" class="section level1">
+<h1>Subfield</h1>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>data_processed <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>  <span class="fu">count</span>(category) <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">|&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>  <span class="fu">kable</span>() <span class="sc">|&gt;</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>  <span class="fu">kable_classic</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+category
+</th>
+<th style="text-align:right;">
+n
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+PSYCHOLOGY, EXPERIMENTAL
+</td>
+<td style="text-align:right;">
+362
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSYCHOLOGY, MULTIDISCIPLINARY
+</td>
+<td style="text-align:right;">
+349
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSYCHOLOGY, APPLIED
+</td>
+<td style="text-align:right;">
+305
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSYCHOLOGY, CLINICAL
+</td>
+<td style="text-align:right;">
+286
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSYCHOLOGY
+</td>
+<td style="text-align:right;">
+274
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSYCHOLOGY, DEVELOPMENTAL
+</td>
+<td style="text-align:right;">
+253
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSYCHOLOGY, SOCIAL
+</td>
+<td style="text-align:right;">
+174
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSYCHOLOGY, EDUCATIONAL
+</td>
+<td style="text-align:right;">
+67
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSYCHOLOGY, BIOLOGICAL
+</td>
+<td style="text-align:right;">
+11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSYCHOLOGY, MATHEMATICAL
+</td>
+<td style="text-align:right;">
+11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="journal" class="section level1">
+<h1>Journal</h1>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>data_processed <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>  <span class="fu">count</span>(journal) <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">|&gt;</span></span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>  <span class="fu">kable</span>() <span class="sc">|&gt;</span></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>  <span class="fu">kable_classic</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -1993,7 +2197,7 @@ n
 Computers in Human Behavior
 </td>
 <td style="text-align:right;">
-174
+165
 </td>
 </tr>
 <tr>
@@ -2001,7 +2205,7 @@ Computers in Human Behavior
 Frontiers in Psychology
 </td>
 <td style="text-align:right;">
-137
+110
 </td>
 </tr>
 <tr>
@@ -2009,15 +2213,7 @@ Frontiers in Psychology
 Nature Human Behaviour
 </td>
 <td style="text-align:right;">
-90
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Journal of Management
-</td>
-<td style="text-align:right;">
-66
+87
 </td>
 </tr>
 <tr>
@@ -2025,7 +2221,15 @@ Journal of Management
 Psychological Medicine
 </td>
 <td style="text-align:right;">
-61
+56
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Journal of Management
+</td>
+<td style="text-align:right;">
+48
 </td>
 </tr>
 <tr>
@@ -2033,7 +2237,7 @@ Psychological Medicine
 Journal of Adolescent Health
 </td>
 <td style="text-align:right;">
-42
+38
 </td>
 </tr>
 <tr>
@@ -2041,7 +2245,7 @@ Journal of Adolescent Health
 Journal of Applied Psychology
 </td>
 <td style="text-align:right;">
-39
+38
 </td>
 </tr>
 <tr>
@@ -2057,39 +2261,7 @@ Behavior Research Methods
 Psychological Methods
 </td>
 <td style="text-align:right;">
-37
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-European Child &amp;amp; Adolescent Psychiatry
-</td>
-<td style="text-align:right;">
-32
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Journal of Child Psychology and Psychiatry
-</td>
-<td style="text-align:right;">
-32
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-International Journal of Mental Health and Addiction
-</td>
-<td style="text-align:right;">
-31
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Organizational Research Methods
-</td>
-<td style="text-align:right;">
-31
+36
 </td>
 </tr>
 <tr>
@@ -2102,18 +2274,10 @@ Psychological Science
 </tr>
 <tr>
 <td style="text-align:left;">
-Journal of Organizational Behavior
+International Journal of Mental Health and Addiction
 </td>
 <td style="text-align:right;">
 30
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Autism
-</td>
-<td style="text-align:right;">
-28
 </td>
 </tr>
 <tr>
@@ -2126,23 +2290,7 @@ Journal of Personality and Social Psychology
 </tr>
 <tr>
 <td style="text-align:left;">
-Journal of Autism and Developmental Disorders
-</td>
-<td style="text-align:right;">
-27
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Journal of the American Academy of Child &amp;amp; Adolescent Psychiatry
-</td>
-<td style="text-align:right;">
-26
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Psychology &amp;amp; Marketing
+Autism
 </td>
 <td style="text-align:right;">
 25
@@ -2150,7 +2298,15 @@ Psychology &amp;amp; Marketing
 </tr>
 <tr>
 <td style="text-align:left;">
-Current Psychology
+European Child &amp;amp; Adolescent Psychiatry
+</td>
+<td style="text-align:right;">
+23
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Journal of Autism and Developmental Disorders
 </td>
 <td style="text-align:right;">
 23
@@ -2166,7 +2322,7 @@ Personality and Individual Differences
 </tr>
 <tr>
 <td style="text-align:left;">
-Developmental Cognitive Neuroscience
+Organizational Research Methods
 </td>
 <td style="text-align:right;">
 22
@@ -2174,7 +2330,7 @@ Developmental Cognitive Neuroscience
 </tr>
 <tr>
 <td style="text-align:left;">
-Frontiers in Human Neuroscience
+Psychology &amp;amp; Marketing
 </td>
 <td style="text-align:right;">
 22
@@ -2182,7 +2338,7 @@ Frontiers in Human Neuroscience
 </tr>
 <tr>
 <td style="text-align:left;">
-Journal of Environmental Psychology
+Current Psychology
 </td>
 <td style="text-align:right;">
 21
@@ -2190,7 +2346,23 @@ Journal of Environmental Psychology
 </tr>
 <tr>
 <td style="text-align:left;">
-The Leadership Quarterly
+Developmental Cognitive Neuroscience
+</td>
+<td style="text-align:right;">
+21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Journal of Organizational Behavior
+</td>
+<td style="text-align:right;">
+21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Journal of the American Academy of Child &amp;amp; Adolescent Psychiatry
 </td>
 <td style="text-align:right;">
 21
@@ -2214,23 +2386,7 @@ Child Abuse &amp;amp; Neglect
 </tr>
 <tr>
 <td style="text-align:left;">
-Human Factors: The Journal of the Human Factors and Ergonomics Society
-</td>
-<td style="text-align:right;">
-20
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Journal of Vocational Behavior
-</td>
-<td style="text-align:right;">
-20
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Depression and Anxiety
+Journal of Environmental Psychology
 </td>
 <td style="text-align:right;">
 19
@@ -2238,15 +2394,7 @@ Depression and Anxiety
 </tr>
 <tr>
 <td style="text-align:left;">
-Journal of Anxiety Disorders
-</td>
-<td style="text-align:right;">
-18
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Cyberpsychology, Behavior, and Social Networking
+Depression and Anxiety
 </td>
 <td style="text-align:right;">
 17
@@ -2254,7 +2402,23 @@ Cyberpsychology, Behavior, and Social Networking
 </tr>
 <tr>
 <td style="text-align:left;">
-Addictive Behaviors
+Journal of Anxiety Disorders
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Journal of Vocational Behavior
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cyberpsychology, Behavior, and Social Networking
 </td>
 <td style="text-align:right;">
 15
@@ -2262,15 +2426,7 @@ Addictive Behaviors
 </tr>
 <tr>
 <td style="text-align:left;">
-Behaviour Research and Therapy
-</td>
-<td style="text-align:right;">
-15
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-International Journal of Eating Disorders
+Frontiers in Human Neuroscience
 </td>
 <td style="text-align:right;">
 15
@@ -2286,7 +2442,7 @@ The Journals of Gerontology: Series B
 </tr>
 <tr>
 <td style="text-align:left;">
-International Journal of Human-Computer Studies
+Journal of Child Psychology and Psychiatry
 </td>
 <td style="text-align:right;">
 14
@@ -2310,15 +2466,31 @@ Psychological Assessment
 </tr>
 <tr>
 <td style="text-align:left;">
-Body Image
+Addictive Behaviors
 </td>
 <td style="text-align:right;">
-12
+13
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Psychotherapy and Psychosomatics
+Behaviour Research and Therapy
+</td>
+<td style="text-align:right;">
+13
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Human Factors: The Journal of the Human Factors and Ergonomics Society
+</td>
+<td style="text-align:right;">
+13
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+International Journal of Human-Computer Studies
 </td>
 <td style="text-align:right;">
 12
@@ -2327,6 +2499,14 @@ Psychotherapy and Psychosomatics
 <tr>
 <td style="text-align:left;">
 The Journal of Clinical Psychiatry
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+The Leadership Quarterly
 </td>
 <td style="text-align:right;">
 12
@@ -2358,23 +2538,15 @@ Health Psychology
 </tr>
 <tr>
 <td style="text-align:left;">
-Annals of Behavioral Medicine
+International Journal of Eating Disorders
 </td>
 <td style="text-align:right;">
-10
+11
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Human Behavior and Emerging Technologies
-</td>
-<td style="text-align:right;">
-10
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-International Psychogeriatrics
+Body Image
 </td>
 <td style="text-align:right;">
 10
@@ -2398,14 +2570,6 @@ Journal of Experimental Social Psychology
 </tr>
 <tr>
 <td style="text-align:left;">
-Mindfulness
-</td>
-<td style="text-align:right;">
-10
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 Social Psychological and Personality Science
 </td>
 <td style="text-align:right;">
@@ -2418,38 +2582,6 @@ The Journal of Positive Psychology
 </td>
 <td style="text-align:right;">
 10
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Applied Ergonomics
-</td>
-<td style="text-align:right;">
-9
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Journal of Adolescence
-</td>
-<td style="text-align:right;">
-9
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Journal of Consumer Psychology
-</td>
-<td style="text-align:right;">
-9
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Journal of Occupational Health Psychology
-</td>
-<td style="text-align:right;">
-9
 </td>
 </tr>
 <tr>
@@ -2478,7 +2610,7 @@ Psychological Trauma: Theory, Research, Practice, and Policy
 </tr>
 <tr>
 <td style="text-align:left;">
-Aggression and Violent Behavior
+Annals of Behavioral Medicine
 </td>
 <td style="text-align:right;">
 8
@@ -2502,6 +2634,14 @@ Child Development Perspectives
 </tr>
 <tr>
 <td style="text-align:left;">
+Human Behavior and Emerging Technologies
+</td>
+<td style="text-align:right;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 Human Resource Management
 </td>
 <td style="text-align:right;">
@@ -2510,7 +2650,7 @@ Human Resource Management
 </tr>
 <tr>
 <td style="text-align:left;">
-Internet Interventions
+Journal of Adolescence
 </td>
 <td style="text-align:right;">
 8
@@ -2534,6 +2674,14 @@ Journal of Consulting and Clinical Psychology
 </tr>
 <tr>
 <td style="text-align:left;">
+Journal of Consumer Psychology
+</td>
+<td style="text-align:right;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 Journal of Counseling Psychology
 </td>
 <td style="text-align:right;">
@@ -2542,7 +2690,7 @@ Journal of Counseling Psychology
 </tr>
 <tr>
 <td style="text-align:left;">
-Journal of Health Psychology
+Mindfulness
 </td>
 <td style="text-align:right;">
 8
@@ -2550,23 +2698,7 @@ Journal of Health Psychology
 </tr>
 <tr>
 <td style="text-align:left;">
-Personnel Psychology
-</td>
-<td style="text-align:right;">
-8
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Psychophysiology
-</td>
-<td style="text-align:right;">
-8
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Autism Research
+Applied Ergonomics
 </td>
 <td style="text-align:right;">
 7
@@ -2598,6 +2730,22 @@ Indian Journal of Psychological Medicine
 </tr>
 <tr>
 <td style="text-align:left;">
+International Psychogeriatrics
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Internet Interventions
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 Journal of Youth and Adolescence
 </td>
 <td style="text-align:right;">
@@ -2614,7 +2762,23 @@ Multivariate Behavioral Research
 </tr>
 <tr>
 <td style="text-align:left;">
+Personnel Psychology
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 Physiology &amp;amp; Behavior
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Psychotherapy and Psychosomatics
 </td>
 <td style="text-align:right;">
 7
@@ -2626,6 +2790,14 @@ Transportation Research Part F: Traffic Psychology and Behaviour
 </td>
 <td style="text-align:right;">
 7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Aggression and Violent Behavior
+</td>
+<td style="text-align:right;">
+6
 </td>
 </tr>
 <tr>
@@ -2646,14 +2818,6 @@ Applied Psychology: Health and Well-Being
 </tr>
 <tr>
 <td style="text-align:left;">
-Behavior Therapy
-</td>
-<td style="text-align:right;">
-6
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 Behavioural Public Policy
 </td>
 <td style="text-align:right;">
@@ -2663,14 +2827,6 @@ Behavioural Public Policy
 <tr>
 <td style="text-align:left;">
 Contemporary Educational Psychology
-</td>
-<td style="text-align:right;">
-6
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Cortex
 </td>
 <td style="text-align:right;">
 6
@@ -2710,7 +2866,15 @@ Journal of Business and Psychology
 </tr>
 <tr>
 <td style="text-align:left;">
-Journal of Family Violence
+Journal of Health Psychology
+</td>
+<td style="text-align:right;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Journal of Occupational Health Psychology
 </td>
 <td style="text-align:right;">
 6
@@ -2726,22 +2890,6 @@ Journal of Personality
 </tr>
 <tr>
 <td style="text-align:left;">
-Journal of Substance Abuse Treatment
-</td>
-<td style="text-align:right;">
-6
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Neuropsychologia
-</td>
-<td style="text-align:right;">
-6
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 Personality and Social Psychology Bulletin
 </td>
 <td style="text-align:right;">
@@ -2750,7 +2898,7 @@ Personality and Social Psychology Bulletin
 </tr>
 <tr>
 <td style="text-align:left;">
-Psychology of Sport and Exercise
+Psychophysiology
 </td>
 <td style="text-align:right;">
 6
@@ -2766,14 +2914,6 @@ Qualitative Research in Psychology
 </tr>
 <tr>
 <td style="text-align:left;">
-The Journal of Sex Research
-</td>
-<td style="text-align:right;">
-6
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 Archives of Sexual Behavior
 </td>
 <td style="text-align:right;">
@@ -2782,7 +2922,7 @@ Archives of Sexual Behavior
 </tr>
 <tr>
 <td style="text-align:left;">
-BMC Psychology
+Behavior Therapy
 </td>
 <td style="text-align:right;">
 5
@@ -2806,14 +2946,6 @@ Cognitive Systems Research
 </tr>
 <tr>
 <td style="text-align:left;">
-Computers in Human Behavior Reports
-</td>
-<td style="text-align:right;">
-5
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 European Journal of Personality
 </td>
 <td style="text-align:right;">
@@ -2823,22 +2955,6 @@ European Journal of Personality
 <tr>
 <td style="text-align:left;">
 European Journal of Psychotraumatology
-</td>
-<td style="text-align:right;">
-5
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-European Journal of Work and Organizational Psychology
-</td>
-<td style="text-align:right;">
-5
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-International Journal of Adolescence and Youth
 </td>
 <td style="text-align:right;">
 5
@@ -2862,15 +2978,7 @@ Journal of Contextual Behavioral Science
 </tr>
 <tr>
 <td style="text-align:left;">
-Journal of Happiness Studies
-</td>
-<td style="text-align:right;">
-5
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Journal of Memory and Language
+Journal of Family Violence
 </td>
 <td style="text-align:right;">
 5
@@ -2879,6 +2987,14 @@ Journal of Memory and Language
 <tr>
 <td style="text-align:left;">
 Journal of Research in Personality
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Neuropsychologia
 </td>
 <td style="text-align:right;">
 5
@@ -2910,7 +3026,15 @@ Archives of Clinical Neuropsychology
 </tr>
 <tr>
 <td style="text-align:left;">
-Autism in Adulthood
+Autism Research
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BMC Psychology
 </td>
 <td style="text-align:right;">
 4
@@ -2934,14 +3058,6 @@ British Journal of Social Psychology
 </tr>
 <tr>
 <td style="text-align:left;">
-Child Psychiatry &amp;amp; Human Development
-</td>
-<td style="text-align:right;">
-4
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 Cognition
 </td>
 <td style="text-align:right;">
@@ -2958,6 +3074,22 @@ Cognitive Behaviour Therapy
 </tr>
 <tr>
 <td style="text-align:left;">
+Computers in Human Behavior Reports
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cortex
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 Developmental Science
 </td>
 <td style="text-align:right;">
@@ -2966,7 +3098,7 @@ Developmental Science
 </tr>
 <tr>
 <td style="text-align:left;">
-Ergonomics
+European Journal of Social Psychology
 </td>
 <td style="text-align:right;">
 4
@@ -2974,7 +3106,7 @@ Ergonomics
 </tr>
 <tr>
 <td style="text-align:left;">
-European Journal of Social Psychology
+European Journal of Work and Organizational Psychology
 </td>
 <td style="text-align:right;">
 4
@@ -3014,15 +3146,7 @@ International Journal of Sport and Exercise Psychology
 </tr>
 <tr>
 <td style="text-align:left;">
-Journal of Behavioral Medicine
-</td>
-<td style="text-align:right;">
-4
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Journal of Eating Disorders
+Journal of Happiness Studies
 </td>
 <td style="text-align:right;">
 4
@@ -3046,47 +3170,7 @@ Journal of Mathematical Psychology
 </tr>
 <tr>
 <td style="text-align:left;">
-Journal of Mental Health
-</td>
-<td style="text-align:right;">
-4
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Journal of Occupational and Organizational Psychology
-</td>
-<td style="text-align:right;">
-4
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Journal of Research on Adolescence
-</td>
-<td style="text-align:right;">
-4
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Journal of Traumatic Stress
-</td>
-<td style="text-align:right;">
-4
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Mental Health and Physical Activity
-</td>
-<td style="text-align:right;">
-4
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Psycho-Oncology
+Journal of Memory and Language
 </td>
 <td style="text-align:right;">
 4
@@ -3095,6 +3179,14 @@ Psycho-Oncology
 <tr>
 <td style="text-align:left;">
 Psychology and Aging
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Psychology of Sport and Exercise
 </td>
 <td style="text-align:right;">
 4
@@ -3150,7 +3242,7 @@ Attention, Perception, &amp;amp; Psychophysics
 </tr>
 <tr>
 <td style="text-align:left;">
-Basic and Applied Social Psychology
+Autism in Adulthood
 </td>
 <td style="text-align:right;">
 3
@@ -3158,7 +3250,7 @@ Basic and Applied Social Psychology
 </tr>
 <tr>
 <td style="text-align:left;">
-Behavioral Sciences
+Basic and Applied Social Psychology
 </td>
 <td style="text-align:right;">
 3
@@ -3222,6 +3314,14 @@ Environment and Behavior
 </tr>
 <tr>
 <td style="text-align:left;">
+Ergonomics
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 European Journal of Psychological Assessment
 </td>
 <td style="text-align:right;">
@@ -3238,7 +3338,7 @@ European Journal of Psychology of Education
 </tr>
 <tr>
 <td style="text-align:left;">
-Group Processes &amp;amp; Intergroup Relations
+International Journal of Adolescence and Youth
 </td>
 <td style="text-align:right;">
 3
@@ -3247,14 +3347,6 @@ Group Processes &amp;amp; Intergroup Relations
 <tr>
 <td style="text-align:left;">
 International Journal of Clinical and Health Psychology
-</td>
-<td style="text-align:right;">
-3
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-International Journal of Transgender Health
 </td>
 <td style="text-align:right;">
 3
@@ -3278,6 +3370,14 @@ Journal of Applied Social Psychology
 </tr>
 <tr>
 <td style="text-align:left;">
+Journal of Behavioral Medicine
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 Journal of Clinical Psychology
 </td>
 <td style="text-align:right;">
@@ -3286,23 +3386,7 @@ Journal of Clinical Psychology
 </tr>
 <tr>
 <td style="text-align:left;">
-Journal of Developmental &amp;amp; Behavioral Pediatrics
-</td>
-<td style="text-align:right;">
-3
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Journal of Educational and Behavioral Statistics
-</td>
-<td style="text-align:right;">
-3
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Journal of Homosexuality
+Journal of Occupational and Organizational Psychology
 </td>
 <td style="text-align:right;">
 3
@@ -3318,7 +3402,39 @@ Journal of Psychopathology and Behavioral Assessment
 </tr>
 <tr>
 <td style="text-align:left;">
+Journal of Research on Adolescence
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Journal of Substance Abuse Treatment
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Journal of Traumatic Stress
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 Media Psychology
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Mental Health and Physical Activity
 </td>
 <td style="text-align:right;">
 3
@@ -3342,7 +3458,7 @@ Motivation and Emotion
 </tr>
 <tr>
 <td style="text-align:left;">
-OMEGA - Journal of Death and Dying
+Organizational Behavior and Human Decision Processes
 </td>
 <td style="text-align:right;">
 3
@@ -3350,7 +3466,7 @@ OMEGA - Journal of Death and Dying
 </tr>
 <tr>
 <td style="text-align:left;">
-Organizational Behavior and Human Decision Processes
+Psycho-Oncology
 </td>
 <td style="text-align:right;">
 3
@@ -3366,31 +3482,7 @@ Psychology of Addictive Behaviors
 </tr>
 <tr>
 <td style="text-align:left;">
-Psychology of Aesthetics, Creativity, and the Arts
-</td>
-<td style="text-align:right;">
-3
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 Psychology of Violence
-</td>
-<td style="text-align:right;">
-3
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Psychotherapy Research
-</td>
-<td style="text-align:right;">
-3
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Qualitative Psychology
 </td>
 <td style="text-align:right;">
 3
@@ -3438,7 +3530,7 @@ The American Journal of Drug and Alcohol Abuse
 </tr>
 <tr>
 <td style="text-align:left;">
-The Clinical Neuropsychologist
+The Journal of Sex Research
 </td>
 <td style="text-align:right;">
 3
@@ -3486,7 +3578,7 @@ Applied Developmental Science
 </tr>
 <tr>
 <td style="text-align:left;">
-Brain and Cognition
+Behavioral Sciences
 </td>
 <td style="text-align:right;">
 2
@@ -3527,23 +3619,7 @@ Canadian Journal of School Psychology
 </tr>
 <tr>
 <td style="text-align:left;">
-Child and Adolescent Mental Health
-</td>
-<td style="text-align:right;">
-2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Child: Care, Health and Development
-</td>
-<td style="text-align:right;">
-2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Clinical Child Psychology and Psychiatry
+Child Psychiatry &amp;amp; Human Development
 </td>
 <td style="text-align:right;">
 2
@@ -3575,14 +3651,6 @@ Creativity Research Journal
 </tr>
 <tr>
 <td style="text-align:left;">
-Eating Behaviors
-</td>
-<td style="text-align:right;">
-2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 Europe’s Journal of Psychology
 </td>
 <td style="text-align:right;">
@@ -3592,6 +3660,14 @@ Europe’s Journal of Psychology
 <tr>
 <td style="text-align:left;">
 Experimental and Clinical Psychopharmacology
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Group Processes &amp;amp; Intergroup Relations
 </td>
 <td style="text-align:right;">
 2
@@ -3615,7 +3691,7 @@ Human Development
 </tr>
 <tr>
 <td style="text-align:left;">
-International Journal of Behavioral Medicine
+International Journal of Transgender Health
 </td>
 <td style="text-align:right;">
 2
@@ -3639,23 +3715,7 @@ Journal of Attention Disorders
 </tr>
 <tr>
 <td style="text-align:left;">
-Journal of Behavioral Decision Making
-</td>
-<td style="text-align:right;">
-2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 Journal of Black Psychology
-</td>
-<td style="text-align:right;">
-2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Journal of Career Assessment
 </td>
 <td style="text-align:right;">
 2
@@ -3679,7 +3739,7 @@ Journal of Cross-Cultural Psychology
 </tr>
 <tr>
 <td style="text-align:left;">
-Journal of Experimental Psychology: Applied
+Journal of Developmental &amp;amp; Behavioral Pediatrics
 </td>
 <td style="text-align:right;">
 2
@@ -3687,7 +3747,7 @@ Journal of Experimental Psychology: Applied
 </tr>
 <tr>
 <td style="text-align:left;">
-Journal of Gambling Studies
+Journal of Experimental Psychology: Applied
 </td>
 <td style="text-align:right;">
 2
@@ -3720,6 +3780,14 @@ Journal of Intelligence
 <tr>
 <td style="text-align:left;">
 Journal of Interpersonal Violence
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Journal of Mental Health
 </td>
 <td style="text-align:right;">
 2
@@ -3831,7 +3899,31 @@ Psychology and Psychotherapy: Theory, Research and Practice
 </tr>
 <tr>
 <td style="text-align:left;">
+Psychology of Aesthetics, Creativity, and the Arts
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 Psychology of Women Quarterly
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Psychotherapy Research
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Qualitative Psychology
 </td>
 <td style="text-align:right;">
 2
@@ -3863,14 +3955,6 @@ Social Psychology of Education
 </tr>
 <tr>
 <td style="text-align:left;">
-Stigma and Health
-</td>
-<td style="text-align:right;">
-2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 Suicide and Life-Threatening Behavior
 </td>
 <td style="text-align:right;">
@@ -3879,7 +3963,7 @@ Suicide and Life-Threatening Behavior
 </tr>
 <tr>
 <td style="text-align:left;">
-The Journal of Applied Behavioral Science
+The Clinical Neuropsychologist
 </td>
 <td style="text-align:right;">
 2
@@ -3920,14 +4004,6 @@ Acta Psychologica Sinica
 <tr>
 <td style="text-align:left;">
 Aging, Neuropsychology, and Cognition
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-American Journal of Community Psychology
 </td>
 <td style="text-align:right;">
 1
@@ -3983,22 +4059,6 @@ Asian Journal of Social Health and Behavior
 </tr>
 <tr>
 <td style="text-align:left;">
-Australian Journal of Psychology
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Australian Psychologist
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 Behavior Analysis in Practice
 </td>
 <td style="text-align:right;">
@@ -4008,6 +4068,14 @@ Behavior Analysis in Practice
 <tr>
 <td style="text-align:left;">
 Behavior Modification
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brain and Cognition
 </td>
 <td style="text-align:right;">
 1
@@ -4032,6 +4100,30 @@ British Journal of Developmental Psychology
 <tr>
 <td style="text-align:left;">
 Career Development International
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Child and Adolescent Mental Health
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Child: Care, Health and Development
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Clinical Child Psychology and Psychiatry
 </td>
 <td style="text-align:right;">
 1
@@ -4095,6 +4187,14 @@ Early Education and Development
 </tr>
 <tr>
 <td style="text-align:left;">
+Eating Behaviors
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 Eating Disorders
 </td>
 <td style="text-align:right;">
@@ -4112,14 +4212,6 @@ Educational Psychology
 <tr>
 <td style="text-align:left;">
 Emerging Adulthood
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-European Journal of Trauma &amp;amp; Dissociation
 </td>
 <td style="text-align:right;">
 1
@@ -4191,6 +4283,14 @@ Intelligence
 </tr>
 <tr>
 <td style="text-align:left;">
+International Journal of Behavioral Medicine
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 International Journal of Cognitive Therapy
 </td>
 <td style="text-align:right;">
@@ -4216,6 +4316,22 @@ International Journal of Stress Management
 <tr>
 <td style="text-align:left;">
 Journal of Applied Research in Intellectual Disabilities
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Journal of Behavioral Decision Making
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Journal of Career Assessment
 </td>
 <td style="text-align:right;">
 1
@@ -4271,6 +4387,22 @@ Journal of Diversity in Higher Education
 </tr>
 <tr>
 <td style="text-align:left;">
+Journal of Eating Disorders
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Journal of Educational and Behavioral Statistics
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 Journal of Experimental Child Psychology
 </td>
 <td style="text-align:right;">
@@ -4288,6 +4420,14 @@ Journal of Family Psychology
 <tr>
 <td style="text-align:left;">
 Journal of Gay &amp;amp; Lesbian Mental Health
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Journal of Homosexuality
 </td>
 <td style="text-align:right;">
 1
@@ -4455,6 +4595,14 @@ New Ideas in Psychology
 </tr>
 <tr>
 <td style="text-align:left;">
+OMEGA - Journal of Death and Dying
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 Occupational Health Science
 </td>
 <td style="text-align:right;">
@@ -4496,14 +4644,6 @@ Psicologia: Reflexão e Crítica
 <tr>
 <td style="text-align:left;">
 Psychological Services
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Psychology &amp;amp; Sexuality
 </td>
 <td style="text-align:right;">
 1
@@ -4615,6 +4755,14 @@ Social Behavior and Personality: an international journal
 </tr>
 <tr>
 <td style="text-align:left;">
+Stigma and Health
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 Studies in Educational Evaluation
 </td>
 <td style="text-align:right;">
@@ -4663,6 +4811,14 @@ The International Journal for the Psychology of Religion
 </tr>
 <tr>
 <td style="text-align:left;">
+The Journal of Applied Behavioral Science
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 The Journal of Creative Behavior
 </td>
 <td style="text-align:right;">
@@ -4704,23 +4860,7 @@ The Spanish Journal of Psychology
 </tr>
 <tr>
 <td style="text-align:left;">
-Transgender Health
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 Translational Issues in Psychological Science
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Verhaltenstherapie
 </td>
 <td style="text-align:right;">
 1
@@ -4760,109 +4900,10 @@ npj Science of Learning
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>data_processed <span class="sc">|&gt;</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="fu">count</span>(category) <span class="sc">|&gt;</span></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">|&gt;</span></span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="fu">kable</span>() <span class="sc">|&gt;</span></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  <span class="fu">kable_classic</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:left;">
-category
-</th>
-<th style="text-align:right;">
-n
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-PSYCHOLOGY, MULTIDISCIPLINARY
-</td>
-<td style="text-align:right;">
-403
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-PSYCHOLOGY, EXPERIMENTAL
-</td>
-<td style="text-align:right;">
-380
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-PSYCHOLOGY, APPLIED
-</td>
-<td style="text-align:right;">
-370
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-PSYCHOLOGY
-</td>
-<td style="text-align:right;">
-334
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-PSYCHOLOGY, CLINICAL
-</td>
-<td style="text-align:right;">
-324
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-PSYCHOLOGY, DEVELOPMENTAL
-</td>
-<td style="text-align:right;">
-291
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-PSYCHOLOGY, SOCIAL
-</td>
-<td style="text-align:right;">
-178
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-PSYCHOLOGY, EDUCATIONAL
-</td>
-<td style="text-align:right;">
-67
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-PSYCHOLOGY, MATHEMATICAL
-</td>
-<td style="text-align:right;">
-13
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-PSYCHOLOGY, BIOLOGICAL
-</td>
-<td style="text-align:right;">
-11
-</td>
-</tr>
-</tbody>
-</table>
 </div>
 <div id="session-info" class="section level1">
 <h1>Session info</h1>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
 <pre><code>## R version 4.3.3 (2024-02-29)
 ## Platform: aarch64-apple-darwin20 (64-bit)
 ## Running under: macOS 15.4
@@ -4901,7 +4942,7 @@ PSYCHOLOGY, BIOLOGICAL
 ## [45] svglite_2.1.3     compiler_4.3.3</code></pre>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiQW5hbHl6ZSBjaXRhdGlvbiBkYXRhIGZyb20gdGhlIGNyb3NzcmVmIGRhdGFzZXQiCmF1dGhvcjogIklhbiBIdXNzZXkiCmRhdGU6ICJgciBmb3JtYXQoU3lzLnRpbWUoKSwgJyVkICVCLCAlWScpYCIKb3V0cHV0OgogIGh0bWxfZG9jdW1lbnQ6CiAgICBjb2RlX2ZvbGRpbmc6IGhpZGUKICAgIGhpZ2hsaWdodDogaGFkZG9jawogICAgdGhlbWU6IGZsYXRseQogICAgdG9jOiB5ZXMKICAgIHRvY19mbG9hdDogeWVzCiAgICBzZWxmX2NvbnRhaW5lZDogdHJ1ZQogICAgY29kZV9kb3dubG9hZDogdHJ1ZQotLS0KCiMgRGF0YSBzb3VyY2UKCkRhdGEgd2FzIHRha2VuIGZyb20gdGhlIE1hcmNoIDIwMjUgUHVibGljIERhdGEgRmlsZSBmcm9tIENyb3NzcmVmOiBodHRwczovL2FjYWRlbWljdG9ycmVudHMuY29tL2RldGFpbHMvZTBlZGEwMTA0OTAyZDYxYzAyNWUyN2U0ODQ2YjY2NDkxZDRjOWY5OCAKClRoZSBmaWxlIGlzIGFib3V0IDIwMEdCIHNvIGlzIHRvbyBsYXJnZSB0byBpbmNsdWRlIHRoZSB0aGUgcHVibGljIGdpdGh1YiwgYnV0IGNhbiBiZSBmcmVlbHkgZG93bmxvYWRlZCBmcm9tIHRoZSB0b3JyZW50LiBQbGFjZSB0aGUganNvbmwuZ3ogZmlsZXMgaW4gdGhlIGRhdGEvcmF3LyBkaXJlY3RvcnksIHRoZXJlIGlzIG5vIG5lZWQgdG8gZGVjb21wcmVzcyB0aGVtLgoKYGBge3IsIGluY2x1ZGUgPSBGQUxTRX0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFLCBldmFsID0gVFJVRSwgaW5jbHVkZSA9IFRSVUUsIHdhcm5pbmcgPSBGQUxTRSwgbWVzc2FnZSA9IEZBTFNFKQoKIyBkaXNhYmxlIHNjaWVudGlmaWMgbm90YXRpb24Kb3B0aW9ucyhzY2lwZW4gPSA5OTkpIApgYGAKCiMgRGVwZW5kZW5jaWVzCgpgYGB7cn0KCmxpYnJhcnkodGlkeXZlcnNlKQpsaWJyYXJ5KGphbml0b3IpCmxpYnJhcnkoa25pdHIpCmxpYnJhcnkoa2FibGVFeHRyYSkKCmBgYAoKIyBEZXNjcmlwdGl2ZXMKCmBgYHtyfQoKIyBjaGVjayBzYXZlZCBkYXRhIGxvYWRzCmRhdGFfcHJvY2Vzc2VkIDwtIHJlYWRfY3N2KCIuLi9kYXRhL3Byb2Nlc3NlZC9kYXRhX3Byb2Nlc3NlZC5jc3YiKSB8PgogIGZpbHRlcihtb3JlX3RoYW5fMzBfY2l0YXRpb25zX3Blcl95ZWFyKQoKbl9hcnRpY2xlc19tZWV0aW5nX2NpdGF0aW9uX2NyaXRlcmlvbiA8LSBkYXRhX3Byb2Nlc3NlZCB8PgogIGNvdW50KCkgfD4KICBwdWxsKG4pCgpkYXRhX2xvZ3MgPC0gcmVhZF9jc3YoIi4uL2RhdGEvcHJvY2Vzc2VkL2RhdGFfbG9nLmNzdiIpCgpuX2ZpbGVzX3Byb2Nlc3NlZCA8LSBkYXRhX2xvZ3MgfD4KICBjb3VudCgpIHw+CiAgcHVsbChuKQoKbl9maWxlc190b19iZV9wcm9jZXNzZWQgPC0gbGlzdC5maWxlcyhwYXRoID0gIi4uL2RhdGEvcmF3LyIsIHBhdHRlcm4gPSAiXFwuanNvbmxcXC5neiQiLCBmdWxsLm5hbWVzID0gVFJVRSkgfD4KICBsZW5ndGgoKQoKbl9hcnRpY2xlc19tZWV0aW5nX290aGVyX2NyaXRlcmlhIDwtIGRhdGFfbG9ncyB8PgogIHN1bW1hcml6ZSh0b3RhbF9uID0gc3VtKG5fYXJ0aWNsZXMpKSB8PgogIHB1bGwodG90YWxfbikKCnBlcmNlbnRfYXJ0aWNsZXNfbWVldGluZ19jaXRhdGlvbl9jcml0ZXJpb24gPC0gbl9hcnRpY2xlc19tZWV0aW5nX2NpdGF0aW9uX2NyaXRlcmlvbiAvIG5fYXJ0aWNsZXNfbWVldGluZ19vdGhlcl9jcml0ZXJpYSAqIDEwMAoKYGBgCgouanNvbmwgZmlsZXMgdG8gYmUgcHJvY2Vzc2VkOiBgciBuX2ZpbGVzX3RvX2JlX3Byb2Nlc3NlZGAKCi5qc29ubCBmaWxlcyBwcm9jZXNzZWQ6IGByIG5fZmlsZXNfcHJvY2Vzc2VkYAoKQXJ0aWNsZXMgaW4gcHN5Y2ggam91cm5hbHMgcHVibGlzaGVkIGFmdGVyIDIwMTU6IGByIG5fYXJ0aWNsZXNfbWVldGluZ19vdGhlcl9jcml0ZXJpYWAKCkFydGljbGVzIG1lZXRpbmcgY2l0YXRpb25zIHBlciB5ZWFyIGNyaXRlcmlvbjogYHIgbl9hcnRpY2xlc19tZWV0aW5nX2NpdGF0aW9uX2NyaXRlcmlvbmAKClBlcmNlbnQgb2YgYXJ0aWNsZXMgbWVldGluZyB0aGUgam91cm5hbHMgYW5kIHllYXIgY3JpdGVyaWEgdGhhdCBhbHNvIG1ldCB0aGUgMzAgY2l0YXRpb25zIHBlciB5ZWFyIGNyaXRlcmlvbjogYHIgamFuaXRvcjo6cm91bmRfaGFsZl91cChwZXJjZW50X2FydGljbGVzX21lZXRpbmdfY2l0YXRpb25fY3JpdGVyaW9uLCAyKWAlCgpgYGB7cn0KCmNpdGF0aW9uc190b3RhbCA8LSBkYXRhX2xvZ3MgfD4KICBzdW1tYXJpemUoY2l0YXRpb25zX3RvdGFsID0gc3VtKGNpdGF0aW9uc190b3RhbCkpIHw+CiAgcHVsbChjaXRhdGlvbnNfdG90YWwpCgpjaXRhdGlvbnNfYXJ0aWNsZXNfbWVldGluZ19jaXRhdGlvbl9jcml0ZXJpb24gPC0gZGF0YV9wcm9jZXNzZWQgfD4KICBzdW1tYXJpemUoY2l0YXRpb25zX3NhbXBsZSA9IHN1bShjaXRhdGlvbnMpKSB8PgogIHB1bGwoY2l0YXRpb25zX3NhbXBsZSkKCmBgYAoKQ2l0YXRpb25zIG9mIGFsbCBwc3ljaCBhcnRpY2xlcyBzaW5jZSAyMDE1OiBgciBjaXRhdGlvbnNfdG90YWxgCgpDaXRhdGlvbnMgb2Ygb3VyIHN1YnNldCBvZiBhcnRpY2xlcyB3aXRoIDMwKyBjaXRhdGlvbnMgcGVyIHllYXI6IGByIGNpdGF0aW9uc19hcnRpY2xlc19tZWV0aW5nX2NpdGF0aW9uX2NyaXRlcmlvbmAKClBlcmNlbnQgb2YgYWxsIGNpdGF0aW9ucyBtYWRlIHVwIGJ5IG91ciBzdWJzZXQ6IGByIHJvdW5kX2hhbGZfdXAoY2l0YXRpb25zX2FydGljbGVzX21lZXRpbmdfY2l0YXRpb25fY3JpdGVyaW9uL2NpdGF0aW9uc190b3RhbCoxMDAsIDEpYCUKCkFzIHN1Y2gsIG91ciBzYW1wbGUgb2YganVzdCBgciBqYW5pdG9yOjpyb3VuZF9oYWxmX3VwKHBlcmNlbnRfYXJ0aWNsZXNfbWVldGluZ19jaXRhdGlvbl9jcml0ZXJpb24sIDIpYCUgb2YgYXJ0aWNsZXMgcmVwcmVzZW50ZWQgYHIgcm91bmRfaGFsZl91cChjaXRhdGlvbnNfYXJ0aWNsZXNfbWVldGluZ19jaXRhdGlvbl9jcml0ZXJpb24vY2l0YXRpb25zX3RvdGFsKjEwMCwgMSlgJSBvZiBhbGwgY2l0YXRpb25zLgoKYGBge3J9CgpkYXRhX3Byb2Nlc3NlZCB8PgogIGNvdW50KGpvdXJuYWwpIHw+CiAgYXJyYW5nZShkZXNjKG4pKSB8PgogIGthYmxlKCkgfD4KICBrYWJsZV9jbGFzc2ljKGZ1bGxfd2lkdGggPSBGQUxTRSkKCmRhdGFfcHJvY2Vzc2VkIHw+CiAgY291bnQoY2F0ZWdvcnkpIHw+CiAgYXJyYW5nZShkZXNjKG4pKSB8PgogIGthYmxlKCkgfD4KICBrYWJsZV9jbGFzc2ljKGZ1bGxfd2lkdGggPSBGQUxTRSkKCmBgYAoKIyBTZXNzaW9uIGluZm8KCmBgYHtyfQoKc2Vzc2lvbkluZm8oKQoKYGBgCgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiQW5hbHl6ZSBjaXRhdGlvbiBkYXRhIGZyb20gdGhlIGNyb3NzcmVmIGRhdGFzZXQiCmF1dGhvcjogIklhbiBIdXNzZXkiCmRhdGU6ICJgciBmb3JtYXQoU3lzLnRpbWUoKSwgJyVkICVCLCAlWScpYCIKb3V0cHV0OgogIGh0bWxfZG9jdW1lbnQ6CiAgICBjb2RlX2ZvbGRpbmc6IGhpZGUKICAgIGhpZ2hsaWdodDogaGFkZG9jawogICAgdGhlbWU6IGZsYXRseQogICAgdG9jOiB5ZXMKICAgIHRvY19mbG9hdDogeWVzCiAgICBzZWxmX2NvbnRhaW5lZDogdHJ1ZQogICAgY29kZV9kb3dubG9hZDogdHJ1ZQotLS0KCiMgVE9ETwoKLSBpZiBjb3ZpZC9tZXRhcyB3ZXJlIGV4Y2x1ZGVkLCB0aGVzZSB3b3VsZCBuZWVkIHRvIGJlIGV4Y2x1ZGVkIGZyb20gdG90YWwgY2l0YXRpb24gY291bnRzIHRvbyBvciB0aGUgcHJvcG9ydGlvbiBvZiBjaXRhdGlvbnMgaXMgdW5kZXJlc3RpbWF0ZWQuCgojIERhdGEgc291cmNlCgpEYXRhIHdhcyB0YWtlbiBmcm9tIHRoZSBNYXJjaCAyMDI1IFB1YmxpYyBEYXRhIEZpbGUgZnJvbSBDcm9zc3JlZjogaHR0cHM6Ly9hY2FkZW1pY3RvcnJlbnRzLmNvbS9kZXRhaWxzL2UwZWRhMDEwNDkwMmQ2MWMwMjVlMjdlNDg0NmI2NjQ5MWQ0YzlmOTggCgpUaGUgZmlsZSBpcyBhYm91dCAyMDBHQiBzbyBpcyB0b28gbGFyZ2UgdG8gaW5jbHVkZSB0aGUgdGhlIHB1YmxpYyBnaXRodWIsIGJ1dCBjYW4gYmUgZnJlZWx5IGRvd25sb2FkZWQgZnJvbSB0aGUgdG9ycmVudC4gUGxhY2UgdGhlIGpzb25sLmd6IGZpbGVzIGluIHRoZSBkYXRhL3Jhdy8gZGlyZWN0b3J5LCB0aGVyZSBpcyBubyBuZWVkIHRvIGRlY29tcHJlc3MgdGhlbS4KCmBgYHtyLCBpbmNsdWRlID0gRkFMU0V9CmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSwgZXZhbCA9IFRSVUUsIGluY2x1ZGUgPSBUUlVFLCB3YXJuaW5nID0gRkFMU0UsIG1lc3NhZ2UgPSBGQUxTRSkKCiMgZGlzYWJsZSBzY2llbnRpZmljIG5vdGF0aW9uCm9wdGlvbnMoc2NpcGVuID0gOTk5KSAKYGBgCgojIERlcGVuZGVuY2llcwoKYGBge3J9CgpsaWJyYXJ5KHRpZHl2ZXJzZSkKbGlicmFyeShqYW5pdG9yKQpsaWJyYXJ5KGtuaXRyKQpsaWJyYXJ5KGthYmxlRXh0cmEpCgpgYGAKCiMgRGVzY3JpcHRpdmUgc3RhdGlzdGljcwoKYGBge3J9CgojIGNoZWNrIHNhdmVkIGRhdGEgbG9hZHMKZGF0YV9wcm9jZXNzZWQgPC0gcmVhZF9jc3YoIi4uL2RhdGEvcHJvY2Vzc2VkL2RhdGFfcHJvY2Vzc2VkX3N1YnNldF9zaHVmZmxlZC5jc3YiKSAKCm5fYXJ0aWNsZXNfbWVldGluZ19jaXRhdGlvbl9jcml0ZXJpb24gPC0gZGF0YV9wcm9jZXNzZWQgfD4KICBjb3VudCgpIHw+CiAgcHVsbChuKQoKZGF0YV9sb2dzIDwtIHJlYWRfY3N2KCIuLi9kYXRhL3Byb2Nlc3NlZC9kYXRhX2xvZy5jc3YiKQoKbl9maWxlc19wcm9jZXNzZWQgPC0gZGF0YV9sb2dzIHw+CiAgY291bnQoKSB8PgogIHB1bGwobikKCm5fZmlsZXNfdG9fYmVfcHJvY2Vzc2VkIDwtIGxpc3QuZmlsZXMocGF0aCA9ICIuLi9kYXRhL3Jhdy8iLCBwYXR0ZXJuID0gIlxcLmpzb25sXFwuZ3okIiwgZnVsbC5uYW1lcyA9IFRSVUUpIHw+CiAgbGVuZ3RoKCkKCm5fYXJ0aWNsZXNfbWVldGluZ19vdGhlcl9jcml0ZXJpYSA8LSBkYXRhX2xvZ3MgfD4KICBzdW1tYXJpemUodG90YWxfbiA9IHN1bShuX2FydGljbGVzKSkgfD4KICBwdWxsKHRvdGFsX24pCgpwZXJjZW50X2FydGljbGVzX21lZXRpbmdfY2l0YXRpb25fY3JpdGVyaW9uIDwtIG5fYXJ0aWNsZXNfbWVldGluZ19jaXRhdGlvbl9jcml0ZXJpb24gLyBuX2FydGljbGVzX21lZXRpbmdfb3RoZXJfY3JpdGVyaWEgKiAxMDAKCmBgYAoKLmpzb25sIGZpbGVzIHRvIGJlIHByb2Nlc3NlZDogYHIgbl9maWxlc190b19iZV9wcm9jZXNzZWRgCgouanNvbmwgZmlsZXMgcHJvY2Vzc2VkOiBgciBuX2ZpbGVzX3Byb2Nlc3NlZGAKCkFydGljbGVzIGluIHBzeWNoIGpvdXJuYWxzIHB1Ymxpc2hlZCBhZnRlciAyMDE1OiBgciBuX2FydGljbGVzX21lZXRpbmdfb3RoZXJfY3JpdGVyaWFgCgpBcnRpY2xlcyBtZWV0aW5nIGNpdGF0aW9ucyBwZXIgeWVhciBjcml0ZXJpb246IGByIG5fYXJ0aWNsZXNfbWVldGluZ19jaXRhdGlvbl9jcml0ZXJpb25gCgpQZXJjZW50IG9mIGFydGljbGVzIG1lZXRpbmcgdGhlIGpvdXJuYWxzIGFuZCB5ZWFyIGNyaXRlcmlhIHRoYXQgYWxzbyBtZXQgdGhlIDMwIGNpdGF0aW9ucyBwZXIgeWVhciBjcml0ZXJpb246IGByIGphbml0b3I6OnJvdW5kX2hhbGZfdXAocGVyY2VudF9hcnRpY2xlc19tZWV0aW5nX2NpdGF0aW9uX2NyaXRlcmlvbiwgMilgJQoKYGBge3J9CgpjaXRhdGlvbnNfdG90YWwgPC0gZGF0YV9sb2dzIHw+CiAgc3VtbWFyaXplKGNpdGF0aW9uc190b3RhbCA9IHN1bShjaXRhdGlvbnNfdG90YWwpKSB8PgogIHB1bGwoY2l0YXRpb25zX3RvdGFsKQoKY2l0YXRpb25zX2FydGljbGVzX21lZXRpbmdfY2l0YXRpb25fY3JpdGVyaW9uIDwtIGRhdGFfcHJvY2Vzc2VkIHw+CiAgc3VtbWFyaXplKGNpdGF0aW9uc19zYW1wbGUgPSBzdW0oY2l0YXRpb25zKSkgfD4KICBwdWxsKGNpdGF0aW9uc19zYW1wbGUpCgpgYGAKCkNpdGF0aW9ucyBvZiBhbGwgcHN5Y2ggYXJ0aWNsZXMgc2luY2UgMjAxNTogYHIgY2l0YXRpb25zX3RvdGFsYAoKQ2l0YXRpb25zIG9mIG91ciBzdWJzZXQgb2YgYXJ0aWNsZXMgd2l0aCAzMCsgY2l0YXRpb25zIHBlciB5ZWFyOiBgciBjaXRhdGlvbnNfYXJ0aWNsZXNfbWVldGluZ19jaXRhdGlvbl9jcml0ZXJpb25gCgpQZXJjZW50IG9mIGFsbCBjaXRhdGlvbnMgbWFkZSB1cCBieSBvdXIgc3Vic2V0OiBgciByb3VuZF9oYWxmX3VwKGNpdGF0aW9uc19hcnRpY2xlc19tZWV0aW5nX2NpdGF0aW9uX2NyaXRlcmlvbi9jaXRhdGlvbnNfdG90YWwqMTAwLCAxKWAlCgpBcyBzdWNoLCBvdXIgc2FtcGxlIG9mIGp1c3QgYHIgamFuaXRvcjo6cm91bmRfaGFsZl91cChwZXJjZW50X2FydGljbGVzX21lZXRpbmdfY2l0YXRpb25fY3JpdGVyaW9uLCAyKWAlIG9mIGFydGljbGVzIHJlcHJlc2VudGVkIGByIHJvdW5kX2hhbGZfdXAoY2l0YXRpb25zX2FydGljbGVzX21lZXRpbmdfY2l0YXRpb25fY3JpdGVyaW9uL2NpdGF0aW9uc190b3RhbCoxMDAsIDEpYCUgb2YgYWxsIGNpdGF0aW9ucy4KCiMgQ09WSUQgaW4gdGl0bGUKCmBgYHtyfQoKZGF0YV9wcm9jZXNzZWQgfD4KICBzdW1tYXJpemUocGVyY2VudF9jb3ZpZF9pbl90aXRsZSA9IHJvdW5kX2hhbGZfdXAobWVhbihzdHJfZGV0ZWN0KHRpdGxlLCByZWdleCgiY292aWQiLCBpZ25vcmVfY2FzZSA9IFRSVUUpKSkqMTAwLCAxKSkgfD4KICBrYWJsZSgpIHw+CiAga2FibGVfY2xhc3NpYyhmdWxsX3dpZHRoID0gRkFMU0UpCgpkYXRhX3Byb2Nlc3NlZCB8PgogIGZpbHRlcighc3RyX2RldGVjdCh0aXRsZSwgcmVnZXgoImNvdmlkIiwgaWdub3JlX2Nhc2UgPSBUUlVFKSkpIHw+CiAgY291bnQobmFtZSA9ICJuX3dpdGhvdXRfY292aWQiKQoKYGBgCgojIE1ldGEgaW4gdGl0bGUKCmBgYHtyfQoKZGF0YV9wcm9jZXNzZWQgfD4KICBzdW1tYXJpemUocGVyY2VudF9jb3ZpZF9pbl90aXRsZSA9IHJvdW5kX2hhbGZfdXAobWVhbihzdHJfZGV0ZWN0KHRpdGxlLCByZWdleCgibWV0YSIsIGlnbm9yZV9jYXNlID0gVFJVRSkpKSoxMDAsIDEpKSB8PgogIGthYmxlKCkgfD4KICBrYWJsZV9jbGFzc2ljKGZ1bGxfd2lkdGggPSBGQUxTRSkKCmRhdGFfcHJvY2Vzc2VkIHw+CiAgZmlsdGVyKCFzdHJfZGV0ZWN0KHRpdGxlLCByZWdleCgibWV0YSIsIGlnbm9yZV9jYXNlID0gVFJVRSkpKSB8PgogIGNvdW50KG5hbWUgPSAibl93aXRob3V0X2NvdmlkIikKCmBgYAoKIyBNZXRhIGluIHRpdGxlIGV4Y2x1ZGluZyBjb3ZpZAoKYGBge3J9CgpkYXRhX3Byb2Nlc3NlZCB8PgogIGZpbHRlcighc3RyX2RldGVjdCh0aXRsZSwgcmVnZXgoImNvdmlkIiwgaWdub3JlX2Nhc2UgPSBUUlVFKSkpIHw+CiAgc3VtbWFyaXplKHBlcmNlbnRfY292aWRfaW5fdGl0bGUgPSByb3VuZF9oYWxmX3VwKG1lYW4oc3RyX2RldGVjdCh0aXRsZSwgcmVnZXgoIm1ldGEiLCBpZ25vcmVfY2FzZSA9IFRSVUUpKSkqMTAwLCAxKSkgfD4KICBrYWJsZSgpIHw+CiAga2FibGVfY2xhc3NpYyhmdWxsX3dpZHRoID0gRkFMU0UpCgpkYXRhX3Byb2Nlc3NlZCB8PgogIGZpbHRlcighc3RyX2RldGVjdCh0aXRsZSwgcmVnZXgoImNvdmlkIiwgaWdub3JlX2Nhc2UgPSBUUlVFKSkgJgogICAgICAgICAgICFzdHJfZGV0ZWN0KHRpdGxlLCByZWdleCgibWV0YSIsIGlnbm9yZV9jYXNlID0gVFJVRSkpKSB8PgogIGNvdW50KG5hbWUgPSAibl93aXRob3V0X2NvdmlkX29yX21ldGEiKQoKYGBgCgojIFN1YmZpZWxkCgpgYGB7cn0KCmRhdGFfcHJvY2Vzc2VkIHw+CiAgY291bnQoY2F0ZWdvcnkpIHw+CiAgYXJyYW5nZShkZXNjKG4pKSB8PgogIGthYmxlKCkgfD4KICBrYWJsZV9jbGFzc2ljKGZ1bGxfd2lkdGggPSBGQUxTRSkKCmBgYAoKIyBKb3VybmFsCgpgYGB7cn0KCmRhdGFfcHJvY2Vzc2VkIHw+CiAgY291bnQoam91cm5hbCkgfD4KICBhcnJhbmdlKGRlc2MobikpIHw+CiAga2FibGUoKSB8PgogIGthYmxlX2NsYXNzaWMoZnVsbF93aWR0aCA9IEZBTFNFKQoKYGBgCgojIFNlc3Npb24gaW5mbwoKYGBge3J9CgpzZXNzaW9uSW5mbygpCgpgYGAKCg==</div>
 
 
 </div>

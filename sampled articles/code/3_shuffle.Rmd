@@ -36,13 +36,20 @@ library(tidyverse)
 ```{r}
 
 data_processed_subset <- read_csv("../data/processed/data_processed.csv") |>
-  filter(more_than_30_citations_per_year)
+  filter(more_than_30_citations_per_year) |>
+  # exclude titles including the string "review" unless it also contains the string "meta" in order to exclude systematic reviews without meta-analyses
+  filter(!str_detect(title, regex("review", ignore_case = TRUE)) | 
+           str_detect(title, regex("meta", ignore_case = TRUE))) |>
+  # tidy up titles
+  mutate(title = str_replace(title, "<scp>\\s*COVID\\s*</scp>", "COVID"),
+         title = str_replace_all(title, "\\s+", " "),
+         title = str_remove_all(title, "<[^>]+>"))
 
 set.seed(42)
 
 data_processed_subset |>
   slice_sample(n = nrow(data_processed_subset)) |> # shuffle rows
-  write_csv("../data/processed/data_processed_more_than_30_citations_per_year_shuffled.csv")
+  write_csv("../data/processed/data_processed_subset_shuffled.csv")
 
 ```
 
