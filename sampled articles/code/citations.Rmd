@@ -274,8 +274,21 @@ ggplot(data_processed, aes(log(citations))) +
 
 ```
 
+# Mode
 
+```{r}
 
+get_mode <- function(x) {
+  # Remove NAs
+  x <- na.omit(x)
+  # Find unique values and their frequencies
+  uniq_vals <- unique(x)
+  uniq_vals[which.max(tabulate(match(x, uniq_vals)))]
+}
+
+get_mode(data_processed$citations)
+
+```
 
 # Percentiles
 
@@ -290,11 +303,6 @@ percentiles |>
   kable() |>
   kable_classic(full_width = FALSE)
 
-p <- ggplot(percentiles, aes(percentile, citations)) +
-  geom_bar(stat = "identity", width = 0.8) +
-  theme_linedraw()
-
-
 percentiles_high <- tibble(
   percentile = c(99.5, 99.9, 99.99, 99.999, 99.9999),
   citations = map_dbl(percentile / 100, ~ quantile(data_processed$citations, probs = .x, na.rm = TRUE))
@@ -304,17 +312,51 @@ percentiles_high |>
   kable() |>
   kable_classic(full_width = FALSE)
 
+```
+
+Simplified tables:
+
+```{r}
+
+percentiles |>
+  filter(citations != lead(citations) | is.na(lead(citations))) |>
+  arrange(desc(percentile)) |>
+  kable() |>
+  kable_classic(full_width = FALSE)
+
+percentiles_high |>
+  filter(citations != lead(citations) | is.na(lead(citations))) |>
+  arrange(desc(percentile)) |>
+  kable() |>
+  kable_classic(full_width = FALSE)
+
+```
+
+
+
+```{r}
+
+p <- ggplot(percentiles, aes(percentile, citations)) +
+  geom_bar(stat = "identity", width = 0.8) +
+  ylab("Citations") +
+  xlab("Percentile") +
+  theme_linedraw()
+
+
+
+
 p_high <- ggplot(percentiles_high, aes(as.factor(percentile), citations)) +
   #geom_point() +
   geom_bar(stat = "identity", width = 0.8) +
-  xlab("percentile") +
+  ylab("Citations") +
+  xlab("Percentile") +
   theme_linedraw()
 
 library(patchwork)
 
 p + p_high + plot_layout(ncol = 2, widths = c(2.5,1))
 
-ggsave("citations_percentiles.png", width = 10, height = 4)
+ggsave("plots/citations_percentiles.png", width = 10, height = 4)
 
 ```
 
