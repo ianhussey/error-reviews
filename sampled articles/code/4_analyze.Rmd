@@ -35,6 +35,7 @@ options(scipen = 999)
 ```{r}
 
 library(tidyverse)
+library(scales)
 library(janitor)
 library(knitr)
 library(kableExtra)
@@ -42,6 +43,8 @@ library(kableExtra)
 ```
 
 # Descriptive statistics
+
+## Overall
 
 ```{r}
 
@@ -99,7 +102,78 @@ Percent of all citations made up by our subset: `r round_half_up(citations_artic
 
 As such, our sample of just `r janitor::round_half_up(percent_articles_meeting_citation_criterion, 2)`% of articles represented `r round_half_up(citations_articles_meeting_citation_criterion/citations_total*100, 1)`% of all citations.
 
-# COVID in title
+## Subfield
+
+```{r}
+
+data_processed |>
+  count(category) |>
+  arrange(desc(n)) |>
+  kable() |>
+  kable_classic(full_width = FALSE)
+
+```
+
+## Journal
+
+```{r}
+
+data_processed |>
+  count(journal) |>
+  arrange(desc(n)) |>
+  kable() |>
+  kable_classic(full_width = FALSE)
+
+```
+
+# Gelman-and-King-esque plots
+
+Gelman and King's recommendation: "Publications with at least 250 citations". However, our search strategy includes only returns articles that **also** meet the 30 citations per year since publication rule, so the preselection in the search may distort it. As such, the first plot is not a good choice for communication. 
+
+The second one is standardized by N all articles and N all citations in the full dataset, so is more appropriate.
+
+```{r}
+
+data_ranks <- data_processed |>
+  arrange(desc(citations)) |>
+  mutate(citations_rank = row_number(),
+         citations_rank_proportion = citations_rank/n_articles_meeting_other_criteria,
+         citations_cumsum = cumsum(citations),
+         citations_cumsum_proportion = citations_cumsum/citations_total) |>
+  select(citations_rank, citations_rank_proportion, citations, citations_cumsum, citations_cumsum_proportion)
+
+ggplot(data_ranks, aes(citations_rank, citations)) +
+  geom_line() +
+  geom_vline(xintercept = 1159, linetype = "dashed", color = "cyan3") + # from data_ranks where citations >= 250
+  theme_linedraw() +
+  ylab("Citations") +
+  xlab("Publication rank") +
+  coord_cartesian(xlim = c(0, 2000))
+
+ggplot(data_ranks, aes(citations_rank_proportion, citations_cumsum_proportion)) +
+  geom_line() +
+  scale_x_continuous(labels = label_percent(accuracy = 0.01),
+                     breaks = breaks_pretty(n = 9),
+                     name = "Percent of all publications") +
+  scale_y_continuous(labels = label_percent(accuracy = 1),
+                     breaks = breaks_pretty(n = 8),
+                     name = "Percent of all citations") +
+  coord_cartesian(xlim = c(0, 0.0031)) +
+  theme_linedraw() +
+  theme(panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank()) +
+  labs(title = "Citations of all articles in psychology journals", 
+       subtitle = "645,164 articles between 2015-2025")
+
+dir.create("plots")
+
+ggsave("plots/citations_curve.png", width = 6, height = 4, dpi = 300)
+
+```
+
+# COVID studies and meta-analyses
+
+## COVID in title
 
 ```{r}
 
@@ -114,7 +188,7 @@ data_processed |>
 
 ```
 
-# Meta in title
+## Meta in title
 
 ```{r}
 
@@ -129,7 +203,7 @@ data_processed |>
 
 ```
 
-# Meta in title excluding covid
+## Meta in title excluding covid
 
 ```{r}
 
@@ -143,30 +217,6 @@ data_processed |>
   filter(!str_detect(title, regex("covid", ignore_case = TRUE)) &
            !str_detect(title, regex("meta", ignore_case = TRUE))) |>
   count(name = "n_without_covid_or_meta")
-
-```
-
-# Subfield
-
-```{r}
-
-data_processed |>
-  count(category) |>
-  arrange(desc(n)) |>
-  kable() |>
-  kable_classic(full_width = FALSE)
-
-```
-
-# Journal
-
-```{r}
-
-data_processed |>
-  count(journal) |>
-  arrange(desc(n)) |>
-  kable() |>
-  kable_classic(full_width = FALSE)
 
 ```
 

@@ -15,7 +15,7 @@ output:
 
 # TODO
 
-- XX
+- should we drop covid and metas? all the below changes if so
 
 # Data source
 
@@ -56,10 +56,10 @@ issn_ref <- read_csv("../data/journals/processed_journal_issns.csv") |>
 
 ```{r}
 
-data_logs <- read_csv("../data/processed/data_log.csv")
-
-data_logs |>
-  summarize(prop_empty = mean(n_articles == 0))
+# data_logs <- read_csv("../data/processed/data_log.csv")
+# 
+# data_logs |>
+#   summarize(prop_empty = mean(n_articles == 0))
 
 # Parameters
 pubyear_search_end <- 2025
@@ -167,13 +167,6 @@ for (file in files_to_process) {
 ```{r}
 
 # check saved data loads
-data_processed <- read_csv("../data/processed/data_all_psych_doi_citations.csv") |>
-  filter(more_than_30_citations_per_year)
-
-n_articles_meeting_citation_criterion <- data_processed |>
-  count() |>
-  pull(n)
-
 data_logs <- read_csv("../data/processed/data_all_psych_doi_citations_log.csv")
 
 n_files_processed <- data_logs |>
@@ -183,11 +176,13 @@ n_files_processed <- data_logs |>
 n_files_to_be_processed <- list.files(path = "../data/raw/", pattern = "\\.jsonl\\.gz$", full.names = TRUE) |>
   length()
 
-n_articles_meeting_other_criteria <- data_logs |>
-  summarize(total_n = sum(n_articles)) |>
-  pull(total_n)
 
-percent_articles_meeting_citation_criterion <- n_articles_meeting_citation_criterion / n_articles_meeting_other_criteria * 100
+data_processed <- read_csv("../data/processed/data_all_psych_doi_citations.csv") |>
+  filter(year >= 2015 & year <= 2025)
+
+n_articles <- data_processed |>
+  count() |>
+  pull(n)
 
 ```
 
@@ -195,31 +190,54 @@ percent_articles_meeting_citation_criterion <- n_articles_meeting_citation_crite
 
 .jsonl files processed: `r n_files_processed`
 
-Articles in psych journals published after 2015: `r n_articles_meeting_other_criteria`
+Articles in psych journals published after 2015: `r n_articles`
 
 Articles meeting citations per year criterion: `r n_articles_meeting_citation_criterion`
 
-Percent of articles meeting the journals and year criteria that also met the 30 citations per year criterion: `r janitor::round_half_up(percent_articles_meeting_citation_criterion, 2)`%
-
 ```{r}
 
-citations_total <- data_logs |>
-  summarize(citations_total = sum(citations_total)) |>
+citations_total <- data_processed |>
+  summarize(citations_total = sum(citations)) |>
   pull(citations_total)
-
-citations_articles_meeting_citation_criterion <- data_processed |>
-  summarize(citations_sample = sum(citations)) |>
-  pull(citations_sample)
 
 ```
 
 Citations of all psych articles since 2015: `r citations_total`
 
-Citations of our subset of articles with 30+ citations per year: `r citations_articles_meeting_citation_criterion`
+```{r}
 
-Percent of all citations made up by our subset: `r round_half_up(citations_articles_meeting_citation_criterion/citations_total*100, 1)`%
+data_processed |>
+  count(category) |>
+  arrange(desc(n)) |>
+  kable() |>
+  kable_classic(full_width = FALSE)
 
-As such, our sample of just `r janitor::round_half_up(percent_articles_meeting_citation_criterion, 2)`% of articles represented `r round_half_up(citations_articles_meeting_citation_criterion/citations_total*100, 1)`% of all citations.
+```
+
+# Journal misspellings/errors
+
+Fuzzy matching to find misspellings
+
+```{r}
+
+library(stringdist)
+
+df_comp <- data_processed |>
+  distinct(journal) |>
+  arrange(journal) |>
+  rownames_to_column() |>
+  mutate(journal_prev = lag(journal),
+         dist = stringdist(journal, journal_prev, method = "jw")) |> # Jaro-Winkler is good for misspellings
+  arrange(dist) |>
+  filter(dist < 0.09) # You can adjust this threshold
+
+df_comp |>
+  kable() |>
+  kable_classic(full_width = FALSE)
+
+```
+
+# N journals ignoring misspellings/errors
 
 ```{r}
 
@@ -229,13 +247,187 @@ data_processed |>
   kable() |>
   kable_classic(full_width = FALSE)
 
-data_processed |>
-  count(category) |>
-  arrange(desc(n)) |>
+```
+
+# Distribution of citations
+
+```{r}
+
+ggplot(data_processed, aes(citations)) +
+  geom_density() +
+  theme_linedraw()
+
+ggplot(data_processed, aes(citations)) +
+  geom_density() +
+  theme_linedraw() +
+  scale_x_continuous(limits = c(0, 100))
+
+ggplot(data_processed, aes(citations)) +
+  geom_density() +
+  theme_linedraw() +
+  facet_wrap(~ year, scales = "free_y") +
+  scale_x_continuous(limits = c(0, 100))
+
+ggplot(data_processed, aes(log(citations))) +
+  geom_histogram() +
+  theme_linedraw() 
+
+```
+
+# Mode
+
+```{r}
+
+get_mode <- function(x) {
+  # Remove NAs
+  x <- na.omit(x)
+  # Find unique values and their frequencies
+  uniq_vals <- unique(x)
+  uniq_vals[which.max(tabulate(match(x, uniq_vals)))]
+}
+
+get_mode(data_processed$citations)
+
+```
+
+# Percentiles
+
+```{r fig.height=4, fig.width=10}
+
+percentiles <- tibble(
+  percentile = 1:99,
+  citations = map_dbl(percentile / 100, ~ quantile(data_processed$citations, probs = .x, na.rm = TRUE))
+)
+
+percentiles |>
+  kable() |>
+  kable_classic(full_width = FALSE)
+
+percentiles_high <- tibble(
+  percentile = c(99.5, 99.9, 99.99, 99.999, 99.9999),
+  citations = map_dbl(percentile / 100, ~ quantile(data_processed$citations, probs = .x, na.rm = TRUE))
+)
+
+percentiles_high |>
   kable() |>
   kable_classic(full_width = FALSE)
 
 ```
+
+Simplified tables:
+
+```{r}
+
+percentiles |>
+  filter(citations != lead(citations) | is.na(lead(citations))) |>
+  arrange(desc(percentile)) |>
+  kable() |>
+  kable_classic(full_width = FALSE)
+
+percentiles_high |>
+  filter(citations != lead(citations) | is.na(lead(citations))) |>
+  arrange(desc(percentile)) |>
+  kable() |>
+  kable_classic(full_width = FALSE)
+
+```
+
+
+
+```{r}
+
+p <- ggplot(percentiles, aes(percentile, citations)) +
+  geom_bar(stat = "identity", width = 0.8) +
+  ylab("Citations") +
+  xlab("Percentile") +
+  theme_linedraw()
+
+
+
+
+p_high <- ggplot(percentiles_high, aes(as.factor(percentile), citations)) +
+  #geom_point() +
+  geom_bar(stat = "identity", width = 0.8) +
+  ylab("Citations") +
+  xlab("Percentile") +
+  theme_linedraw()
+
+library(patchwork)
+
+p + p_high + plot_layout(ncol = 2, widths = c(2.5,1))
+
+ggsave("plots/citations_percentiles.png", width = 10, height = 4)
+
+```
+
+
+```{r}
+
+citations_2015 <- data_processed |>
+  filter(year == 2015)
+
+percentiles_2015_articles <- tibble(
+  percentile = 1:99,
+  citations = map_dbl(percentile / 100, ~ quantile(citations_2015$citations, probs = .x, na.rm = TRUE))
+)
+
+ggplot(percentiles_2015_articles, aes(percentile, citations)) +
+  geom_bar(stat = "identity", width = 0.8) +
+  theme_linedraw()
+
+```
+
+
+
+# Gelman argument
+
+Gelman & King (2025) recently estimated from empirical study of the literature that 5% of all published articles account for 28% of all citations.
+
+```{r}
+
+# using gelman criterion
+percentiles <- tibble(
+  percentile = c(95, 99, 99.5, 99.9),
+  citations = map_dbl(percentile / 100, ~ quantile(data_processed$citations, probs = .x, na.rm = TRUE))
+)
+
+percentiles |>
+  kable() |>
+  kable_classic(full_width = FALSE)
+
+data_processed |>
+  summarize(total_citations = sum(citations),
+            total_citations_95_percentile = sum(citations[citations >= 48]),
+            total_citations_99_percentile = sum(citations[citations >= 118]),
+            total_citations_99.5_percentile = sum(citations[citations >= 169]),
+            total_citations_99.9_percentile = sum(citations[citations >= 369])) |>
+  mutate(percent_95 = total_citations_95_percentile/total_citations*100,
+         percent_99 = total_citations_99_percentile/total_citations*100,
+         percent_99.5 = total_citations_99.5_percentile/total_citations*100,
+         percent_99.9 = total_citations_99.9_percentile/total_citations*100) |>
+  select(starts_with("percent")) |>
+  mutate_if(is.numeric, round_half_up, digits = 1)
+
+
+# using error criterion
+data_processed |>
+    mutate(year_for_citations_by_year = ifelse(year > 2024, 2024, year),
+           citations_per_year = janitor::round_half_up(citations / (2025 - year_for_citations_by_year), 2),
+           more_than_30_citations_per_year = citations_per_year >= 30) |>
+  summarize(percent_criterion_articles = round_half_up(mean(more_than_30_citations_per_year)*100, 2),
+            total_citations = sum(citations),
+            total_citations_error_criterion = sum(citations[more_than_30_citations_per_year])) |>
+  mutate(percent_error_criterion = round_half_up(total_citations_error_criterion/total_citations*100, 1))
+
+```
+
+In psychology in the last decade:
+
+- 5% of articles account for 42.2% of all citations (8.4X over-representation)
+- 1% of articles account for 19.0% of all citations (19X over-representation)
+- 0.5% of articles account for 13.3% of all citations (26.6X over-representation)
+- 0.1% of articles account for 5.6% of all citations (56X over-representation)
+
 
 # Session info
 
