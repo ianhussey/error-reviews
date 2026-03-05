@@ -290,6 +290,14 @@ get_mode(data_processed$citations)
 
 ```
 
+# Median
+
+```{r}
+
+median(data_processed$citations)
+
+```
+
 # Percentiles
 
 ```{r fig.height=4, fig.width=10}
