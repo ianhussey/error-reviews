@@ -1,0 +1,256 @@
+---
+title: "ERROR Project Support Meta"
+author: "Kim French"
+date: "2025-11-13"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Setup
+## Libraries
+```{r, warning = FALSE, message = FALSE}
+#basics:
+library(pacman)
+p_load(tidyverse, Hmisc, psych, summarytools, kableExtra,
+       readxl,psychmeta,openxlsx2)
+
+options(scipen=100) #remove scientific notation
+options(digits=2) #everything is rounded to two decimal places
+```
+
+```{r}
+dat <- read_excel("World Meta Code Sheet KF with discrepancies marked 3.12.19.xlsx",
+                  "Support Meta Eligibility")
+```
+
+Select only needed variables
+```{r}
+dat <- dat %>%
+select(Author, Year, StudyNum, Eligibility, Title,
+`Correct Direction Number`,
+`WF N`,`HS WF r`, `WF RXX`, `WF RYY`, # domain
+`Sup Domain From Number Correct...152`,
+`BehPer N`,`HS BehPer r`, `BehPer RXX`, `BehPer RYY`, # form
+`Support Behavior vs. Global Perception CORRECT`,
+`Source N`,`HS Source r`, `Source RXX`, `Source RYY`, # source
+`Specific Source (with General vs. Supervisor/Coworker) Correct Number`,
+`Type N`,`HS Type r`, `Type RXX`, `Type RYY`, # type
+`Inst or Emot Number Correct`) %>%
+rename(author = Author, year = Year, study_num = StudyNum,
+wif_fiw = `Correct Direction Number`,
+eligibility = Eligibility, study = Title,
+domain_n = `WF N`,domain_r = `HS WF r`,
+domain_rxx = `WF RXX`,domain_ryy = `WF RYY`, # domain
+domain = `Sup Domain From Number Correct...152`,
+form_n = `BehPer N`, form_r = `HS BehPer r`,
+form_rxx = `BehPer RXX`, form_ryy = `BehPer RYY`, # form
+form = `Support Behavior vs. Global Perception CORRECT`,
+source_n = `Source N`,source_r = `HS Source r`,
+source_rxx = `Source RXX`, source_ryy = `Source RYY`, # source
+source = `Specific Source (with General vs. Supervisor/Coworker) Correct Number`,
+type_n = `Type N`,type_r = `HS Type r`,
+type_rxx = `Type RXX`, type_ryy = `Type RYY`, # type
+type = `Inst or Emot Number Correct`) %>%
+drop_na(study) %>%
+filter(eligibility == 0)
+dat$wif_fiw <- recode(dat$wif_fiw, `1` = "WIF", `2` = "FIW")
+```
+
+# Select a random subset of studies to review sample size
+
+```{r}
+set.seed(10)
+
+sample_subset <- dat %>%
+  distinct(study_num) %>%
+  slice_sample(n = 10)
+
+sample_subset
+
+table<-dat %>% select(study_num,author,year,study,domain_n) %>%
+  subset(study_num == 692 |
+           study_num == 2466 |
+           study_num == 914 |
+           study_num == 224 |
+           study_num == 439 |
+           study_num == 2486 |
+           study_num == 442 |
+           study_num == 539 |
+           study_num == 161 |
+           study_num == 2141 )
+
+kable(table)
+```
+
+Confirmed sample size for:
+692 - The sample comprised 434 participants: 237 mothers (54.6%) and 197 fathers (45.4%) in dualearner families with at least one child between the ages of 0 and 6 years.
+
+2466 - Results from 194 registered nurses (along with 85 of their spouses)...see also Table 1
+
+914 - Table 2 states 2983 or Table 1/Participants states 2981
+
+!!! This is off from our data (2931). Given the statistics presented here, we may have requested and received a correlation matrix from these authors that is not in the paper. A correlation matrix with specific n values for each correlation might account for the discrepancy.
+
+224 - See Table 2
+
+439 - 131 Japanese full-time married women working at the main...
+
+2486 - 1,182 employees were eligible to complete the CAPI, with 823 doing so for a 69.6% response rate.
+
+442 - The sample consisted of 111 business owners 
+
+539 - The resulting sample size was 418. 
+
+161 - The number of participants was 541 individuals.
+
+!!! This is different from our data (518, 513), however I strongly suspect we requested and received a correlation matrix from these authors that is not in the paper. The paper only includes regressions with controls. In these cases, we contacted authors for correlation matrices. It is likely that the correlation matrix had specific n values for each correlation. 
+
+2141 - Confirmed in Table 5. In the case of a range of N in the correlation matrix, we took the mean. 
+
+# Composite Reliability
+
+First let's see how many composite reliabilities we have.
+```{r}
+df <- openxlsx2::read_xlsx("World Meta Code Sheet KF with discrepancies marked 3.12.19.xlsx", 
+                sheet = "Support Meta Eligibility",
+                showFormula = TRUE)
+
+colnames(df)[149] <- "Sup Domain From Number Correct2"
+
+df <- df %>%
+select(Author, Year, StudyNum, Eligibility, Title,
+`Correct Direction Number`,
+`WF N`,`HS WF r`, `WF RXX`, `WF RYY`, 
+# domain
+`Sup Domain From Number Correct2`,
+`BehPer N`,`HS BehPer r`, `BehPer RXX`, `BehPer RYY`, 
+# form
+`Support Behavior vs. Global Perception CORRECT`,
+`Source N`,`HS Source r`, `Source RXX`, `Source RYY`, 
+# source
+`Specific Source (with General vs. Supervisor/Coworker) Correct`,
+`Type N`,`HS Type r`, `Type RXX`, `Type RYY`, 
+# type
+`Inst or Emot Number Correct `) %>%
+rename(author = Author, year = Year, study_num = StudyNum,
+wif_fiw = `Correct Direction Number`,
+eligibility = Eligibility, study = Title,
+domain_n = `WF N`,domain_r = `HS WF r`,
+domain_rxx = `WF RXX`,domain_ryy = `WF RYY`, 
+# domain
+domain = `Sup Domain From Number Correct2`,
+form_n = `BehPer N`, form_r = `HS BehPer r`,
+form_rxx = `BehPer RXX`, form_ryy = `BehPer RYY`, 
+# form
+form = `Support Behavior vs. Global Perception CORRECT`,
+source_n = `Source N`,source_r = `HS Source r`,
+source_rxx = `Source RXX`, source_ryy = `Source RYY`, 
+# source
+source = `Specific Source (with General vs. Supervisor/Coworker) Correct`,
+type_n = `Type N`,type_r = `HS Type r`,
+type_rxx = `Type RXX`, type_ryy = `Type RYY`, # type
+type = `Inst or Emot Number Correct `) %>%
+drop_na(study) %>%
+filter(eligibility == 0)
+dat$wif_fiw <- recode(dat$wif_fiw, `1` = "WIF", `2` = "FIW")
+```
+
+Create flags:
+```{r}
+# Helper that returns TRUE for "formula-like" strings
+is_formula_like <- function(x) {
+  x2 <- str_trim(as.character(x))            # coerce, trim whitespace
+  x2_na_safe <- ifelse(is.na(x2), "", x2)    # avoid NA issues
+
+  str_detect(x2_na_safe, "^=") |             # starts with "="
+  str_detect(x2_na_safe, "\\(") |            # contains "(" -> function or parentheses
+  str_detect(x2_na_safe, "^\\$?[A-Za-z]{1,3}\\$?\\d+") # cell ref like $EH2 or A1 or EH10
+}
+
+# Columns you want to check (example)
+cols_to_check <- c("domain_rxx", "form_rxx", "source_rxx", "type_rxx",
+                   "domain_ryy", "form_ryy", "source_ryy", "type_ryy")
+
+# Apply across those columns, produce *_f flags
+df <- df %>%
+  mutate(across(
+    .cols = all_of(cols_to_check),
+    .fns = ~ {
+      x <- as.character(.x)
+      x_trim <- str_trim(replace_na(x, ""))
+
+      # Remove leading "=" for length count so "=A1+B1" length counted without "=" if you prefer:
+      x_no_eq <- str_remove(x_trim, "^=")
+
+      # Formula-like AND length >= 6
+      is_formula_like(x_trim) & nchar(x_no_eq) > 6
+    },
+    .names = "{.col}_f"
+  ))
+
+df$source <- tolower(df$source)
+
+#check
+df %>% select(type_rxx_f,type_rxx) %>% head(n = 50)
+```
+
+## Composite Frequencies
+
+### Source
+```{r}
+df_freq <- df %>%
+  group_by(domain, wif_fiw, source) %>%
+  pivot_longer(
+    cols = c(source_rxx_f, source_ryy_f),
+    names_to = "variable",
+    values_to = "value"
+  ) %>%
+  count(variable, value, name = "n")
+DT::datatable(df_freq)
+```
+
+### Type
+```{r}
+df_freq <- df %>%
+  group_by(domain, wif_fiw, type) %>%
+  pivot_longer(
+    cols = c(type_rxx_f, type_ryy_f),
+    names_to = "variable",
+    values_to = "value"
+  ) %>%
+  count(variable, value, name = "n")
+DT::datatable(df_freq)
+```
+
+### Form
+```{r}
+df_freq <- df %>%
+  group_by(domain, wif_fiw, form) %>%
+  pivot_longer(
+    cols = c(form_rxx_f, form_ryy_f),
+    names_to = "variable",
+    values_to = "value"
+  ) %>%
+  count(variable, value, name = "n")
+DT::datatable(df_freq)
+```
+
+### Form
+```{r}
+df_freq <- df %>%
+  group_by(domain, wif_fiw) %>%
+  pivot_longer(
+    cols = c(domain_rxx_f, domain_ryy_f),
+    names_to = "variable",
+    values_to = "value"
+  ) %>%
+  count(variable, value, name = "n")
+DT::datatable(df_freq)
+```
+
+

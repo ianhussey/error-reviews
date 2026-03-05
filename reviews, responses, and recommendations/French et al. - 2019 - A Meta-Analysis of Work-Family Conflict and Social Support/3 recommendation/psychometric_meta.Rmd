@@ -1,0 +1,49 @@
+
+
+```{r}
+
+# dependencies
+library(metafor)
+library(psychmeta)
+
+# simulated data
+dat <- data.frame(
+  study_id = c("S1", "S2"),
+  m_trt    = c(3.8, 4.1),
+  sd_trt   = c(0.9, 0.8),
+  n_trt    = c(50, 40),
+  m_ctrl   = c(3.2, 3.3),
+  sd_ctrl  = c(1.0, 0.9),
+  n_ctrl   = c(48, 42),
+  rel_y    = c(0.85, 0.80),   # reliability of the outcome (e.g., alpha)
+  stringsAsFactors = FALSE
+)
+
+# calculate ES
+dat_es <- escalc(
+  measure = "SMD",
+  m1i = m_trt, sd1i = sd_trt, n1i = n_trt,
+  m2i = m_ctrl, sd2i = sd_ctrl, n2i = n_ctrl,
+  data = dat,
+  var.names = c("d", "v_d")  # rename yi, vi -> d, v_d
+)
+
+# meta
+ma_psychometric <- ma_d(
+  d          = d,
+  n1         = n_trt,
+  n2         = n_ctrl,
+  sample_id  = study_id,
+  ma_method  = "ic",          # probably needs thought
+  ryy        = rel_y,
+  ryy_type   = "alpha",       # probably needs thought
+  correct_bias = FALSE,       # already applied by escalc
+  data       = dat_es
+)
+
+# results
+ma_psychometric$meta_tables$`analysis_id: 1`$individual_correction |>
+  select(mean_delta, # latent, not observed
+         CI_LL_95, CI_UL_95)
+
+```
